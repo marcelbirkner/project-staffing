@@ -10,7 +10,7 @@ node server.js
 supervisor server.js
 ```
 
-After you started the server, you can access the webapp under: http://localhost:9000/
+After you started the server, you can access the webapp under: <a href="http://localhost:9000">http://localhost:9000</a>
 
 ## Technologies used
 
