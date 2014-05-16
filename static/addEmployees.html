@@ -21,63 +21,136 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load('visualization', '1', {'packages': ['table', 'map', 'corechart']});
-      google.setOnLoadCallback(initialize);
- 
-      function initialize() {
-
-        var geoData = google.visualization.arrayToDataTable([
-          ['Lat', 'Long', 'Standort', 'Umsatz', 'Mitarbeiter', 'Auslastung'],
-          [51.1672852,7.0626139, 'Solingen', {v: 12, f: '+12.0%'}, 120, 85],
-          [51.2111382,6.7822516, 'Düsseldorf', {v: 7.3, f: '+7.3%'}, 30, 65],
-          [48.1368364,11.5234671, 'München', {v: 0, f: '0%'}, 20, 75],
-		  [52.5083545,13.3771307, 'Berlin', {v: -2.1, f: '-2.1%'}, 5, 86],
-		  [49.00367,8.36476, 'Karlsruhe', {v: 5.4, f: '+5.4%'}, 5, 40],
-		  [50.0779865,8.6246555, 'Frankfurt', {v: 3.1, f: '+3.1%'}, 10, 55],
-          [53.55539,9.98492, 'Hamburg', {v: 2.5, f: '+2.5%'}, 5, 30]
-        ]);
 		
-        var geoView = new google.visualization.DataView(geoData);
-        geoView.setColumns([0, 1]);
-		
-		var tableView = new google.visualization.DataView(geoData);
-        tableView.setColumns([2, 3, 4, 5]);
-
-        var table = new google.visualization.Table(document.getElementById('table_div'));
-	
-		var formatter = new google.visualization.ArrowFormat();
-        formatter.format(geoData, 3); // Apply formatter to 4th column
-		
-		var barformatter = new google.visualization.BarFormat({width: 150, min: 0, max: 100});
-		barformatter.format(geoData, 5); // Apply formatter to second column
-		
-        table.draw(tableView, {showRowNumber: false, allowHtml: true});
-	
-		var mapOptions = { mapType:'normal', showTip: true, enableScrollWheel: true};
-        var map = new google.visualization.Map(document.getElementById('map_div'));
-        map.draw(geoView, mapOptions);
-		
-		// Set a 'select' event listener for the table.
-        // When the table is selected, we set the selection on the map.
-        google.visualization.events.addListener(table, 'select',
-            function() {
-              map.setSelection(table.getSelection());
-		    }
-		);
-
-        // Set a 'select' event listener for the map.
-        // When the map is selected, we set the selection on the table.
-        google.visualization.events.addListener(map, 'select',
-            function() {
-              table.setSelection(map.getSelection());
-            }
-		);
+	<style>
+      .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       }
-    </script>
+
+      #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px;  /* Regular padding-left + 1. */
+        width: 401px;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+	}
+
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script>
+function initialize() {
+
+  var mapOptions = {
+    center: new google.maps.LatLng(50.8688, 9.2195),
+    zoom: 6
+  };
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+
+  var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+
+  var types = document.getElementById('type-selector');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+    marker.setIcon(/** @type {google.maps.Icon} */({
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    }));
+    marker.setPosition(place.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+  function setupClickListener(id, types) {
+    var radioButton = document.getElementById(id);
+    google.maps.event.addDomListener(radioButton, 'click', function() {
+      autocomplete.setTypes(types);
+    });
+  }
+
+  setupClickListener('changetype-all', []);
+  setupClickListener('changetype-establishment', ['establishment']);
+  setupClickListener('changetype-geocode', ['geocode']);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
 	
+    </script>
   </head>
   <body>
 
@@ -124,14 +197,175 @@
     </div>
 	<!-- Top Navigation End -->
 
+	
 	<div class="container-fluid">
       <div class="row">
         <div class="main">
-			<h1>Add Employees</h1>
-		</div>
-	  </div>
-	</div>
+		  <div class="row">
+			<div class="col-md-6">
+				<form class="form-horizontal" role="form">
+					<fieldset>
+
+					  <!-- Form Name -->
+					  <legend>Add new employee</legend>
+
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">First name</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="First name" class="form-control">
+						</div>
+					  </div>
+
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">Last name</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="Last name" class="form-control">
+						</div>
+					  </div>
+					  
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">Street</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="Street" class="form-control">
+						</div>
+					  </div>
+
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">City</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="City" class="form-control">
+						</div>
+					  </div>
+
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">State</label>
+						<div class="col-sm-4">
+						  <input type="text" placeholder="State" class="form-control">
+						</div>
+
+						<label class="col-sm-2 control-label" for="textinput">Postcode</label>
+						<div class="col-sm-4">
+						  <input type="text" placeholder="Post Code" class="form-control">
+						</div>
+					  </div>
+
+					  <!-- Text input-->
+					  <div class="form-group">
+						<label class="col-sm-2 control-label" for="textinput">Country</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="Country" class="form-control">
+						</div>
+					  </div>
+
+					  <div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+						  <div class="pull-right">
+							<button type="submit" class="btn btn-default">Cancel</button>
+							<button type="submit" class="btn btn-primary">Save</button>
+						  </div>
+						</div>
+					  </div>
+
+					</fieldset>
+				</form>
+			</div>
+			<div class="col-md-6">
+			  <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+				<div id="type-selector" class="controls">
+				  <input type="radio" name="type" id="changetype-all" checked="checked">
+				  <label for="changetype-all">All</label>
+				</div>
+				<div id="map-canvas" style="height: 380px;"></div>
+			</div>
+		  </div>
+        </div>
+      </div>
+    </div>
 	
+	<div class="container">
+		<div class="row">
+		
+		
+        
+        <div class="col-md-12">
+        <div class="table-responsive">               
+              <table id="mytable" class="table table-bordred table-striped">
+                 <thead>
+				 <th><input type="checkbox" id="checkall" /></th>
+                   <th>First Name</th>
+                    <th>Last Name</th>
+                     <th>Address</th>
+                      <th>Edit</th>
+                       <th>Delete</th>
+                   </thead>
+					<tbody>
+					
+					<tr>
+					<td><input type="checkbox" class="checkthis" /></td>
+					<td>Mohsin</td>
+					<td>Irshad</td>
+					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
+					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+					</tr>
+					
+						<tr>
+					<td><input type="checkbox" class="checkthis" /></td>
+					<td>Mohsin</td>
+					<td>Irshad</td>
+					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
+					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+					</tr>
+					
+					
+						<tr>
+					<td><input type="checkbox" class="checkthis" /></td>
+					<td>Mohsin</td>
+					<td>Irshad</td>
+					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
+					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+					</tr>
+					
+					
+					
+						<tr>
+					<td><input type="checkbox" class="checkthis" /></td>
+					<td>Mohsin</td>
+					<td>Irshad</td>
+					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
+					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+					</tr>
+					
+					
+					
+						<tr>
+					<td><input type="checkbox" class="checkthis" /></td>
+					<td>Mohsin</td>
+					<td>Irshad</td>
+					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
+					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
+					</tr>
+					
+					
+				   
+					
+				   
+					
+					</tbody>
+					
+			</table>
+
+
+		
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
