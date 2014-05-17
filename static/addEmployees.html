@@ -68,6 +68,31 @@
       }
 	}
 
+	
+	// table styles 
+	.filterable {
+		margin-top: 15px;
+	}
+	.filterable .panel-heading .pull-right {
+		margin-top: -20px;
+	}
+	.filterable .filters input[disabled] {
+		background-color: transparent;
+		border: none;
+		cursor: auto;
+		box-shadow: none;
+		padding: 0;
+		height: auto;
+	}
+	.filterable .filters input[disabled]::-webkit-input-placeholder {
+		color: #333;
+	}
+	.filterable .filters input[disabled]::-moz-placeholder {
+		color: #333;
+	}
+	.filterable .filters input[disabled]:-ms-input-placeholder {
+		color: #333;
+	}
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 	<script>
@@ -145,10 +170,11 @@ function initialize() {
 
   setupClickListener('changetype-all', []);
   setupClickListener('changetype-establishment', ['establishment']);
-  setupClickListener('changetype-geocode', ['geocode']);
-}
+  setupClickListener('changetype-geocode', ['geocode']);  
+  }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+	
 	
     </script>
   </head>
@@ -196,7 +222,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
       </div>
     </div>
 	<!-- Top Navigation End -->
-
 	
 	<div class="container-fluid">
       <div class="row">
@@ -241,6 +266,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 							<option>Berlin</option>
 							<option>Düsseldorf</option>
 							<option>Hamburg</option>
+							<option>Solingen</option>
 							<option>Frankfurt</option>
 							<option>München</option>
 							<option>Stuttgart</option>
@@ -299,82 +325,64 @@ google.maps.event.addDomListener(window, 'load', initialize);
         </div>
       </div>
     </div>
-	
+				
 	<!-- List of all employees -->
 	<div class="container">
 		<div class="row">
-		    <div class="col-md-12">
-				<div class="table-responsive">               
-              <table id="mytable" class="table table-bordred table-striped">
-                 <thead>
-				 <th><input type="checkbox" id="checkall" /></th>
-                   <th>First Name</th>
-                    <th>Last Name</th>
-                     <th>Address</th>
-                      <th>Edit</th>
-                       <th>Delete</th>
-                   </thead>
+		  <div class="col-md-12">
+			<div class="panel panel-primary filterable">
+				<div class="panel-heading">
+					<h3 class="panel-title">Employees</h3>
+					<div class="pull-right">
+						<button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+					</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="filters">
+							<th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Address" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Location" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Resume" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Twitter" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Xing" disabled></th>
+						</tr>
+					</thead>
 					<tbody>
-					
-					<tr>
-					<td><input type="checkbox" class="checkthis" /></td>
-					<td>Mohsin</td>
-					<td>Irshad</td>
-					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-					</tr>
-					
 						<tr>
-					<td><input type="checkbox" class="checkthis" /></td>
-					<td>Mohsin</td>
-					<td>Irshad</td>
-					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-					</tr>
-					
-					
+							<td>Mike</td>
+							<td>Smith</td>
+							<td>Hauptstrasse 10, Solingen</td>
+							<td>Solingen</td>
+							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
+							<td>@msmith</td>
+							<td>mike.smith@xing.com</td>
+						</tr>
 						<tr>
-					<td><input type="checkbox" class="checkthis" /></td>
-					<td>Mohsin</td>
-					<td>Irshad</td>
-					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-					</tr>
-					
-					
-					
+							<td>Tobi</td>
+							<td>Miller</td>
+							<td>Buchenhecke 22, Köln</td>
+							<td>Düsseldorf</td>
+							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
+							<td>@tmiller</td>
+							<td>tmiller@xing.com</td>
+						</tr>
 						<tr>
-					<td><input type="checkbox" class="checkthis" /></td>
-					<td>Mohsin</td>
-					<td>Irshad</td>
-					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-					</tr>
-					
-					
-					
-						<tr>
-					<td><input type="checkbox" class="checkthis" /></td>
-					<td>Mohsin</td>
-					<td>Irshad</td>
-					<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-					<td><p><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td>
-					</tr>
-					
-					
-				   
-					
-				   
-					
+							<td>Jerry</td>
+							<td>Jordan</td>
+							<td>Berliner Platz 10, Berln</td>
+							<td>Berlin</td>
+							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
+							<td>@jordan</td>
+							<td>jordan@xing.com</td>
+						</tr>
 					</tbody>
-					
-			</table>
-
+				</table>
+			</div>
+		  </div>
+		</div>
+	</div>
 
 		
     <!-- Bootstrap core JavaScript
