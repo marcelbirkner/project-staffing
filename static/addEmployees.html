@@ -227,41 +227,54 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					  
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Street</label>
+						<label class="col-sm-2 control-label" for="textinput">Address</label>
 						<div class="col-sm-10">
-						  <input type="text" placeholder="Street" class="form-control">
+						  <input type="text" placeholder="Enter address on map" class="form-control">
 						</div>
 					  </div>
 
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">City</label>
+						<label class="col-sm-2 control-label" for="textinput">Location</label>
 						<div class="col-sm-10">
-						  <input type="text" placeholder="City" class="form-control">
+						  <select class="form-control">
+							<option>Berlin</option>
+							<option>Düsseldorf</option>
+							<option>Hamburg</option>
+							<option>Frankfurt</option>
+							<option>München</option>
+							<option>Stuttgart</option>
+							<option>Karlsruhe</option>
+						  </select>
 						</div>
-					  </div>
-
+					  </div>					  
+					  
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">State</label>
-						<div class="col-sm-4">
-						  <input type="text" placeholder="State" class="form-control">
-						</div>
-
-						<label class="col-sm-2 control-label" for="textinput">Postcode</label>
-						<div class="col-sm-4">
-						  <input type="text" placeholder="Post Code" class="form-control">
+						<label class="col-sm-2 control-label" for="textinput">Resume</label>
+						<div class="col-sm-10">
+						  <input type="text" placeholder="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05" class="form-control">
 						</div>
 					  </div>
-
+					  
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Country</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="Country" class="form-control">
+						<label class="col-sm-2 control-label" for="textinput">Social Media</label>
+						<div class="col-sm-5">
+							<div class="input-group">
+							  <span class="input-group-addon">@</span>
+							  <input type="text" class="form-control" placeholder="Twitter account">
+							</div>
+						</div>
+						<div class="col-sm-5">
+							<div class="input-group">
+							  <span class="input-group-addon">Xing</span>
+							  <input type="text" class="form-control" placeholder="Xing account">
+							</div>
 						</div>
 					  </div>
-
+					  
+					  <!-- Action Buttons -->
 					  <div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 						  <div class="pull-right">
@@ -287,13 +300,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
       </div>
     </div>
 	
+	<!-- List of all employees -->
 	<div class="container">
 		<div class="row">
-		
-		
-        
-        <div class="col-md-12">
-        <div class="table-responsive">               
+		    <div class="col-md-12">
+				<div class="table-responsive">               
               <table id="mytable" class="table table-bordred table-striped">
                  <thead>
 				 <th><input type="checkbox" id="checkall" /></th>

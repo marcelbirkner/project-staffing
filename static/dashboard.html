@@ -56,10 +56,9 @@
 		barformatter.format(geoData, 5); // Apply formatter to second column
 		
         table.draw(tableView, {showRowNumber: false, allowHtml: true});
-	
-	
+		
 		// draw map
-		var mapOptions = { mapType:'normal', showTip: true, enableScrollWheel: true};
+		var mapOptions = { mapType:'normal', showTip: false, enableScrollWheel: true};
         var map = new google.visualization.Map(document.getElementById('map_div'));
         map.draw(geoView, mapOptions);
 		
