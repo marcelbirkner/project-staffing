@@ -1,0 +1,5 @@
+Animated Car on map
+http://econym.org.uk/gmap/example_cartrip2
+
+Filter Table
+http://bootsnipp.com/snippets/featured/panel-table-with-filters-per-column

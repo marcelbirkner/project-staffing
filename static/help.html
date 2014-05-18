@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project Staffing :: show employees</title>
+    <title>Project Staffing :: customer list</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -28,27 +28,55 @@
       google.setOnLoadCallback(initialize);
  
       function initialize() {
-		// Create and populate the data table.
-     	var data = google.visualization.arrayToDataTable([
-			['Employee', 'Home City', 'Latitude', 'Longitude', 'Work City', 'Latitude', 'Longitude'],
-			['Employee 1', 'Bochum', 50.011382, 6.1022516, 'Essen', 52.2111382, 7.0822516],
-			['Employee 8', 'Bonn', 52.111382, 7.5022516, 'Düsseldorf', 51.2111382, 6.7822516],
-			['Employee 7', 'Siegburg', 51.211382, 6.2022516, 'Köln', 52.2111382, 5.0822516],
-			['Employee 6', 'Dortmund', 52.311382, 7.3022516, 'Düsseldorf', 51.2111382, 6.7822516],
-			['Employee 5', 'Köln', 51.411382, 6.4022516, 'Solingen', 52.2111382, 7.0822516],
-			['Employee 4', 'Duisburg', 52.511382, 7.5022516, 'Solingen', 51.2111382, 6.7822516],
-			['Employee 3', 'Hagen', 51.611382, 6.6022516, 'Köln', 50.2111382, 6.0822516],
-			['Employee 2', 'Köln', 52.711382, 7.7022516, 'Düsseldorf', 51.2111382, 7.7822516],
-		]);
-		  
-		var tableView = new google.visualization.DataView(data);
-		tableView.setColumns([0,1,4]);  
 
-		// Create and draw the visualization.
-		visualization = new google.visualization.Table(document.getElementById('table_div'));
-		visualization.draw(tableView, null);
-	  }
-	</script>
+        var geoData = google.visualization.arrayToDataTable([
+          ['Lat', 'Long', 'Standort', 'Umsatz', 'Mitarbeiter', 'Auslastung'],
+          [51.1672852,7.0626139, 'Solingen', {v: 12, f: '+12.0%'}, 120, 85],
+          [51.2111382,6.7822516, 'Düsseldorf', {v: 7.3, f: '+7.3%'}, 30, 65],
+          [48.1368364,11.5234671, 'München', {v: 0, f: '0%'}, 20, 75],
+		  [52.5083545,13.3771307, 'Berlin', {v: -2.1, f: '-2.1%'}, 5, 86],
+		  [49.00367,8.36476, 'Karlsruhe', {v: 5.4, f: '+5.4%'}, 5, 40],
+		  [50.0779865,8.6246555, 'Frankfurt', {v: 3.1, f: '+3.1%'}, 10, 55],
+          [53.55539,9.98492, 'Hamburg', {v: 2.5, f: '+2.5%'}, 5, 30]
+        ]);
+		
+        var geoView = new google.visualization.DataView(geoData);
+        geoView.setColumns([0, 1]);
+		
+		var tableView = new google.visualization.DataView(geoData);
+        tableView.setColumns([2, 3, 4, 5]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+	
+		var formatter = new google.visualization.ArrowFormat();
+        formatter.format(geoData, 3); // Apply formatter to 4th column
+		
+		var barformatter = new google.visualization.BarFormat({width: 150, min: 0, max: 100});
+		barformatter.format(geoData, 5); // Apply formatter to second column
+		
+        table.draw(tableView, {showRowNumber: false, allowHtml: true});
+	
+		var mapOptions = { mapType:'normal', showTip: true, enableScrollWheel: true};
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(geoView, mapOptions);
+		
+		// Set a 'select' event listener for the table.
+        // When the table is selected, we set the selection on the map.
+        google.visualization.events.addListener(table, 'select',
+            function() {
+              map.setSelection(table.getSelection());
+		    }
+		);
+
+        // Set a 'select' event listener for the map.
+        // When the map is selected, we set the selection on the table.
+        google.visualization.events.addListener(map, 'select',
+            function() {
+              table.setSelection(map.getSelection());
+            }
+		);
+      }
+    </script>
 	
   </head>
   <body>
@@ -72,7 +100,7 @@
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
 			  <ul class="dropdown-menu">
 				<li><a href="addEmployees.html">Add Employee</a></li>
-				<li class="active"><a href="listEmployees.html">List Employees</a></li>
+				<li><a href="listEmployees.html">List Employees</a></li>
 			  </ul>
 			</li>
 			<li class="dropdown">
@@ -86,7 +114,7 @@
 			</li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
+            <li class="active"><a href="help.html">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -99,18 +127,14 @@
 	<div class="container-fluid">
       <div class="row">
         <div class="main">
-			<h1>List all Employees</h1>			
-			<div class="col-md-6">
-			  <div id="table_div"></div>
-			</div>	
-			<div class="col-md-6">
-			  <div id="map_div" style="height: 600px;"></div>
-			</div>
-		</div>		
-  	  </div>
+			<h1>Documentation</h1>
+			<ul class="list-group">
+			  <li class="list-group-item"><a href="docs/project-staffing-er-diagram.html">Entity Relationship Diagram</a> - created with https://www.draw.io</li>
+			</ul>
+		</div>
+	  </div>
 	</div>
 	
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
