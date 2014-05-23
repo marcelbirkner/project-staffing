@@ -21,6 +21,6 @@ After you started the server, you can access the webapp under: <a href="http://l
 
 # REST API
 
-* All Projects: http://localhost:9000/api/project
-* All Customers: http://localhost:9000/api/customer
-* All Employees: http://localhost:9000/api/employee
+* All Projects: (http://localhost:9000/api/project)
+* All Customers: (http://localhost:9000/api/customer)
+* All Employees: (http://localhost:9000/api/employee)
