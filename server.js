@@ -90,6 +90,12 @@ function addLinksToEmployee(employee) {
       href: '/api/employee/' + employee.id,
     }
   };
+  console.log(employee.projects);
+  var list = employee.projects;
+  for (var projectId in list) {
+    console.log(list[projectId]);
+    addLinksToProject(list[projectId]);
+  }
 }
 function addLinksToAllEmployees(list) {
   for (var employeeId in list) {
