@@ -14,8 +14,8 @@ After you started the server, you can access the webapp under: <a href="http://l
 
 ## Technologies used
 
-* NodeJS
-* Bootstrap CSS/JS
+* NodeJS, ExpressJS
+* Bootstrap CSS/JavaScript
 * Google Maps API
 * Google Visulization API
 
