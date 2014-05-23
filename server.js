@@ -1,8 +1,10 @@
 'use strict';
 
 var express = require('express'),
-    customer = require('./data/customer.js'),
-    employee = require('./data/employee.js');
+  customer = require('./data/customer.js'),
+  project = require('./data/project.js'),
+  employee = require('./data/employee.js'),
+  errors = require('./lib/errors');
 
 var app = express();
 var cors = require('cors');
@@ -28,7 +30,7 @@ app.configure(function(){
 /**
  * ANWENDUNG
  */
-app.get('/version', function(req, res){
+app.get('/api/version', function(req, res){
   console.log('GET version');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   return res.json(200, version);
@@ -37,40 +39,99 @@ app.get('/version', function(req, res){
 /**
  * CUSTOMER
  */
-app.get('/customer/list', function(req, res){
+app.get('/api/customer', function(req, res){
   console.log('GET list of customers');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  addLinksToAllCustomers(customer);
   return res.json(200, customer);
 });
-app.get('/customer/:id', function(req, res){
+app.get('/api/customer/:id', function(req, res){
   console.log('GET customer by id');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  addLinksToCustomer(customer[req.params.id]);
   return res.json(200, customer[req.params.id]);
 });
+function addLinksToCustomer(customer) {
+	customer.links = {
+    self: {
+      href: '/api/customer/' + customer.id,
+    }
+  };
+}
+function addLinksToAllCustomers(list) {
+  for (var customerId in list) {
+    console.log(list[customerId]);
+    addLinksToCustomer(list[customerId]);
+  }
+}
 
 /**
  * EMPLOYEE
  */
-app.get('/employee/list', function(req, res){
-  console.log('GET employee');
+app.get('/api/employee', function(req, res){
+  console.log('GET employee list');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  addLinksToAllEmployees(employee);
   return res.json(200, employee);
 });
-app.get('/employee/:id', function(req, res){
+app.get('/api/employee/:id', function(req, res){
   console.log('GET employee by id');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
-  addLinksToEmployee(employee[req.params.id]);
-  return res.json(200, employee[req.params.id]);
+  var emp = employee[req.params.id];
+  if (!emp) {
+    return errors.notFound(res);
+  }
+  addLinksToEmployee(emp);
+  return res.json(200, emp);
 });
-
 function addLinksToEmployee(employee) {
-	employee.links = {
+  employee.links = {
     self: {
-      href: '/employee/' + employee.id,
+      href: '/api/employee/' + employee.id,
     }
   };
 }
+function addLinksToAllEmployees(list) {
+  for (var employeeId in list) {
+    console.log(list[employeeId]);
+    addLinksToEmployee(list[employeeId]);
+  }
+}
 
+/**
+ * PROJECTS
+ */
+app.get('/api/project', function(req, res){
+  console.log('GET project list');
+  res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  addLinksToAllProjects(project);
+  return res.json(200, project);
+});
+app.get('/api/project/:id', function(req, res){
+  console.log('GET project by id');
+  res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  var proj = project[req.params.id];
+  if (!proj) {
+    return errors.notFound(res);
+  }
+  addLinksToProject(proj);
+  addLinksToCustomer(proj.customer);
+  return res.json(200, proj);
+});
+function addLinksToProject(project) {
+  project.links = {
+    self: {
+      href: '/api/project/' + project.id,
+    }
+  };
+}
+function addLinksToAllProjects(projects) {
+  for (var projectId in projects) {
+    console.log(projects[projectId]);
+    addLinksToProject(projects[projectId]);
+    addLinksToCustomer(projects[projectId].customer);  
+  }
+}
 /**
  * MAIN
  */
