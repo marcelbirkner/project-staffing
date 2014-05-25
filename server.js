@@ -13,7 +13,12 @@ var expressValidator = require('express-validator');
 var http = require('http');
 var util = require('util');
 
-var version = {'version':'1.0.0'};
+// mongodb settings
+var databaseUrl = "projectstaffing";
+var collections = ["employees", "customers", "projects"];
+var db = require("mongojs").connect(databaseUrl, collections);
+
+var version = {'version':'1.1.0'};
 
 /**
  * Statischen Content ausliefern
@@ -103,6 +108,99 @@ function addLinksToAllEmployees(list) {
     addLinksToEmployee(list[employeeId]);
   }
 }
+
+
+/**
+ * MONGODB
+ */
+app.get('/api/mongo/customers', function(req, res){
+	console.log('GET mongodb customers result');
+	db.customers.find({}, function(err, customers) {
+	  if( err || !customer) 
+	    return res.json(200, 'No customer found');
+	  else 
+	    return res.json(200, customers);
+	});
+}); 
+app.get('/api/mongo/projects', function(req, res){
+	console.log('GET mongodb projects result');
+	db.projects.find({}, function(err, projects) {
+	  if( err || !projects) 
+	    return res.json(200, 'No projects found');
+	  else 
+	    return res.json(200, projects);
+	});
+}); 
+app.get('/api/mongo/employees', function(req, res){
+	console.log('GET mongodb employees result');
+	db.employees.find({}, function(err, employees) {
+	  if( err || !employees) 
+	    return res.json(200, 'No employees found');
+	  else 
+	    return res.json(200, employees);
+	});
+});
+app.get('/api/mongo/init', function(req, res){
+	console.log('GET init mongodb with testdata');
+	db.customers.remove({});
+	db.projects.remove({});
+	db.employees.remove({});
+	for (var customerId in customer) {
+		var cust = customer[customerId];
+	  	db.customers.save(cust, function(err, saved) {
+		  if( err || !saved ) 
+			console.log("Customers not saved");
+		  else 
+			console.log("Customers saved");
+		});
+	}
+	for (var id in employee) {
+		var item = employee[id];
+	  	db.employees.save(item, function(err, saved) {
+		  if( err || !saved ) 
+			console.log("Employee not saved");
+		  else 
+			console.log("Employee saved");
+		});
+	}
+	for (var id in project) {
+		var item = project[id];
+	  	db.projects.save(item, function(err, saved) {
+		  if( err || !saved ) 
+			console.log("Projects not saved");
+		  else 
+			console.log("Projects saved");
+		});
+	}
+	return res.json(200, {'message':	'MongoDB test data initialized'});
+});
+app.get('/api/mongo/search/employee', function(req, res){
+	console.log('GET mongodb query params');
+	console.log(req.query);
+	db.employees.find(req.query, function(err, employees) {
+	  if( err || !employees) { 
+	    console.log("No employees found");
+		return res.json(200, employees);
+	  } else {
+        return res.json(200, employees);
+	  }
+	});
+});
+
+
+/**
+ * SEARCH
+ */
+app.get('/api/search', function(req, res){
+  console.log('GET search result');
+  res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  var searchResult = {};
+  for (var employeeId in employee) {
+    var item = employee[employeeId];
+	console.log(item);	
+  };
+  return res.json(200, searchResult);
+});
 
 /**
  * PROJECTS
