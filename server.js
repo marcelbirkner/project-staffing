@@ -44,6 +44,9 @@ app.get('/api', function(req, res) {
     employees: {
       links: { self: { href: '/api/employee' } }
     },
+    projects: {
+      links: { self: { href: '/api/project' } }
+    },
   });
 });
 
