@@ -6,6 +6,7 @@ var express = require('express'),
   employee = require('./data/employee.js'),
   errors = require('./lib/errors');
 
+// express settings
 var app = express();
 var cors = require('cors');
 var nodeValidator = require('validator');
@@ -30,7 +31,6 @@ app.configure(function(){
   app.use(express.static(__dirname + '/static'));
   app.use('/static', express.static(__dirname + '/static'));
 });
-
 
 /**
  * ANWENDUNG
@@ -186,20 +186,17 @@ app.get('/api/mongo/search/employee', function(req, res){
 	  }
 	});
 });
-
-
-/**
- * SEARCH
- */
-app.get('/api/search', function(req, res){
-  console.log('GET search result');
-  res.setHeader('Content-Type', 'application/json;charset=utf-8');
-  var searchResult = {};
-  for (var employeeId in employee) {
-    var item = employee[employeeId];
-	console.log(item);	
-  };
-  return res.json(200, searchResult);
+app.get('/api/mongo/search/employee/skill', function(req, res){
+	console.log('GET employee with skill');
+	console.log(req.query);
+	db.employees.find(req.query, function(err, employees) {
+	  if( err || !employees) { 
+	    console.log("No employees found");
+		return res.json(200, employees);
+	  } else {
+        return res.json(200, employees);
+	  }
+	});
 });
 
 /**

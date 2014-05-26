@@ -68,6 +68,9 @@ Find Employees by Name
 
 * [http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann](http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann)
 
+Find employee by Skill
+
+* [http://localhost:9000/api/mongo/search/employee/skill?skills=neo4j](http://localhost:9000/api/mongo/search/employee/skill?skills=neo4j)
 
 # License (MIT)
 
