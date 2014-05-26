@@ -186,10 +186,10 @@ app.get('/api/mongo/search/employee', function(req, res){
 	  }
 	});
 });
-app.get('/api/mongo/search/employee/skill', function(req, res){
-	console.log('GET employee with skill');
+app.get('/api/mongo/search/employee/skills', function(req, res){
+	console.log('GET employee by skills');
 	console.log(req.query);
-	db.employees.find(req.query, function(err, employees) {
+	db.employees.find({ $and: [ { skills: 'java' }, { skills: 'scrum' } ] }, function(err, employees) {
 	  if( err || !employees) { 
 	    console.log("No employees found");
 		return res.json(200, employees);
@@ -198,6 +198,8 @@ app.get('/api/mongo/search/employee/skill', function(req, res){
 	  }
 	});
 });
+// TODO: { skills: [ 'neo4j', 'java' ] } ->  { skills: 'scrum' }, { skills: 'neo4j' }
+
 
 /**
  * PROJECTS
