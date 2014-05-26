@@ -3,3 +3,5 @@ node_modules
 # vim tmp files
 *.swp
 *.un~
+
+data/mongodb
