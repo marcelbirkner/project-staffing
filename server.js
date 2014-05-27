@@ -206,8 +206,14 @@ app.get('/api/mongo/search/employee', function(req, res){
 });
 app.get('/api/mongo/search/employee/skills', function(req, res){
 	console.log('GET employee by skills');
+
+	// map incoming query parameter to mongodb search query
 	console.log(req.query);
-	db.employees.find({ $and: [ { skills: 'java' }, { skills: 'scrum' } ] }, function(err, employees) {
+	var input = req.query;
+	var query = input.skills.map(function(skill) { return { skill: skill} });
+	console.log(query);
+
+	db.employees.find({ $and: query}, function(err, employees) {
 	  if( err || !employees) {
 	    console.log("No employees found");
 		return res.json(200, employees);
