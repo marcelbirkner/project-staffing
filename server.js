@@ -33,7 +33,25 @@ app.configure(function(){
 });
 
 /**
- * ANWENDUNG
+ * Root Resource
+ */
+app.get('/api', function(req, res) {
+  res.setHeader('Content-Type', 'application/json;charset=utf-8');
+  return res.json(200, {
+    customers: {
+      links: { self: { href: '/api/customer' } }
+    },
+    employees: {
+      links: { self: { href: '/api/employee' } }
+    },
+    projects: {
+      links: { self: { href: '/api/project' } }
+    },
+  });
+});
+
+/**
+ * VERSION
  */
 app.get('/api/version', function(req, res){
   console.log('GET version');
@@ -116,27 +134,27 @@ function addLinksToAllEmployees(list) {
 app.get('/api/mongo/customers', function(req, res){
 	console.log('GET mongodb customers result');
 	db.customers.find({}, function(err, customers) {
-	  if( err || !customer) 
+	  if( err || !customer)
 	    return res.json(200, 'No customer found');
-	  else 
+	  else
 	    return res.json(200, customers);
 	});
-}); 
+});
 app.get('/api/mongo/projects', function(req, res){
 	console.log('GET mongodb projects result');
 	db.projects.find({}, function(err, projects) {
-	  if( err || !projects) 
+	  if( err || !projects)
 	    return res.json(200, 'No projects found');
-	  else 
+	  else
 	    return res.json(200, projects);
 	});
-}); 
+});
 app.get('/api/mongo/employees', function(req, res){
 	console.log('GET mongodb employees result');
 	db.employees.find({}, function(err, employees) {
-	  if( err || !employees) 
+	  if( err || !employees)
 	    return res.json(200, 'No employees found');
-	  else 
+	  else
 	    return res.json(200, employees);
 	});
 });
@@ -148,27 +166,27 @@ app.get('/api/mongo/init', function(req, res){
 	for (var customerId in customer) {
 		var cust = customer[customerId];
 	  	db.customers.save(cust, function(err, saved) {
-		  if( err || !saved ) 
+		  if( err || !saved )
 			console.log("Customers not saved");
-		  else 
+		  else
 			console.log("Customers saved");
 		});
 	}
 	for (var id in employee) {
 		var item = employee[id];
 	  	db.employees.save(item, function(err, saved) {
-		  if( err || !saved ) 
+		  if( err || !saved )
 			console.log("Employee not saved");
-		  else 
+		  else
 			console.log("Employee saved");
 		});
 	}
 	for (var id in project) {
 		var item = project[id];
 	  	db.projects.save(item, function(err, saved) {
-		  if( err || !saved ) 
+		  if( err || !saved )
 			console.log("Projects not saved");
-		  else 
+		  else
 			console.log("Projects saved");
 		});
 	}
@@ -178,7 +196,7 @@ app.get('/api/mongo/search/employee', function(req, res){
 	console.log('GET mongodb query params');
 	console.log(req.query);
 	db.employees.find(req.query, function(err, employees) {
-	  if( err || !employees) { 
+	  if( err || !employees) {
 	    console.log("No employees found");
 		return res.json(200, employees);
 	  } else {
@@ -190,7 +208,7 @@ app.get('/api/mongo/search/employee/skills', function(req, res){
 	console.log('GET employee by skills');
 	console.log(req.query);
 	db.employees.find({ $and: [ { skills: 'java' }, { skills: 'scrum' } ] }, function(err, employees) {
-	  if( err || !employees) { 
+	  if( err || !employees) {
 	    console.log("No employees found");
 		return res.json(200, employees);
 	  } else {
@@ -232,7 +250,7 @@ function addLinksToAllProjects(projects) {
   for (var projectId in projects) {
     console.log(projects[projectId]);
     addLinksToProject(projects[projectId]);
-    addLinksToCustomer(projects[projectId].customer);  
+    addLinksToCustomer(projects[projectId].customer);
   }
 }
 /**
