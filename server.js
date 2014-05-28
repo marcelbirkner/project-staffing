@@ -210,10 +210,17 @@ app.get('/api/mongo/search/employee/skills', function(req, res){
 	// map incoming query parameter to mongodb search query
 	console.log(req.query);
 	var input = req.query;
-	var query = input.skills.map(function(skill) { return { skill: skill} });
-	console.log(query);
+	var fullQuery = {};
+	if( util.isArray( input.skills ) ) {
+		console.log('IS ARRAY');
+		var query = input.skills.map(function(skill) { return { skills: skill} });
+		fullQuery = { $and: query};
+	} else {
+		fullQuery = input;
+	}
+	console.log(fullQuery);
 
-	db.employees.find({ $and: query}, function(err, employees) {
+	db.employees.find(fullQuery, function(err, employees) {
 	  if( err || !employees) {
 	    console.log("No employees found");
 		return res.json(200, employees);
@@ -222,7 +229,6 @@ app.get('/api/mongo/search/employee/skills', function(req, res){
 	  }
 	});
 });
-// TODO: { skills: [ 'neo4j', 'java' ] } ->  { skills: 'scrum' }, { skills: 'neo4j' }
 
 
 /**
