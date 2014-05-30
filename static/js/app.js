@@ -15,13 +15,35 @@
 	  }
       employee.skills.push(this.skill);
 
-	  console.log(employee);
-	  console.log(employee.email);
 	  $http.post('http://localhost:9000/api/mongo/employees/'+employee.email+'/skill',JSON.stringify(employee));
 
 	  this.skill = "";
     };
   }]);
+  app.directive('navigation', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'navigation.html'	
+	};
+  }); 
+  app.directive('employeeTable', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-table.html'	
+	};
+  });
+  app.directive('employeeForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-form.html'	
+	};
+  });
+  app.directive('skillForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'skill-form.html'	
+	};
+  });
   
   app.controller('EmployeeController', ['$http', function($http){
     var company = this;

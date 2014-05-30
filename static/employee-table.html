@@ -1,0 +1,40 @@
+	<!-- List of all employees -->
+	<div class="container">
+		<div class="row">
+		  <div class="col-md-12">
+			<div class="panel panel-primary" >
+				<div class="panel-heading">
+					<h3 class="panel-title">Employees</h3>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="filters">
+							<th>Full Name</th>
+							<th>Email</th>
+							<th>Office</th>
+							<th>Address</th>
+							<th>Resume</th>
+							<th>Twitter</th>
+							<th>Xing</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="employee in employeeCtrl.employees">
+							<td>{{employee.name}}</td>
+							<td>{{employee.email}}</td>
+							<td>{{employee.office}}</td>
+							<td>{{employee.address}}</td>
+							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
+							<td>{{employee.twitter}}</td>
+							<td>{{employee.xing}}</td>
+							<td><button ng-click="employeeCtrl.deleteEmployee(employee.email)">Delete</button></td>
+							<td><button ng-click="employeeCtrl.editEmployee(employee.email)">Edit</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		  </div>
+		</div>
+	</div>

@@ -1,0 +1,17 @@
+				<h4>Skills</h4>
+				<!--  Skills Form -->
+				<div class="panel">
+					<form name="skillsForm" ng-controller="SkillController as skillCtrl" ng-submit="skillCtrl.addSkill(employeeCtrl.employee)">
+					  <fieldset class="form-group">
+						<input type="text" ng-model="skillCtrl.skill" class="form-control" title="Skill"></input>
+					  </fieldset>
+					  <fieldset class="form-group">
+						<input type="submit" class="btn btn-primary pull-right" value="Save Skills" />
+					  </fieldset>
+					</form>
+					<div ng-repeat="skill in employeeCtrl.employee.skills track by $index" style="float:left">
+						  <span class="label label-primary">
+							{{skill}}
+						  </span>&nbsp;
+					</div>
+				</div>					

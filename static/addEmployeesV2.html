@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project Staffing :: customer list</title>
+    <title>Project Staffing :: Manage Employees</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -15,227 +15,30 @@
 
 	<script src="js/angular.min.js"></script>
 	<script src="js/app.js"></script>
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-		
+	
   </head>
   <body ng-controller="EmployeeController as employeeCtrl">
 
-    <!-- Top Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Company Project's</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="dashboard.html">Dashboard</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addEmployees.html">Add Employee</a></li>
-				<li class="active"><a href="addEmployeesV2.html">Add Employee V2</a></li>
-				<li><a href="listEmployees.html">List Employees</a></li>
-			  </ul>
-			</li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addCustomers.html">Add Customers</a></li>
-				<li><a href="listCustomers.html">List Customers</a></li>
-				<li class="divider"></li>
-				<li><a href="duesseldorf.html">Customer Example</a></li>
-			  </ul>
-			</li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </div>
-	<!-- Top Navigation End -->
-
+	<navigation></navigation>
+	
 	<div class="container-fluid">
       <div class="row">
         <div class="main">
 		  <div class="row">
 			<div class="col-md-6">
-				<form name="employeeForm" class="form-horizontal" role="form" 
-					  ng-submit="employeeForm.$valid && employeeCtrl.addEmployee(employeeCtrl.employees)" novalidate>
-					  
-					<fieldset>
-
-					  <!-- Form Name -->
-					  <legend>Add new employee</legend>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Name</label>
-						<div class="col-sm-10">
-						  <input type="text" ng-model="employeeCtrl.employee.name" class="form-control" required>
-						</div>
-					  </div>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Email</label>
-						<div class="col-sm-10">
-						  <input type="email" ng-model="employeeCtrl.employee.email" class="form-control" value="{{employeeCtrl.employee.name}}" required>
-						</div>
-					  </div>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Office</label>
-						<div class="col-sm-10">
-						  <select class="form-control" ng-model="employeeCtrl.employee.office" required>
-							<option>Berlin</option>
-							<option>Düsseldorf</option>
-							<option>Hamburg</option>
-							<option>Solingen</option>
-							<option>Frankfurt</option>
-							<option>München</option>
-							<option>Stuttgart</option>
-							<option>Karlsruhe</option>
-						  </select>
-						</div>
-					  </div>					  					  
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Address</label>
-						<div class="col-sm-10">
-						  <input type="text" ng-model="employeeCtrl.employee.address" class="form-control" required>
-						</div>
-					  </div>
-
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Resume Link</label>
-						<div class="col-sm-10">
-						  <input type="text" ng-model="employeeCtrl.employee.resume" class="form-control">
-						</div>
-					  </div>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Social Media</label>
-						<div class="col-sm-5">
-							<div class="input-group">
-							  <span class="input-group-addon">@</span>
-							  <input type="text"  ng-model="employeeCtrl.employee.twitter" class="form-control">
-							</div>
-						</div>
-						<div class="col-sm-5">
-							<div class="input-group">
-							  <span class="input-group-addon">Xing</span>
-							  <input type="text"  ng-model="employeeCtrl.employee.xing" class="form-control">
-							</div>
-						</div>
-					  </div>
-					  
-					  <!-- Action Buttons -->
-					  <div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-						  <div class="pull-right">
-							<button type="submit" class="btn btn-primary">Save</button>
-						  </div>
-						</div>
-					  </div>
-
-					</fieldset>
-				</form>
+				<employee-form></employee-form>
 			</div>
 			<div class="col-md-6">
-				<!-- Tabs Go Here -->
-				
-				<h4>Skills</h4>
-				<!--  Skills Form -->
-				<div class="panel">
-					<form name="skillsForm" ng-controller="SkillController as skillCtrl" ng-submit="skillCtrl.addSkill(employeeCtrl.employee)">
-					  <fieldset class="form-group">
-						<input type="text" ng-model="skillCtrl.skill" class="form-control" title="Skill"></input>
-					  </fieldset>
-					  <fieldset class="form-group">
-						<input type="submit" class="btn btn-primary pull-right" value="Save" />
-					  </fieldset>
-					</form>
-					<div ng-repeat="skill in employeeCtrl.employee.skills track by $index" style="float:left">
-						  <span class="label label-primary">
-							{{skill}}
-						  </span>&nbsp;
-					</div>
-				</div>
-				
-					
+				<skill-form></skill-form>
 			</div>
 		  </div>
         </div>
       </div>
-    </div>				
-				
-	<!-- List of all employees -->
-	<div class="container">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Employees</h3>
-				</div>
-				<table class="table">
-					<thead>
-						<tr class="filters">
-							<th>Full Name</th>
-							<th>Email</th>
-							<th>Office</th>
-							<th>Address</th>
-							<th>Longitude</th>
-							<th>Latitude</th>
-							<th>Resume</th>
-							<th>Twitter</th>
-							<th>Xing</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="employee in employeeCtrl.employees">
-							<td>{{employee.name}}</td>
-							<td>{{employee.email}}</td>
-							<td>{{employee.office}}</td>
-							<td>{{employee.address}}</td>
-							<td>{{employee.longitude}}</td>
-							<td>{{employee.latitude}}</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>{{employee.twitter}}</td>
-							<td>{{employee.xing}}</td>
-							<td><button ng-click="employeeCtrl.deleteEmployee(employee.email)">Delete</button></td>
-							<td><button ng-click="employeeCtrl.editEmployee(employee.email)">Edit</button></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		  </div>
-		</div>
-	</div>
-		
+    </div>
+	
+	<employee-table></employee-table>
+	
+	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
