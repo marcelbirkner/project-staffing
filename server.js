@@ -158,6 +158,56 @@ app.get('/api/mongo/employees', function(req, res){
 	    return res.json(200, employees);
 	});
 });
+app.post('/api/mongo/employees', function(req, res){
+	console.log('POST mongodb employees');
+	console.log(req.body);
+	db.employees.save(req.body, function(err, saved) {
+	  if( err || !saved ) {
+		console.log("Employee not saved");
+		return res.send(500, { error: 'Employee not saved.' })
+	  } else {
+		console.log("Employee saved");
+		return res.end();
+	  }
+	});	
+});
+app.post('/api/mongo/employees/:email/skill', function(req, res){
+	console.log('POST mongodb employee skill');
+	console.log(req.params.email);
+	console.log(req.body.skills);
+	var email = req.params.email;
+	db.employees.findAndModify({
+		query: { email: email },
+		update: { $set: { skills: req.body.skills } },
+		new: true
+	}, function(err, doc, lastErrorObject) {
+		console.log(doc);
+	});
+});
+app.get('/api/mongo/employees/:id', function(req, res){
+	console.log('GET employee by id');
+	console.log(req.params.id);
+	var id = req.params.id;
+	db.employees.find({_id: id}, function(err, employee) {
+	  if( err || !employee) {
+	    console.log("No employee found");
+		return res.json(404, employee);
+	  } else {
+        return res.json(200, employee);
+	  }
+	});
+});
+app.delete('/api/mongo/employees/:email', function(req, res){
+	console.log('Delete employee by email');
+	console.log(req.params.email);
+	var email = req.params.email;
+	var query = {email: email};
+	console.log(query);
+	db.employees.remove(query, function(err, lastErrorObject) { 
+		if( err ) console.log(err);
+	});		
+	return res.end();
+});
 app.get('/api/mongo/init', function(req, res){
 	console.log('GET init mongodb with testdata');
 	db.customers.remove({});

@@ -1,10 +1,14 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="employee">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<script src="js/angular.min.js"></script>
+	<script src="js/employeeApp.js"></script>
+
+	
     <title>Project Staffing :: customer list</title>
 
     <!-- Bootstrap core CSS -->
@@ -178,7 +182,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	
     </script>
   </head>
-  <body>
+  <body ng-controller="EmployeeController as employeeCtrl">
 
     <!-- Top Navigation -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -199,6 +203,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
 			  <ul class="dropdown-menu">
 				<li class="active"><a href="addEmployees.html">Add Employee</a></li>
+				<li><a href="addEmployeesV2.html">Add Employee V2</a></li>
 				<li><a href="listEmployees.html">List Employees</a></li>
 			  </ul>
 			</li>
@@ -222,31 +227,27 @@ google.maps.event.addDomListener(window, 'load', initialize);
       </div>
     </div>
 	<!-- Top Navigation End -->
-	
+
 	<div class="container-fluid">
       <div class="row">
         <div class="main">
 		  <div class="row">
 			<div class="col-md-6">
-				<form class="form-horizontal" role="form">
+				<form class="form-horizontal" role="form" ng-submit="employeeCtrl.addEmployee()">
 					<fieldset>
 
 					  <!-- Form Name -->
 					  <legend>Add new employee</legend>
 
+					  {{employee.name}} - 
+					  {{employee.address}} - 
+					  {{employee.office}} -
+					  
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">First name</label>
+						<label class="col-sm-2 control-label" for="textinput">Full name</label>
 						<div class="col-sm-10">
-						  <input type="text" placeholder="First name" class="form-control">
-						</div>
-					  </div>
-
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Last name</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="Last name" class="form-control">
+						  <input type="text" placeholder="Full name" ng-model="employee.name" class="form-control">
 						</div>
 					  </div>
 					  
@@ -254,15 +255,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Address</label>
 						<div class="col-sm-10">
-						  <input type="text" placeholder="Enter address on map" class="form-control">
+						  <input type="text" placeholder="Enter address on map" ng-model="employee.address" class="form-control">
 						</div>
 					  </div>
 
 					  <!-- Text input-->
 					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Location</label>
+						<label class="col-sm-2 control-label" for="textinput">Office</label>
 						<div class="col-sm-10">
-						  <select class="form-control">
+						  <select class="form-control"  ng-model="employee.office">
 							<option>Berlin</option>
 							<option>Düsseldorf</option>
 							<option>Hamburg</option>
@@ -279,7 +280,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Resume</label>
 						<div class="col-sm-10">
-						  <input type="text" placeholder="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05" class="form-control">
+						  <input type="text"  ng-model="employee.resume" placeholder="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05" class="form-control">
 						</div>
 					  </div>
 					  
@@ -289,13 +290,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						<div class="col-sm-5">
 							<div class="input-group">
 							  <span class="input-group-addon">@</span>
-							  <input type="text" class="form-control" placeholder="Twitter account">
+							  <input type="text"  ng-model="employee.twitter" class="form-control" placeholder="Twitter account">
 							</div>
 						</div>
 						<div class="col-sm-5">
 							<div class="input-group">
 							  <span class="input-group-addon">Xing</span>
-							  <input type="text" class="form-control" placeholder="Xing account">
+							  <input type="text"  ng-model="employee.xing" class="form-control" placeholder="Xing account">
 							</div>
 						</div>
 					  </div>
@@ -324,7 +325,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		  </div>
         </div>
       </div>
-    </div>
+    </div>				
 				
 	<!-- List of all employees -->
 	<div class="container">
@@ -340,42 +341,26 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<table class="table">
 					<thead>
 						<tr class="filters">
-							<th><input type="text" class="form-control" placeholder="First Name" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Full Name" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Office" disabled></th>
 							<th><input type="text" class="form-control" placeholder="Address" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Location" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Longitude" disabled></th>
+							<th><input type="text" class="form-control" placeholder="Latitude" disabled></th>
 							<th><input type="text" class="form-control" placeholder="Resume" disabled></th>
 							<th><input type="text" class="form-control" placeholder="Twitter" disabled></th>
 							<th><input type="text" class="form-control" placeholder="Xing" disabled></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Mike</td>
-							<td>Smith</td>
-							<td>Hauptstrasse 10, Solingen</td>
-							<td>Solingen</td>
+						<tr ng-repeat="employee in employeeCtrl.employees">
+							<td>{{employee.name}}</td>
+							<td>{{employee.office}}</td>
+							<td>{{employee.address}}</td>
+							<td>{{employee.longitude}}</td>
+							<td>{{employee.latitude}}</td>
 							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@msmith</td>
-							<td>mike.smith@xing.com</td>
-						</tr>
-						<tr>
-							<td>Tobi</td>
-							<td>Miller</td>
-							<td>Buchenhecke 22, Köln</td>
-							<td>Düsseldorf</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@tmiller</td>
-							<td>tmiller@xing.com</td>
-						</tr>
-						<tr>
-							<td>Jerry</td>
-							<td>Jordan</td>
-							<td>Berliner Platz 10, Berln</td>
-							<td>Berlin</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@jordan</td>
-							<td>jordan@xing.com</td>
+							<td>{{employee.twitter}}</td>
+							<td>{{employee.xing}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -383,7 +368,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		  </div>
 		</div>
 	</div>
-
 		
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -391,6 +375,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/docs.min.js"></script>
-
+	
   </body>
 </html>

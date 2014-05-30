@@ -5,6 +5,7 @@ module.exports = {
   1: {
     id: 1,
     name: 'Mark Smith',
+	email: 'Mark.Smith@company.com',
     twitter: '@marksmith',
     address: 'Birnenbach 15, Hamburg, Deutschland',
     longitude: 53.10000,
@@ -27,6 +28,7 @@ module.exports = {
   2: {
     id: 2,
     name: 'Max Mustermann',
+	email: 'Max.Mustermann@company.com',
     twitter: '@maxm',
     address: 'Hauptstrasse 115, Berlin, Deutschland',
     longitude: 49.80000,
@@ -49,6 +51,7 @@ module.exports = {
   3: {
     id: 3,
     name: 'Tim Miller',
+	email: 'Tim.Miller@company.com',
     twitter: '@tmiller',
     address: 'Merheimerstrasse 215, Solingen, Deutschland',
     longitude: 50.50000,
