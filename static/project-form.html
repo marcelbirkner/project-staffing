@@ -24,9 +24,9 @@
 					  <fieldset class="form-group">
 						<input type="submit" class="btn btn-primary pull-right" value="Save Project" />
 					  </fieldset>
-					</form>  
-					<ul class="list-group" ng-repeat="project in employeeCtrl.employee.projects track by $index" >
+					  <ul class="list-group" ng-repeat="project in employeeCtrl.employee.projects track by $index" >
 						<li class="list-group-item">
+							<span class="badge"><a ng-click="projectCtrl.deleteProject($index,employeeCtrl.employee)" class="glyphicon glyphicon-remove"></a></span>
 							<h4>
 								{{project.name}}
 								<span class="label label-primary">{{project.start | date:'yyyy-MM-dd'}}</span>
@@ -34,7 +34,7 @@
 							</h4>
 							{{project.description}}
 						</li>
-					</ul>
-					
+					  </ul>
+					</form>
 				  </div>
 				</div>

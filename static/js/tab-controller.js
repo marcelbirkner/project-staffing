@@ -7,6 +7,13 @@
   app.controller('ProjectController', ['$http', function($http) {
     var project = {};
 
+	this.deleteProject = function(id, employee) {
+		console.log('delete project ' + id);
+		console.log(employee.projects[id]);
+		employee.projects.splice(id,1);
+		$http.post('http://localhost:9000/api/mongo/employees/'+employee._id+'/projects',JSON.stringify(employee));
+	};
+	
     this.addProject = function(employee) {
 	  console.log(employee);
 	  if( employee.projects == null ) {
@@ -23,6 +30,14 @@
    */
   app.controller('SkillController', ['$http', function($http) {
     var skill = "";
+	
+	this.deleteSkill = function(id,employee) {
+		console.log('delete skill '+id);
+		console.log(employee.skills[id]);
+		employee.skills.splice(id,1);
+		$http.post('http://localhost:9000/api/mongo/employees/'+employee._id+'/skills',JSON.stringify(employee));
+	};
+	
     this.addSkill = function(employee) {
 	  for(var skill in employee.skills ) {
 	    if( skill === this.skill ) {

@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="employee">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project Staffing :: show employees</title>
+    <title>Project Staffing :: Search Employees</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -13,110 +13,24 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load('visualization', '1', {'packages': ['table', 'map', 'corechart']});
-      google.setOnLoadCallback(initialize);
- 
-      function initialize() {
-		// Create and populate the data table.
-     	var data = google.visualization.arrayToDataTable([
-			['Employee', 'Home City', 'Latitude', 'Longitude', 'Work City', 'Latitude', 'Longitude'],
-			['Employee 1', 'Bochum', 50.011382, 6.1022516, 'Essen', 52.2111382, 7.0822516],
-			['Employee 8', 'Bonn', 52.111382, 7.5022516, 'Düsseldorf', 51.2111382, 6.7822516],
-			['Employee 7', 'Siegburg', 51.211382, 6.2022516, 'Köln', 52.2111382, 5.0822516],
-			['Employee 6', 'Dortmund', 52.311382, 7.3022516, 'Düsseldorf', 51.2111382, 6.7822516],
-			['Employee 5', 'Köln', 51.411382, 6.4022516, 'Solingen', 52.2111382, 7.0822516],
-			['Employee 4', 'Duisburg', 52.511382, 7.5022516, 'Solingen', 51.2111382, 6.7822516],
-			['Employee 3', 'Hagen', 51.611382, 6.6022516, 'Köln', 50.2111382, 6.0822516],
-			['Employee 2', 'Köln', 52.711382, 7.7022516, 'Düsseldorf', 51.2111382, 7.7822516],
-		]);
-		  
-		var tableView = new google.visualization.DataView(data);
-		tableView.setColumns([0,1,4]);  
-
-		// Create and draw the visualization.
-		visualization = new google.visualization.Table(document.getElementById('table_div'));
-		visualization.draw(tableView, null);
-	  }
-	</script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/employee-directives.js"></script>
+	<script type="text/javascript" src="js/tab-controller.js"></script>
 	
   </head>
-  <body>
+  <body ng-controller="EmployeeController as employeeCtrl">
 
-    <!-- Top Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Company Project's</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="dashboard.html">Dashboard</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addEmployees.html">Add Employee</a></li>
-				<li class="active"><a href="listEmployees.html">List Employees</a></li>
-			  </ul>
-			</li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addCustomers.html">Add Customers</a></li>
-				<li><a href="listCustomers.html">List Customers</a></li>
-				<li class="divider"></li>
-				<li><a href="duesseldorf.html">Customer Example</a></li>
-			  </ul>
-			</li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </div>
-	<!-- Top Navigation End -->
-
-	<div class="container-fluid">
-      <div class="row">
-        <div class="main">
-			<h1>List all Employees</h1>			
-			<div class="col-md-6">
-			  <div id="table_div"></div>
-			</div>	
-			<div class="col-md-6">
-			  <div id="map_div" style="height: 600px;"></div>
-			</div>
-		</div>		
-  	  </div>
-	</div>
-	
-
+	<navigation></navigation>
+		
+	<employee-table></employee-table>
+		
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/docs.min.js"></script>
-
+	
   </body>
 </html>

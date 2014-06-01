@@ -11,10 +11,11 @@
 							<input type="submit" class="btn btn-primary pull-right" value="Save Skills"/>
 						  </div>
 						</div>
+						<div ng-repeat="skill in employeeCtrl.employee.skills track by $index" style="float:left">
+							<h4><span class="label label-success">{{skill}} <a ng-click="skillCtrl.deleteSkill($index,employeeCtrl.employee)" class="glyphicon glyphicon-remove"></a></span>&nbsp;
+							</h4>
+						</div>
 					</form>
-					<div ng-repeat="skill in employeeCtrl.employee.skills track by $index" style="float:left">
-						<h4><span class="label label-success">{{skill}}</span>&nbsp;</h4>
-					</div>
 					<br>
 			 	  </div>
 				</div>
