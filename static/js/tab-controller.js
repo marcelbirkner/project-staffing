@@ -5,16 +5,16 @@
    * Project Tab Controller
    */
   app.controller('ProjectController', ['$http', function($http) {
-    var customerproject = {};
+    var project = {};
 
     this.addProject = function(employee) {
 	  console.log(employee);
-	  if( employee.customerprojects == null ) {
-		employee.customerprojects = [];
+	  if( employee.projects == null ) {
+		employee.projects = [];
 	  }
-	  employee.customerprojects.push(customerproject);
-	  
-	  $http.post('http://localhost:9000/api/mongo/employees/'+employee._id+'/project',JSON.stringify(employee));
+	  employee.projects.push(this.project);
+	  $http.post('http://localhost:9000/api/mongo/employees/'+employee._id+'/projects',JSON.stringify(employee));
+	  this.project = {};
     };
   }]);
 

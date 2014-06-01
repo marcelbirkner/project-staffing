@@ -14,16 +14,16 @@ module.exports = {
 	skills: ['java','html','javascript','css'],
 	projects: [
 		{
-		  "name": "Smoketest Project 1",
-		  "description": "Develop a Java backend Java application",
-		  start: '2011-01-01',
-		  end: '2012-04-01'
+		  name: "Smoketest Project 1",
+		  description: "Develop a Java backend Java application",
+		  start: "2011-01-01",
+		  end: "2012-04-01"
 		},
 		{
-		  "name": "Smoketest Project 2",
-		  "description": "Develop a Java frontend PHP application",
-		  start: '2013-05-01',
-		  end: '2014-09-01'
+		  name: "Smoketest Project 2",
+		  description: "Develop a Java frontend PHP application",
+		  start: "2013-05-01",
+		  end: "2014-09-01"
 		},
     ]
   },
@@ -68,14 +68,14 @@ module.exports = {
 		{
 		  name: "Smoketest Project 3",
 		  description: "Develop a Java backend Java application",
-		  start: '2012-01-01',
-		  end: '2013-04-01'
+		  start: "2012-01-01",
+		  end: "2013-04-01"
 		},
 		{
 		  name: "Smoketest Project 4",
 		  description: "Develop a Java frontend PHP application",
-		  start: '2013-05-01',
-		  end: '2014-09-01'
+		  start: "2013-05-01",
+		  end: "2014-09-01"
 		},
     ]
   },
