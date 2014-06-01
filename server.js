@@ -81,12 +81,17 @@ app.get('/api', function(req, res) {
 		createEmployee: { 
 		  href: '/api/mongo/employees',
 		  method: 'POST',
-		  description: 'Create employee',
+		  description: 'Create new employee',
 		},
 	    employeeById: { 
 		  href: '/api/mongo/employees/:id',
 		  method: 'GET',
 		  description: 'Get employee by unique id',
+		},
+		deleteEmployeeById: { 
+		  href: '/api/mongo/employees/:id',
+		  method: 'DELETE',
+		  description: 'Delete employee with unique id',
 		},
 	    updateEmployeeById: { 
 		  href: '/api/mongo/employees/:id',
@@ -97,6 +102,21 @@ app.get('/api', function(req, res) {
 		  href: '/api/mongo/search/employee/',
 		  method: 'GET',
 		  description: 'Get array of employee that match the query string, i.e. ?email=Tim.Miller@company.com',
+		},		
+		addSkillsToEmployee: { 
+		  href: '/api/mongo/employees/:id/skills',
+		  method: 'POST',
+		  description: 'Add skills to employee, i.e. {skills: [ java, tdd, smoketest] }'
+		},
+		addProjectsToEmployee: { 
+		  href: '/api/mongo/employees/:id/projects',
+		  method: 'POST',
+		  description: 'Add projects to employee, i.e. {projects: [ {name: Project, description: Project Description, start: 2014-01-01, end: 2015-01-05} ] }'
+		},
+		searchEmployeesWithCertainSkills: { 
+		  href: '/api/mongo/search/employees/skills',
+		  method: 'GET',
+		  description: 'Get array of employee that have certain skills, i.e. ?skills=java&skills=tdd'
 		}		
 	  }
     },	

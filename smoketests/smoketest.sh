@@ -19,14 +19,14 @@ validate() {
 #######################################################
 # Basic Smoketests
 
-echo "Init MongoDB"
+echo "Get REST API Version"
 httpcode=`curl -s -o /dev/null -w "%{http_code}" -X GET $SERVER/api/version`
 validate $httpcode "200"
 
 echo "Init MongoDB"
 httpcode=`curl -s -o /dev/null -w "%{http_code}" -X GET $SERVER/api/mongo/init`
 validate $httpcode "200"
-
+sleep 2 # wait a moment for MongoDB to initialize the testdata
 
 #######################################################
 # Customer Smoketests
