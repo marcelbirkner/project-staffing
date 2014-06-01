@@ -1,0 +1,16 @@
+{
+	"projects": [
+	  {
+		"name": "Smoketest Project 1",
+		"description": "Develop a Java backend application",
+		"start": "2012-01-01",
+		"end": "2013-04-01"
+	  },
+	  {
+		"name": "Smoketest Project 2",
+		"description": "Develop a Java frontend application",
+		"start": "2013-05-01",
+		"end": "2014-08-01"
+	  }
+	]
+}

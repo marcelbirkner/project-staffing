@@ -89,7 +89,7 @@ httpcode=`curl -s -o /dev/null -w "%{http_code}" -X DELETE $SERVER/api/mongo/emp
 validate $httpcode "200"
 
 #########################################################
-# Update employee, create employee, search employee by name=smoketest to find id, update employee with new data
+# Update existing employee - create employee, search employee by name=smoketest to find id, update employee by id with new data
 
 echo "POST new employee"
 httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees -d @testEmployee.json 2>/dev/null`
@@ -104,6 +104,37 @@ echo "Update existing employee with id $id"
 httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id -d @testUpdateEmployee.json 2>/dev/null`
 validate $httpcode "200"
 
+#########################################################
+# Update existing employee with array of skills - search employee by name=smoketest to find id, add skills to employee
+
+echo "Search employee by name=smoketest"
+httpcode=`curl -i -o smoketest.tmp -w "%{http_code}" -X GET "$SERVER/api/mongo/search/employee?name=smoketest" 2>/dev/null`
+validate $httpcode "200"
+id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
+
+echo "Update skills of existing employee with id $id"
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/skills -d @testSkills.json 2>/dev/null`
+validate $httpcode "200"
+
+#########################################################
+# Update existing employee with array of projects - search employee by name=smoketest to find id, add projects array to employee
+
+echo "Search employee by name=smoketest"
+httpcode=`curl -i -o smoketest.tmp -w "%{http_code}" -X GET "$SERVER/api/mongo/search/employee?name=smoketest" 2>/dev/null`
+validate $httpcode "200"
+id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
+
+echo "Update projects of existing employee with id $id"
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/projects -d @testProjects.json 2>/dev/null`
+validate $httpcode "200"
+
+
+#########################################################
+# Search list of employees that have certain skills 
+
+echo "Search employees with skills: java & tdd"
+httpcode=`curl -i -o smoketest.tmp -w "%{http_code}" -X GET "$SERVER/api/mongo/search/employees/skills?skills=java&skills=tdd" 2>/dev/null`
+validate $httpcode "200"
 
 #########################################################
 

@@ -12,18 +12,20 @@ module.exports = {
     longitude: 53.10000,
     latitude: 8.20000,
 	skills: ['java','html','javascript','css'],
-	projects: {
-		1000: {
-		  id: 1000,
+	projects: [
+		{
+		  "name": "Smoketest Project 1",
+		  "description": "Develop a Java backend Java application",
 		  start: '2011-01-01',
 		  end: '2012-04-01'
 		},
-		1010: {
-		  id: 1010,
-		  start: '2012-05-01',
-		  end: '2014-07-01'
+		{
+		  "name": "Smoketest Project 2",
+		  "description": "Develop a Java frontend PHP application",
+		  start: '2013-05-01',
+		  end: '2014-09-01'
 		},
-    }
+    ]
   },
 
   2: {
@@ -36,18 +38,20 @@ module.exports = {
     longitude: 49.80000,
     latitude: 7.80000,
 	skills: ['java','html','jenkins','neo4j','big data','scrum'],
-    projects: {
-		1000: {
-		  id: 1000,
-		  start: '2011-01-01',
-		  end: '2012-04-01'
+    projects: [
+		{
+		  name: "Smoketest Project 3",
+		  description: "Develop a Java backend Java application",
+		  start: '2012-01-01',
+		  end: '2013-04-01'
 		},
-		1010: {
-		  id: 1010,
+		{
+		  name: "Smoketest Project 4",
+		  description: "Develop a Java frontend PHP application",
 		  start: '2013-05-01',
 		  end: '2014-09-01'
 		},
-    }
+    ]
   },
 
   3: {
@@ -60,17 +64,19 @@ module.exports = {
     longitude: 50.50000,
     latitude: 7.80000,
 	skills: ['java','tomcat','weld','seam','hadoop'],
-    projects: {
-		1000: {
-		  id: 1000,
+    projects: [
+		{
+		  name: "Smoketest Project 3",
+		  description: "Develop a Java backend Java application",
 		  start: '2012-01-01',
 		  end: '2013-04-01'
 		},
-		1020: {
-		  id: 1020,
+		{
+		  name: "Smoketest Project 4",
+		  description: "Develop a Java frontend PHP application",
 		  start: '2013-05-01',
-		  end: '2014-08-01'
+		  end: '2014-09-01'
 		},
-    }
+    ]
   },
 };
