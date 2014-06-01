@@ -60,11 +60,11 @@ Get all employees that are stored in MongoDB
 
 Find Employees by Twitter handle
 
-* [http://localhost:9000/api/mongo/search/employees?twitter=@maxm](http://localhost:9000/api/mongo/search/employees?twitter=@maxm)
+* [http://localhost:9000/api/mongo/search/employee?twitter=@maxm](http://localhost:9000/api/mongo/search/employee?twitter=@maxm)
 
 Find Employees by Name
 
-* [http://localhost:9000/api/mongo/search/employees?name=Max%20Mustermann](http://localhost:9000/api/mongo/search/employees?name=Max%20Mustermann)
+* [http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann](http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann)
 
 Find employee by Skill
 
