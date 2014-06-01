@@ -13,8 +13,10 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
-	<script src="js/angular.min.js"></script>
-	<script src="js/app.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/employee-directives.js"></script>
+	<script type="text/javascript" src="js/tab-controller.js"></script>
 	
   </head>
   <body ng-controller="EmployeeController as employeeCtrl">
@@ -30,16 +32,18 @@
 			</div>
 			<div class="col-md-6">
 				<section ng-init="tab=1">
-					<ul class="nav nav-pills">
-						<li><a href ng-click="tab = 1">Add Skills</a></li>
-						<li><a href ng-click="tab = 2">Add Projects</a></li>					
+					<ul class="nav nav-tabs">
+						<li ng-class="{ active:tab === 1 }"><a href ng-click="tab = 1">Add Skills</a></li>
+						<li ng-class="{ active:tab === 2 }"><a href ng-click="tab = 2">Add Projects</a></li>					
 					</ul>
 				</section>
 				<div class="panel" ng-show="tab === 1">
-					<skill-form></skill-form>
+					<h5 ng-hide="employeeCtrl.showTabs()">To add skills, select employee first.</h5>
+					<skill-form ng-show="employeeCtrl.showTabs()"></skill-form>
 				</div>
 				<div class="panel" ng-show="tab === 2">
-					<project-form></project-form>
+					<h5 ng-hide="employeeCtrl.showTabs()">To add projects, select employee first.</h5>
+					<project-form ng-show="employeeCtrl.showTabs()"></project-form>
 				</div>
 			</div>
 		  </div>

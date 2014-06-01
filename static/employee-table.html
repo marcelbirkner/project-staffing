@@ -21,7 +21,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="employee in employeeCtrl.employees">
+						<tr ng-repeat="employee in employeeCtrl.employees track by $index ">
 							<td>{{employee.name}}</td>
 							<td>{{employee.email}}</td>
 							<td>{{employee.office}}</td>
@@ -29,8 +29,8 @@
 							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
 							<td>{{employee.twitter}}</td>
 							<td>{{employee.xing}}</td>
-							<td><button ng-click="employeeCtrl.deleteEmployee(employee.email)">Delete</button></td>
-							<td><button ng-click="employeeCtrl.editEmployee(employee.email)">Edit</button></td>
+							<td><button ng-click="employeeCtrl.deleteEmployee(employee._id)">Delete</button></td>
+							<td><button ng-click="employeeCtrl.editEmployee(employee._id)">Edit</button></td>
 						</tr>
 					</tbody>
 				</table>

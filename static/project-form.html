@@ -1,0 +1,33 @@
+				<h4>New Project</h4>
+				<div class="panel">
+					<form name="projectForm" ng-controller="ProjectController as projectCtrl" ng-submit="projectCtrl.addProject(employeeCtrl.employee)">
+					  <fieldset class="form-group">
+						<input type="text" ng-model="projectCtrl.customerproject.name" class="form-control" placeholder="Project name" ></input>
+					  </fieldset>					  
+					  <fieldset class="form-group">
+						<textarea ng-model="projectCtrl.customerproject.description" class="form-control" placeholder="Project description"></textarea>
+					  </fieldset>
+					  
+					  <!-- Text input-->
+					  <div class="form-group">
+					    <label class="col-sm-1 control-label" for="textinput">Start</label>
+						<div class="col-sm-3">
+							<input type="date" ng-model="projectCtrl.customerproject.start" class="form-control" title="Start"></input>
+						</div>
+						<label class="col-sm-1 control-label" for="textinput">End</label>
+						<div class="col-sm-3">
+							<input type="date" ng-model="projectCtrl.customerproject.end" class="form-control" title="End"></input>
+						</div>
+					  </div>					  
+					  <fieldset class="form-group">
+						<input type="submit" class="btn btn-primary pull-right" value="Save Project" />
+					  </fieldset>
+					</form>
+					<div ng-repeat="project in employeeCtrl.employee.customerprojects track by $index" style="float:left">
+				      <blockquote>
+						  <strong>{{project.name}}</strong>
+						  {{project.description}}
+						  {{project.start}} - {{project.end}}
+						</blockquote>
+					</div>
+				</div>					

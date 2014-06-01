@@ -259,13 +259,16 @@ app.post('/api/mongo/employees/:id', function(req, res){
 	var id = req.params.id;
 	var employee = req.body;
 	employee.createdOn = Date.now();
-	employee._id = id;
+	delete employee._id;
 	console.log(employee);
 	db.employees.findAndModify({
 		query: { _id: mongojs.ObjectId(id) },
 		update: { $set: employee },
 		new: true
 	}, function(err, doc, lastErrorObject) {
+		console.log(err);
+		console.log(doc);
+		console.log(lastErrorObject);
 	});
 	return res.end();
 });
