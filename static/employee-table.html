@@ -1,14 +1,26 @@
 	<!-- List of all employees -->
 	<div class="container">
+	  	<div class="row">
+	  	  <div class="col-lg-2"></div>
+		  <div class="col-lg-8">
+		    <div class="input-group">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button" disabled="true">Search!</button>
+		      </span>
+		      <input type="text" class="form-control" ng-model="searchText">
+		    </div>
+		  </div>
+		  <div class="col-lg-2"></div>
+		</div><br>
 		<div class="row">
 		  <div class="col-md-12">
-			<div class="panel panel-primary" >
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Employees</h3>
 				</div>
 				<table class="table">
 					<thead>
-						<tr class="filters">
+						<tr>
 							<th>Full Name</th>
 							<th>Email</th>
 							<th>Office</th>
@@ -21,7 +33,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="employee in employeeCtrl.employees track by $index ">
+						<tr ng-repeat="employee in employeeCtrl.employees | filter:searchText track by $index ">
 							<td>{{employee.name}}</td>
 							<td>{{employee.email}}</td>
 							<td>{{employee.office}}</td>

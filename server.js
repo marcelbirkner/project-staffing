@@ -54,8 +54,8 @@ app.get('/api', function(req, res) {
 	  }
 	},
 	customers: {
-      links: { 
-	    allCustomers: { 
+      links: {
+	    allCustomers: {
 		  href: '/api/mongo/customers',
 		  method: 'GET',
 		  description: 'Get an array of all customers',
@@ -63,8 +63,8 @@ app.get('/api', function(req, res) {
 	  }
 	},
 	projects: {
-      links: { 
-	    allProjects: { 
+      links: {
+	    allProjects: {
 		  href: '/api/mongo/projects',
 		  method: 'GET',
 		  description: 'Get an array of all projects',
@@ -72,54 +72,54 @@ app.get('/api', function(req, res) {
 	  }
 	},
     employees: {
-      links: { 
-	    allEmployees: { 
+      links: {
+	    allEmployees: {
 		  href: '/api/mongo/employees',
 		  method: 'GET',
 		  description: 'Get an array of all employees',
-		}, 
-		createEmployee: { 
+		},
+		createEmployee: {
 		  href: '/api/mongo/employees',
 		  method: 'POST',
 		  description: 'Create new employee',
 		},
-	    employeeById: { 
+	    employeeById: {
 		  href: '/api/mongo/employees/:id',
 		  method: 'GET',
 		  description: 'Get employee by unique id',
 		},
-		deleteEmployeeById: { 
+		deleteEmployeeById: {
 		  href: '/api/mongo/employees/:id',
 		  method: 'DELETE',
 		  description: 'Delete employee with unique id',
 		},
-	    updateEmployeeById: { 
+	    updateEmployeeById: {
 		  href: '/api/mongo/employees/:id',
 		  method: 'POST',
 		  description: 'Update employee specified by unique id',
 		},
-		searchEmployeesByQueryString: { 
+		searchEmployeesByQueryString: {
 		  href: '/api/mongo/search/employee/',
 		  method: 'GET',
 		  description: 'Get array of employee that match the query string, i.e. ?email=Tim.Miller@company.com',
-		},		
-		addSkillsToEmployee: { 
+		},
+		addSkillsToEmployee: {
 		  href: '/api/mongo/employees/:id/skills',
 		  method: 'POST',
 		  description: 'Add skills to employee, i.e. {skills: [ java, tdd, smoketest] }'
 		},
-		addProjectsToEmployee: { 
+		addProjectsToEmployee: {
 		  href: '/api/mongo/employees/:id/projects',
 		  method: 'POST',
 		  description: 'Add projects to employee, i.e. {projects: [ {name: Project, description: Project Description, start: 2014-01-01, end: 2015-01-05} ] }'
 		},
-		searchEmployeesWithCertainSkills: { 
+		searchEmployeesWithCertainSkills: {
 		  href: '/api/mongo/search/employees/skills',
 		  method: 'GET',
 		  description: 'Get array of employee that have certain skills, i.e. ?skills=java&skills=tdd'
-		}		
+		}
 	  }
-    },	
+    },
   });
 });
 
@@ -167,6 +167,26 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Projects saved");
 		});
 	}
+
+	if( req.query.all ) {
+		console.log('Generate 200 test users for MongoDB');
+		for (var i = 0; i < 200; i++) {
+			var item = {};
+			item.name = 'Test-'+i;
+			item.email = 'test-'+i+'@company.com';
+			item.twitter = '@test-'+i;
+			item.address = 'Test address-'+i;
+			item.office = 'Solingen';
+
+			db.employees.save(item, function(err, saved) {
+				if( err || !saved )
+					console.log("Employee not saved");
+				else
+					console.log("Employee saved");
+			});
+		}
+	}
+
 	return res.json(200, {'message':	'MongoDB test data initialized'});
 });
 
@@ -231,15 +251,15 @@ app.post('/api/mongo/employees', function(req, res){
 		console.log("Employee saved");
 		return res.end();
 	  }
-	});	
+	});
 });
 app.delete('/api/mongo/employees/:id', function(req, res){
 	console.log('DELETE - employee by id');
 	console.log(req.params.id);
 	var id = req.params.id;
-	db.employees.remove({_id: mongojs.ObjectId(id)}, function(err, lastErrorObject) { 
+	db.employees.remove({_id: mongojs.ObjectId(id)}, function(err, lastErrorObject) {
 		if( err ) console.log(err);
-	});		
+	});
 	return res.end();
 });
 app.get('/api/mongo/search/employee', function(req, res){
