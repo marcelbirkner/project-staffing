@@ -1,11 +1,11 @@
-<form name="employeeForm" class="form-horizontal" role="form" 
+<form name="employeeForm" class="form-horizontal" role="form"
 					  ng-submit="employeeForm.$valid && employeeCtrl.addEmployee()" novalidate>
-					  
+
 					<fieldset>
 
 					  <!-- Form Name -->
 					  <legend>Add new employee</legend>
-					  
+
 					  <!-- Text input-->
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Name</label>
@@ -13,7 +13,7 @@
 						  <input type="text" ng-model="employeeCtrl.employee.name" class="form-control" required>
 						</div>
 					  </div>
-					  
+
 					  <!-- Text input-->
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Email</label>
@@ -21,7 +21,7 @@
 						  <input type="email" ng-model="employeeCtrl.employee.email" class="form-control" value="{{employeeCtrl.employee.name}}" required>
 						</div>
 					  </div>
-					  
+
 					  <!-- Text input-->
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Office</label>
@@ -37,13 +37,13 @@
 							<option>Karlsruhe</option>
 						  </select>
 						</div>
-					  </div>					  					  
-					  
+					  </div>
+
 					  <!-- Text input-->
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Address</label>
 						<div class="col-sm-10">
-						  <input type="text" ng-model="employeeCtrl.employee.address" class="form-control" required>
+						  <input type="text" ng-model="employeeCtrl.employee.address" class="form-control" readonly required>
 						</div>
 					  </div>
 
@@ -54,7 +54,7 @@
 						  <input type="text" ng-model="employeeCtrl.employee.resume" class="form-control">
 						</div>
 					  </div>
-					  
+
 					  <!-- Text input-->
 					  <div class="form-group">
 						<label class="col-sm-2 control-label" for="textinput">Social Media</label>
@@ -71,7 +71,7 @@
 							</div>
 						</div>
 					  </div>
-					  
+
 					  <!-- Action Buttons -->
 					  <div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
