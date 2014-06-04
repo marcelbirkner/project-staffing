@@ -1,26 +1,26 @@
 				<h4>New Project</h4>
 				<div class="panel panel-default">
 				  <div class="panel-body" style="overflow-y:scroll; height:350px;">
-					<form name="projectForm" ng-controller="ProjectController as projectCtrl" 
+					<form name="projectForm" ng-controller="ProjectController as projectCtrl"
 											 ng-submit="projectForm.$valid && projectCtrl.addProject(employeeCtrl.employee)" novalidate>
 					  <fieldset class="form-group">
 						<input type="text" ng-model="projectCtrl.project.name" class="form-control" placeholder="Project name" required></input>
-					  </fieldset>					  
+					  </fieldset>
 					  <fieldset class="form-group">
 						<textarea ng-model="projectCtrl.project.description" class="form-control" placeholder="Project description" required></textarea>
 					  </fieldset>
-					  
+
 					  <!-- Text input-->
 					  <div class="form-group">
 					    <label class="col-sm-1 control-label" for="textinput">Start</label>
 						<div class="col-sm-3">
-							<input type="date" ng-model="projectCtrl.project.start" class="form-control" title="Start" required></input>
+							<input type="date" ng-model="projectCtrl.project.start" class="form-control" placeholder="yyyy-MM-dd" title="Start" required></input>
 						</div>
 						<label class="col-sm-1 control-label" for="textinput">End</label>
 						<div class="col-sm-3">
-							<input type="date" ng-model="projectCtrl.project.end" class="form-control" title="End" required></input>
+							<input type="date" ng-model="projectCtrl.project.end" class="form-control" placeholder="yyyy-MM-dd" title="End" required></input>
 						</div>
-					  </div>					  
+					  </div>
 					  <fieldset class="form-group">
 						<input type="submit" class="btn btn-primary pull-right" value="Save Project" />
 					  </fieldset>

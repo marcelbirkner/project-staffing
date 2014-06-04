@@ -1,0 +1,13 @@
+<h4>New Address</h4>
+<div class="panel panel-default" ng-controller="AddressController">
+	<div class="panel-body">
+		<form id="form" role="form" name="addressForm">
+			<div class="form-group move-down">
+				<label for="Autocomplete2">Search Address:</label>
+				<input type="text" id="Autocomplete2" ng-model="employeeCtrl.employee.address""
+					class="form-control" ng-autocomplete options="options" details="details" /> <br>
+				{{details}}
+			</div>
+		</form>
+	</div>
+</div>
