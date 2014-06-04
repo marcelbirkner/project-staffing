@@ -1,65 +1,36 @@
 (function() {
   var app = angular.module('employee', ['employee-directives', 'tab-controller', 'ngAutocomplete']);
 
-  app.controller("AddressController",function ($scope) {
+  app.controller('AddressController', function($scope){
 
     $scope.result = '';
+	$scope.details = {};
     $scope.options = {};
 
     $scope.form = {
       type: 'geocode',
-      bounds: {SWLat: 49, SWLng: -97, NELat: 50, NELng: -96},
-      country: 'ca',
-      typesEnabled: false,
-      boundsEnabled: false,
-      componentEnabled: false,
       watchEnter: true
     }
-
-    //watch form for changes
-    $scope.watchForm = function () {
-      return $scope.form
-    };
-    $scope.$watch($scope.watchForm, function () {
-      $scope.checkForm()
-    }, true);
-
-
-    //set options from form selections
-    $scope.checkForm = function() {
-
-      $scope.options = {};
-
-      $scope.options.watchEnter = $scope.form.watchEnter
-
-      if ($scope.form.typesEnabled) {
-        $scope.options.types = $scope.form.type
-      }
-      if ($scope.form.boundsEnabled) {
-
-        var SW = new google.maps.LatLng($scope.form.bounds.SWLat, $scope.form.bounds.SWLng)
-        var NE = new google.maps.LatLng($scope.form.bounds.NELat, $scope.form.bounds.NELng)
-        var bounds = new google.maps.LatLngBounds(SW, NE);
-        $scope.options.bounds = bounds
-
-      }
-      if ($scope.form.componentEnabled) {
-        $scope.options.country = $scope.form.country
-      }
-    };
+	
+	this.saveAddress = function(employee) {
+		console.log('update existing employee');
+		console.log($scope.details);
+		employee.homeaddress = $scope.details.geometry.location;
+		$http.post('http://localhost:9000/api/mongo/employees/'+employee._id, JSON.stringify(employee));
+	};
 
   });
 
   /**
    * Employee Controller
    */
-  app.controller('EmployeeController', ['$http', function($http){
+  app.controller('EmployeeController', ['$http', function($http, $scope){
     var company = this;
 
 	this.tab = 1;
 	this.employees = company.employees;
 	this.employee = {};
-
+	
 	company.employees = [];
 	$http.get('http://localhost:9000/api/mongo/employees').success(function(data) {
 		console.log('Get all employees from backend');

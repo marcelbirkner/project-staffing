@@ -1,12 +1,15 @@
 <h4>New Address</h4>
-<div class="panel panel-default" ng-controller="AddressController">
+<div class="panel panel-default" ng-controller="AddressController as addressCtrl" ng-submit="addressCtrl.saveAddress(employeeCtrl.employee)">
 	<div class="panel-body">
 		<form id="form" role="form" name="addressForm">
-			<div class="form-group move-down">
-				<label>Search Address:</label>
-				<input type="text" id="searchField" ng-model="employeeCtrl.employee.address"
+			<div class="row">
+				<div class="col-xs-8">
+					<input type="text" id="searchField" ng-model="employeeCtrl.employee.address"
 					class="form-control" ng-autocomplete options="options" details="details" />
-				{{details}}
+				</div>
+				<div class="col-xs-2">
+					<input type="submit" class="btn btn-primary pull-right" value="Save Address"/>
+				</div>
 			</div>
 		</form>
 	</div>
