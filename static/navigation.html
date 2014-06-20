@@ -1,42 +1,46 @@
-    <!-- Top Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Company Projects</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="dashboard.html">Dashboard</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addEmployees.html">Add Employee</a></li>
-				<li><a href="listEmployees.html">List Employees</a></li>
-			  </ul>
-			</li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addCustomers.html">Add Customers</a></li>
-				<li><a href="listCustomers.html">List Customers</a></li>
-				<li class="divider"></li>
-				<li><a href="duesseldorf.html">Customer Example</a></li>
-			  </ul>
-			</li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
+<div
+  ng-controller="NavigationController as naviCtrl"
+  class="navbar navbar-inverse navbar-fixed-top"
+  role="navigation"
+>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/" ng-click="set('index')">Company Projects</a>
     </div>
-	<!-- Top Navigation End -->
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-left">
+        <li ng-class="active === 'dashboard' ? 'active' : ''">
+          <a href="#/dashboard" ng-click="set('dashboard')">Dashboard</a>
+        </li>
+        <li ng-class="{active:active === 'employees', dropdown:true}">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#/add-employee" ng-click="set('employees')">Add Employee</a></li>
+            <li><a href="#/list-employees" ng-click="set('employees')">List Employees</a></li>
+          </ul>
+        </li>
+        <li ng-class="{active:active === 'customers', dropdown:true}">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#/add-customer" ng-click="set('customers')">Add Customers</a></li>
+            <li><a href="#/list-customers" ng-click="set('customers')">List Customers</a></li>
+            <li class="divider"></li>
+            <li><a href="#/duesseldorf" ng-click="set('customers')">Customer Example</a></li>
+          </ul>
+        </li>
+        <li ng-class="{active:active === 'settings'}" ng-click="set('settings')"><a href="#">Settings</a></li>
+        <li ng-class="{active:active === 'profile'}" ng-click="set('profile')"><a href="#">Profile</a></li>
+        <li ng-class="{active:active === 'help'}" ng-click="set('help')"><a href="#/help">Help</a></li>
+      </ul>
+      <form class="navbar-form navbar-right">
+        <input type="text" class="form-control" placeholder="Search...">
+      </form>
+    </div>
+  </div>
+</div>
