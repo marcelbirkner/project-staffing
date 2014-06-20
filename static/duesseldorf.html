@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Project Staffing :: customer XY</title>
-	
+
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -21,16 +21,16 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
 	<style>
       html, body, #map-canvas {
         height: 100%;
         margin: 0px;
         padding: 0px;
-	    padding-top: 25px;		
+	    padding-top: 25px;
       }
     </style>
-    	
+
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
 
@@ -64,7 +64,7 @@
 			  center: customermap[city].center,
 			  radius: 50000
 			};
-			
+
 			// Add the circle for this city to the map.
 			customerCircle = new google.maps.Circle(circleOptions);
 			var marker = new google.maps.Marker({
@@ -72,27 +72,27 @@
 				map: map,
 				title: customermap[city].name,
 			});
-		
+
 			var infowindow = new google.maps.InfoWindow({
 			  content: '<b>Company 1</b><ul><li>Project: Hurrican</li><li>Java</li><li>HTML, CSS, JavaScript</li></ul>'
 			});
-		  
+
 			google.maps.event.addListener(marker, 'click', function() {
 			  infowindow.open(map,marker);
-			});			
+			});
 		  }
-		  
+
 		  var employeemap = {};
 		  employeemap['developerA'] = {
 		    center: new google.maps.LatLng(50.9111382,7.2422516),
 		    name: 'Developer A'
 		  };
-		  
+
 		  employeemap['developerB'] = {
 		    center: new google.maps.LatLng(51.5111382,7.4422516),
 		    name: 'DeveloperB'
 		  };
-		  
+
 		  employeemap['developerC'] = {
 		    center: new google.maps.LatLng(51.5551382,6.5552516),
 		    name: 'developerC'
@@ -115,11 +115,11 @@
 		  });
 		  var info1 = new google.maps.InfoWindow({
 			content: '<b>Developer A</b><ul><li>Continuous Delivery<li>Java</li><li>HTML, CSS, JavaScript</li></ul>'
-		  });		  
+		  });
 		  google.maps.event.addListener(m1, 'click', function() {
 			info1.open(map,m1);
-		  });	
-			  
+		  });
+
 		  var m2 = new google.maps.Marker({
 			position: employeemap['developerB'].center,
 			map: map,
@@ -128,24 +128,24 @@
 		  });
 		  var info2 = new google.maps.InfoWindow({
 			content: '<b>Developer B</b><ul><li>Enterprise JavaScript<li>Java</li><li>HTML, CSS, JavaScript</li></ul>'
-		  });		  
+		  });
 		  google.maps.event.addListener(m2, 'click', function() {
 		    info2.open(map,m2);
 		  });
-			 		
+
 		  var m3 = new google.maps.Marker({
 			position: employeemap['developerC'].center,
 			map: map,
 			icon: image,
 			title: employeemap['developerC'].name,
-		  });		
+		  });
 		  var info3 = new google.maps.InfoWindow({
 			content: '<b>Developer C</b><ul><li>Robot Framework<li>Java</li><li>HTML, CSS, JavaScript</li></ul>'
-		  });		  
+		  });
 		  google.maps.event.addListener(m3, 'click', function() {
 			info3.open(map,m3);
 		  });
-	  
+
 		}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
@@ -153,7 +153,7 @@
     </script>
   </head>
   <body>
-  
+
     <!-- Top Navigation -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -164,7 +164,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">Company Project's</a>
+          <a class="navbar-brand" href="index.html">Company Projects</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
@@ -199,13 +199,13 @@
 
 
 	<div id="map-canvas"></div>
-	
+
 	<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/docs.min.js"></script>
-  
+
   </body>
 </html>
