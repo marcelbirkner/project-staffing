@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="employee">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Project Staffing :: customer list</title>
+    <title>Project Staffing :: Manage Employees</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -13,378 +13,54 @@
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/employee-directives.js"></script>
+	<script type="text/javascript" src="js/tab-controller.js"></script>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-		
-	<style>
-      .controls {
-        margin-top: 16px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script type="text/javascript" src="js/ngAutocomplete.js"></script>
 
-      #pac-input {
-        background-color: #fff;
-        padding: 0 11px 0 13px;
-        width: 400px;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        text-overflow: ellipsis;
-      }
-
-      #pac-input:focus {
-        border-color: #4d90fe;
-        margin-left: -1px;
-        padding-left: 14px;  /* Regular padding-left + 1. */
-        width: 401px;
-      }
-
-      .pac-container {
-        font-family: Roboto;
-      }
-
-      #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-      }
-
-      #type-selector label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-      }
-	}
-
-	
-	// table styles 
-	.filterable {
-		margin-top: 15px;
-	}
-	.filterable .panel-heading .pull-right {
-		margin-top: -20px;
-	}
-	.filterable .filters input[disabled] {
-		background-color: transparent;
-		border: none;
-		cursor: auto;
-		box-shadow: none;
-		padding: 0;
-		height: auto;
-	}
-	.filterable .filters input[disabled]::-webkit-input-placeholder {
-		color: #333;
-	}
-	.filterable .filters input[disabled]::-moz-placeholder {
-		color: #333;
-	}
-	.filterable .filters input[disabled]:-ms-input-placeholder {
-		color: #333;
-	}
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-	<script>
-function initialize() {
-
-  var mapOptions = {
-    center: new google.maps.LatLng(50.8688, 9.2195),
-    zoom: 6
-  };
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
-
-  var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-
-  var types = document.getElementById('type-selector');
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-
-  var infowindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
-
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      return;
-    }
-
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-    }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-    infowindow.open(map, marker);
-  });
-
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
-  function setupClickListener(id, types) {
-    var radioButton = document.getElementById(id);
-    google.maps.event.addDomListener(radioButton, 'click', function() {
-      autocomplete.setTypes(types);
-    });
-  }
-
-  setupClickListener('changetype-all', []);
-  setupClickListener('changetype-establishment', ['establishment']);
-  setupClickListener('changetype-geocode', ['geocode']);  
-  }
-
-google.maps.event.addDomListener(window, 'load', initialize);
-	
-	
-    </script>
   </head>
-  <body>
+  <body ng-controller="EmployeeController as employeeCtrl">
 
-    <!-- Top Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Company Project's</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="dashboard.html">Dashboard</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li class="active"><a href="addEmployees.html">Add Employee</a></li>
-				<li><a href="listEmployees.html">List Employees</a></li>
-			  </ul>
-			</li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addCustomers.html">Add Customers</a></li>
-				<li><a href="listCustomers.html">List Customers</a></li>
-				<li class="divider"></li>
-				<li><a href="duesseldorf.html">Customer Example</a></li>
-			  </ul>
-			</li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </div>
-	<!-- Top Navigation End -->
-	
+	<navigation></navigation>
+
 	<div class="container-fluid">
       <div class="row">
         <div class="main">
 		  <div class="row">
 			<div class="col-md-6">
-				<form class="form-horizontal" role="form">
-					<fieldset>
-
-					  <!-- Form Name -->
-					  <legend>Add new employee</legend>
-
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">First name</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="First name" class="form-control">
-						</div>
-					  </div>
-
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Last name</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="Last name" class="form-control">
-						</div>
-					  </div>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Address</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="Enter address on map" class="form-control">
-						</div>
-					  </div>
-
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Location</label>
-						<div class="col-sm-10">
-						  <select class="form-control">
-							<option>Berlin</option>
-							<option>Düsseldorf</option>
-							<option>Hamburg</option>
-							<option>Solingen</option>
-							<option>Frankfurt</option>
-							<option>München</option>
-							<option>Stuttgart</option>
-							<option>Karlsruhe</option>
-						  </select>
-						</div>
-					  </div>					  
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Resume</label>
-						<div class="col-sm-10">
-						  <input type="text" placeholder="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05" class="form-control">
-						</div>
-					  </div>
-					  
-					  <!-- Text input-->
-					  <div class="form-group">
-						<label class="col-sm-2 control-label" for="textinput">Social Media</label>
-						<div class="col-sm-5">
-							<div class="input-group">
-							  <span class="input-group-addon">@</span>
-							  <input type="text" class="form-control" placeholder="Twitter account">
-							</div>
-						</div>
-						<div class="col-sm-5">
-							<div class="input-group">
-							  <span class="input-group-addon">Xing</span>
-							  <input type="text" class="form-control" placeholder="Xing account">
-							</div>
-						</div>
-					  </div>
-					  
-					  <!-- Action Buttons -->
-					  <div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-						  <div class="pull-right">
-							<button type="submit" class="btn btn-default">Cancel</button>
-							<button type="submit" class="btn btn-primary">Save</button>
-						  </div>
-						</div>
-					  </div>
-
-					</fieldset>
-				</form>
+				<employee-form></employee-form>
 			</div>
 			<div class="col-md-6">
-			  <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-				<div id="type-selector" class="controls">
-				  <input type="radio" name="type" id="changetype-all" checked="checked">
-				  <label for="changetype-all">All</label>
+				<section ng-init="tab=1">
+					<ul class="nav nav-tabs">
+						<li ng-class="{ active:tab === 1 }"><a href ng-click="tab = 1">Add Skills</a></li>
+						<li ng-class="{ active:tab === 2 }"><a href ng-click="tab = 2">Add Projects</a></li>
+						<li ng-class="{ active:tab === 3 }"><a href ng-click="tab = 3">Add Home Address</a></li>
+					</ul>
+				</section>
+				<div class="panel" ng-show="tab === 1">
+					<h5 ng-hide="employeeCtrl.showTabs()">To add skills, select employee first.</h5>
+					<skill-form ng-show="employeeCtrl.showTabs()"></skill-form>
 				</div>
-				<div id="map-canvas" style="height: 380px;"></div>
+				<div class="panel" ng-show="tab === 2">
+					<h5 ng-hide="employeeCtrl.showTabs()">To add projects, select employee first.</h5>
+					<project-form ng-show="employeeCtrl.showTabs()"></project-form>
+				</div>
+				<div class="panel" ng-show="tab === 3">
+					<h5 ng-hide="employeeCtrl.showTabs()">To add a home address, select employee first.</h5>
+					<homeaddress-form ng-show="employeeCtrl.showTabs()"></homeaddress-form>
+				</div>
 			</div>
 		  </div>
         </div>
       </div>
     </div>
-				
-	<!-- List of all employees -->
-	<div class="container">
-		<div class="row">
-		  <div class="col-md-12">
-			<div class="panel panel-primary filterable">
-				<div class="panel-heading">
-					<h3 class="panel-title">Employees</h3>
-					<div class="pull-right">
-						<button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-					</div>
-				</div>
-				<table class="table">
-					<thead>
-						<tr class="filters">
-							<th><input type="text" class="form-control" placeholder="First Name" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Address" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Location" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Resume" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Twitter" disabled></th>
-							<th><input type="text" class="form-control" placeholder="Xing" disabled></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Mike</td>
-							<td>Smith</td>
-							<td>Hauptstrasse 10, Solingen</td>
-							<td>Solingen</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@msmith</td>
-							<td>mike.smith@xing.com</td>
-						</tr>
-						<tr>
-							<td>Tobi</td>
-							<td>Miller</td>
-							<td>Buchenhecke 22, Köln</td>
-							<td>Düsseldorf</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@tmiller</td>
-							<td>tmiller@xing.com</td>
-						</tr>
-						<tr>
-							<td>Jerry</td>
-							<td>Jordan</td>
-							<td>Berliner Platz 10, Berln</td>
-							<td>Berlin</td>
-							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
-							<td>@jordan</td>
-							<td>jordan@xing.com</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		  </div>
-		</div>
-	</div>
 
-		
+	<employee-table></employee-table>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

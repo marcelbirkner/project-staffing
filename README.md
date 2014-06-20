@@ -24,9 +24,7 @@ After you started the server, you can access the webapp under: <a href="http://l
 
 # REST API
 
-* All Projects: [http://localhost:9000/api/project](http://localhost:9000/api/project)
-* All Customers: [http://localhost:9000/api/customer](http://localhost:9000/api/customer)
-* All Employees: [http://localhost:9000/api/employee](http://localhost:9000/api/employee)
+* Root Resource: [http://localhost:9000/api/](http://localhost:9000/api/)
 
 # Examples with MongoDB
 
@@ -70,7 +68,7 @@ Find Employees by Name
 
 Find employee by Skill
 
-* [http://localhost:9000/api/mongo/search/employee/skill?skills=neo4j](http://localhost:9000/api/mongo/search/employee/skill?skills=neo4j)
+* [http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j](http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j)
 
 # License (MIT)
 

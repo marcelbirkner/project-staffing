@@ -79,7 +79,6 @@ body {
 /*
  * Placeholder dashboard ideas
  */
-
 .placeholders {
   margin-bottom: 30px;
   text-align: center;
@@ -94,3 +93,14 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+/*
+ * Form Validation
+ */
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+.ng-valid.ng-dirty {
+  border-color: green;
+}
+
