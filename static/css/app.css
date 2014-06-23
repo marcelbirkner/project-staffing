@@ -1,0 +1,18 @@
+.jumbotron {
+  padding: 30px;
+  margin-bottom: 30px;
+  background-image: url(/img/map.png);
+}
+
+.panel-default {
+  border-color: #ddd;
+  opacity: 0.9;
+}
+
+html, body, #main, #map-canvas {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 25px;
+}
+

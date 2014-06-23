@@ -7,119 +7,34 @@
 
     <title>Project Staffing</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	
-	<style>
-		.jumbotron {
-			padding: 30px;
-			margin-bottom: 30px;
-			background-image: url(img/map.png);
-		}
-		
-		.panel-default {
-			border-color: #ddd;
-			opacity: 0.9;
-		}
-	</style>
-	
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages': ['table', 'map', 'corechart']});
+    </script>
   </head>
-  <body>
-  
-    <!-- Top Navigation -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Company Project's</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="dashboard.html">Dashboard</a></li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addEmployees.html">Add Employee</a></li>
-				<li><a href="listEmployees.html">List Employees</a></li>
-			  </ul>
-			</li>
-			<li class="dropdown">
-			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
-			  <ul class="dropdown-menu">
-				<li><a href="addCustomers.html">Add Customers</a></li>
-				<li><a href="listCustomers.html">List Customers</a></li>
-				<li class="divider"></li>
-				<li><a href="duesseldorf.html">Customer Example</a></li>
-			  </ul>
-			</li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="help.html">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </div>
-	<!-- Top Navigation End -->
+  <body ng-app="project-staffing">
 
-   <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-	  <div class="panel panel-default">
-	    <div class="panel-body">
-		  <h2>Transparency, Satisfaction, Optimization</h2>
-			<p>The primary intend of this project is to give every employee an overview of existing projects, customers and fellow colleagues. There are several dashboards that allow simple project
-			staffing with employees that live close to the customer. Employees on the other hand can check out existing customers in their neighbourhood, to be part of the next project team.
-			It is also useful to be able to find colleagues that have been to the customer before.</p>
-			<p><a class="btn btn-primary btn-lg" role="button" href="dashboard.html">Dashboard Overview &raquo;</a></p>
-		  </div>
-		</div>      
-      </div>
-    </div>
+    <navigation></navigation>
+    <div id="main" ng-view></div>
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Transparency</h2>
-          <p>Everybody can see current projects, customers and the location of fellow colleagues. Therefore it is easier to have get in contact with the right person when it comes to new projects.</p>
-        </div>
-        <div class="col-md-4">
-          <h2>Satisfaction</h2>
-          <p>Every time managers need to staff new projects they can check who will be available at the project start and decide which possible candidate lives closest to the customer. The dashboards allow employees to proactively check out projects in their area or technologies used in projects that they would like to use as well.</p>
-       </div>
-        <div class="col-md-4">
-          <h2>Optimization</h2>
-          <p>By choosing employees for projects that live close to the customers, travel expanses will be reduced and travel times of consultants will be minimized as well.</p>
-        </div>
-      </div>
-	</div>	
-	
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/docs.min.js"></script>
+    <!--
+    Using jquery and angular from static/js/lib folder for now to enable developing when offline. Should switch to CDN
+    later. Also, use non-minified Angular for better error messages/stack traces.
+    -->
+    <script src="js/lib/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="js/lib/bootstrap.js" type="text/javascript"></script>
+    <script src="js/lib/docs.min.js" type="text/javascript"></script>
+
+		<script src="js/lib/angular.js" type="text/javascript"></script>
+		<script src="js/lib/angular-route.js" type="text/javascript"></script>
+		<script src="js/lib/ngAutocomplete.js" type="text/javascript"></script>
+	  <script src="js/app.js" type="text/javascript"></script>
 
   </body>
 </html>

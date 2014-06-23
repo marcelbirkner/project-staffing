@@ -1,0 +1,34 @@
+﻿<div class="container-fluid">
+  <div class="row">
+    <div class="main">
+  <div class="row">
+  <div class="col-md-6">
+    <employee-form></employee-form>
+  </div>
+  <div class="col-md-6">
+    <section ng-init="tab=1">
+      <ul class="nav nav-tabs">
+        <li ng-class="{ active:tab === 1 }"><a href ng-click="tab = 1">Add Skills</a></li>
+        <li ng-class="{ active:tab === 2 }"><a href ng-click="tab = 2">Add Projects</a></li>
+        <li ng-class="{ active:tab === 3 }"><a href ng-click="tab = 3">Add Home Address</a></li>
+      </ul>
+    </section>
+    <div class="panel" ng-show="tab === 1">
+      <h5 ng-hide="employeeCtrl.showTabs()">To add skills, select employee first.</h5>
+      <skill-form ng-show="employeeCtrl.showTabs()"></skill-form>
+    </div>
+    <div class="panel" ng-show="tab === 2">
+      <h5 ng-hide="employeeCtrl.showTabs()">To add projects, select employee first.</h5>
+      <project-form ng-show="employeeCtrl.showTabs()"></project-form>
+    </div>
+    <div class="panel" ng-show="tab === 3">
+      <h5 ng-hide="employeeCtrl.showTabs()">To add a home address, select employee first.</h5>
+      <homeaddress-form ng-show="employeeCtrl.showTabs()"></homeaddress-form>
+    </div>
+  </div>
+  </div>
+    </div>
+  </div>
+</div>
+
+<employee-table></employee-table>
