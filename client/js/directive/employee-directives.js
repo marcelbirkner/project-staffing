@@ -15,6 +15,12 @@
 		templateUrl: 'employee-table.html'
 	};
   });
+  app.directive('employeeList', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-list.html'
+	};
+  });
   app.directive('employeeForm', function(){
 	return {
 		restrict: 'E',
@@ -37,6 +43,12 @@
 	return {
 		restrict: 'E',
 		templateUrl: 'homeaddress-form.html'
+	};
+  });
+  app.directive('searchaddressForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'searchaddress-form.html'
 	};
   });
 })();

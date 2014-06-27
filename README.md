@@ -51,7 +51,7 @@ After you started the server, you can access the webapp under: <a href="http://l
 
 ## Access MongoDB data
 
-To initialize the MongoDB with test data use: 
+Initialize MongoDB with test data 
 
 * [http://localhost:9000/api/mongo/init](http://localhost:9000/api/mongo/init)
 

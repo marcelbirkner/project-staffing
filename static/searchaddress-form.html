@@ -1,0 +1,18 @@
+<div class="panel panel-default" ng-controller="StaffingController as staffingCtrl" ng-submit="staffingCtrl.searchCustomer(employeeCtrl.employee)">
+	<div class="panel-body">
+		<form id="form" role="form" name="addressForm">
+			<div class="row">
+				<div class="col-xs-4">
+                    <input type="text" id="searchField" ng-model="employeeCtrl.employee.address"
+					class="form-control" ng-autocomplete options="options" details="details" />
+				</div>
+				<div class="col-xs-2">
+					<input type="submit" class="btn btn-primary" value="Circle around customer"/>
+				</div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-primary" ng-click="staffingCtrl.refreshMap()">Show all employees</button>
+                </div>
+            </div>
+		</form>
+	</div>
+</div>

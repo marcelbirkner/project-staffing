@@ -26,6 +26,12 @@
 		templateUrl: 'employee-table.html'
 	};
   });
+  app.directive('employeeList', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-list.html'
+	};
+  });
   app.directive('employeeForm', function(){
 	return {
 		restrict: 'E',
@@ -48,6 +54,12 @@
 	return {
 		restrict: 'E',
 		templateUrl: 'homeaddress-form.html'
+	};
+  });
+  app.directive('searchaddressForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'searchaddress-form.html'
 	};
   });
 })();
@@ -235,44 +247,51 @@
 
   angular
   .module('project-staffing')
-  .controller('StaffingController', function($http){
+  .controller('StaffingController', function($http, $scope){
 
     console.log('Staffing Controller');
     this.test = 10;
+    var location = {lat: 51.161295, lng: 7.010175000000004}; // default location
+    
+    $scope.details = {};
+    
+    this.searchCustomer = function(employee) {
+      console.log('search customer');
+      location = $scope.details.geometry.location;
+      initialize();
+    };
     
     var company = this;
     this.employees = company.employees;
     company.employees = [];
-
   
     var customermap = {};
     customermap['company1'] = {
-      center: new google.maps.LatLng(51.2111382,6.7822516),
-      name: 'Company 1 Düsseldorf'
+      center: location,
+      name: 'Provinzial'
     };
 
     var customerCircle;
     
     function initialize() {
-
-        $http.get('http://localhost:9000/api/mongo/employees').success(function(data) {
-          console.log('Get all employees from backend');
-          company.employees = data;
-        });
-
+    
+      $http.get('http://localhost:9000/api/mongo/employees').success(function(data) {
+        console.log('Get all employees from backend');
+        company.employees = data;
+      });
+    
+      console.log('Current Map Center location');
+      console.log(location);
     
       // Create the map.
       var mapOptions = {
-      zoom: 9,
-      center: new google.maps.LatLng(51.2111382,6.7822516),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+          zoom: 9,
+          center: location,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-
     
       var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-      // Construct the circle for each value in customermap
-      for (var city in customermap) {
           var circleOptions = {
             strokeColor: '#4CC417',
             strokeOpacity: 0.8,
@@ -280,16 +299,16 @@
             fillColor: '#4CC417',
             fillOpacity: 0.35,
             map: map,
-            center: customermap[city].center,
+            center: location,
             radius: 50000
           };
 
           // Add the circle for this city to the map.
           customerCircle = new google.maps.Circle(circleOptions);
           var marker = new google.maps.Marker({
-            position: customermap[city].center,
+            position: location,
             map: map,
-            title: customermap[city].name,
+            title: 'Customer',
           });
 
           var infowindow = new google.maps.InfoWindow({
@@ -299,7 +318,6 @@
           google.maps.event.addListener(marker, 'click', function() {
             infowindow.open(map,marker);
           });
-      }
 
         var image = {
             url: 'http://avatars.yandex.net/get-avatar/81634860/f30c9984082194d1e18aa03b3e53934d.4011-middle',
@@ -354,8 +372,6 @@
   });
 
 })();
-
-
 (function() {
   'use strict';
 
@@ -388,9 +404,6 @@
     })
     .when('/add-customer', {
       templateUrl: 'views/add_customer.html',
-    })
-    .when('/duesseldorf', {
-      templateUrl: 'views/duesseldorf.html',
     })
     .when('/help', {
       templateUrl: 'views/help.html',

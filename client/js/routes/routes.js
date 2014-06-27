@@ -31,9 +31,6 @@
     .when('/add-customer', {
       templateUrl: 'views/add_customer.html',
     })
-    .when('/duesseldorf', {
-      templateUrl: 'views/duesseldorf.html',
-    })
     .when('/help', {
       templateUrl: 'views/help.html',
     })
