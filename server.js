@@ -140,9 +140,8 @@ app.get('/api/mongo/init', function(req, res){
 	db.customers.remove({});
 	db.projects.remove({});
 	db.employees.remove({});
-	for (var customerId in customer) {
-		var cust = customer[customerId];
-	  	db.customers.save(cust, function(err, saved) {
+	for (var cust in customer) {
+		db.customers.save(cust, function(err, saved) {
 		  if( err || !saved )
 			console.log("Customers not saved");
 		  else

@@ -8,8 +8,31 @@ npm install
 # start node server
 node server.js
 
-# start node server via supervisor
+# Alternative: start node server via supervisor
 supervisor server.js
+```
+
+## Build client assets with gulp (streaming build system)
+
+```bash
+# install gulp and the gulp plugins
+npm install 
+
+# install gulp binary in the path
+npm i -g gulp
+
+# running gulp
+gulp watch
+```
+
+## Starting MongoDB Backend
+
+```bash
+// Windows
+mongod.exe --dbpath "data\mongodb"
+
+// Linux
+mongod --dbpath "data/mongodb"
 ```
 
 After you started the server, you can access the webapp under: <a href="http://localhost:9000">http://localhost:9000</a>
@@ -25,18 +48,6 @@ After you started the server, you can access the webapp under: <a href="http://l
 # REST API
 
 * Root Resource: [http://localhost:9000/api/](http://localhost:9000/api/)
-
-# Examples with MongoDB
-
-## Starting MongoDB Backend
-
-```bash
-// Windows
-mongod.exe --dbpath "data\mongodb"
-
-// Linux
-mongod --dbpath "data/mongodb"
-```
 
 ## Access MongoDB data
 

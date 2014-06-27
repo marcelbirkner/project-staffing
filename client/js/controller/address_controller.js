@@ -6,7 +6,7 @@
   .controller('AddressController', function($http, $scope){
 
     $scope.result = '';
-	  $scope.details = {};
+	$scope.details = {};
     $scope.options = {};
 
     $scope.form = {

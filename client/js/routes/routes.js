@@ -23,6 +23,11 @@
     .when('/list-customers', {
       templateUrl: 'views/list_customers.html',
     })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
     .when('/add-customer', {
       templateUrl: 'views/add_customer.html',
     })
