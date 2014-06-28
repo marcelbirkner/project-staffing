@@ -3,7 +3,7 @@
 
   angular
   .module('project-staffing')
-  .controller('StaffingController', function($http, $scope){
+  .controller('StaffingController', function($http, $scope, $filter){
 
     console.log('Staffing Controller');
     this.test = 10;
@@ -102,16 +102,35 @@
                google.maps.event.addListener(markerEmp, 'click', (function(markerEmp, i) {
                     return function() {
                         var emp = company.employees[i];
-                        var content = '<b>' + emp.name + '</b>';
+                        var content = '<p><b>' + emp.name + '</b></p>';
                         if (emp.skills) {
-                            content += '<ul>';
+                            content += '<p><span class="label label-success">Skills</span><table class="table"><tr><td>';
                             for( var j = 0; j < emp.skills.length; j++) {
-                                content += '<li>' + emp.skills[j] + '</li>';
+                                content += emp.skills[j] + ', ';
                             }
-                            content += '</ul>';
+                            content = content.slice(0, - 2); // remove last colon
+                            content += '</td></tr></table></p>';
                         } else {
-                            content += '<br>Keine Skills vorhanden.';
+                            content += '<br>No skills.';
                         }
+                        if (emp.projects) {
+                            content += '<p><span class="label label-success">Projects</span><table class="table">';
+                            for( var j = 0; j < emp.projects.length; j++) {
+                                console.log($filter('date')(emp.projects[j].end, 'yyyy-MM-dd'));
+                                var projectStart = emp.projects[j].start;
+                                var projectEnd = emp.projects[j].end;
+                                if( projectEnd === undefined ) {
+                                    projectEnd = 'Current';
+                                }
+                                var projectName = emp.projects[j].name;                                
+                                content += '<tr><td><span class="label label-primary">'+ $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
+                                content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
+                            }
+                            content += '</table></p>';
+                        } else {
+                            content += '<br>No projects.';
+                        }
+                        
                         infoWindow.setContent(content);
                         infoWindow.open(map, markerEmp);
                     };
