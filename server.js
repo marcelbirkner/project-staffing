@@ -330,7 +330,7 @@ app.get('/api/mongo/search/employees/skills', function(req, res){
 	} else {
 		fullQuery = input;
 	}
-	console.log(fullQuery);
+	console.log('fullQuery '+fullQuery);
 
 	db.employees.find(fullQuery, function(err, employees) {
 	  if( err || !employees || employees.length == 0) {

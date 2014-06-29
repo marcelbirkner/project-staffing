@@ -5,6 +5,7 @@
     'ngRoute',
     'ngAutocomplete',
     'employee-directives',
+    'ngAnimate',    
   ]);
 
 })();

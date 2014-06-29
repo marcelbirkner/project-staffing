@@ -5,6 +5,7 @@
     'ngRoute',
     'ngAutocomplete',
     'employee-directives',
+    'ngAnimate',    
   ]);
 
 })();
@@ -200,9 +201,14 @@
     
     $scope.details = {};
     
+    $scope.skillQuery = '';
+    
     this.searchCustomer = function(employee) {
       console.log('search customer');
-      location = $scope.details.geometry.location;
+      console.log('search with skills '+$scope.skillQuery);
+      if( $scope.details.geometry ) {
+        location = $scope.details.geometry.location;
+      }
       initialize();
     };
     
@@ -219,9 +225,22 @@
     var customerCircle;
     
     function initialize() {
-    
-      $http.get('http://localhost:9000/api/mongo/employees').success(function(data) {
-        console.log('Get all employees from backend');
+      console.log('initialze '+$scope.skillQuery);
+      
+      var searchUrl = 'http://localhost:9000/api/mongo/employees';
+      if ($scope.skillQuery) {
+        var queryArray= $scope.skillQuery.toLowerCase().split(',');
+        console.log('QUERY '+fullQuery);
+        var fullQuery = '';
+        for (var k = 0; k < queryArray.length; k++) {
+            var skill = queryArray[k].trim();
+            fullQuery += '&skills='+skill; 
+        }
+        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?'+fullQuery;      
+      }
+      console.log('searchUrl'+searchUrl);
+      $http.get(searchUrl).success(function(data) {
+        console.log('Get employees from backend');
         company.employees = data;
       });
     
@@ -277,6 +296,7 @@
         var infoWindow = new google.maps.InfoWindow();
         var markerEmp, i;
         var employee;
+                
         for (i = 0; i < company.employees.length; i++) {
               employee = company.employees[i];
               
@@ -304,6 +324,14 @@
                         }
                         if (emp.projects) {
                             content += '<p><span class="label label-success">Projects</span><table class="table">';
+                            
+                            console.log('sort projects ' + emp.projects.length);
+                            emp.projects.sort(function(a,b) {
+                                if (a.start < b.start)
+                                    return 1;
+                                return 0;
+                            });
+
                             for( var j = 0; j < emp.projects.length; j++) {
                                 console.log($filter('date')(emp.projects[j].end, 'yyyy-MM-dd'));
                                 var projectStart = emp.projects[j].start;

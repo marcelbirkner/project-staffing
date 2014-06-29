@@ -2,15 +2,23 @@
 	<div class="panel-body">
 		<form id="form" role="form" name="addressForm">
 			<div class="row">
-				<div class="col-xs-4">
-                    <input type="text" id="searchField" ng-model="employeeCtrl.employee.address"
-					class="form-control" ng-autocomplete options="options" details="details" />
+				<div class="col-xs-3">                    
+                    <div class="input-group">
+                      <span class="input-group-addon">Customer</span>
+                      <input type="text" id="searchField" ng-model="employeeCtrl.employee.address" class="form-control" ng-autocomplete options="options" details="details" />
+                    </div>
 				</div>
 				<div class="col-xs-2">
-					<input type="submit" class="btn btn-primary" value="Circle around customer"/>
+					<input type="submit" class="btn btn-primary" value="Place circle around customer"/>
+				</div>
+                <div class="col-xs-3">
+					<div class="input-group">
+                      <span class="input-group-addon" data-toggle="tooltip">Skills</span>
+                      <input ng-model="skillQuery" class="form-control">
+                    </div>
 				</div>
                 <div class="col-xs-2">
-                    <button type="submit" class="btn btn-primary" ng-click="staffingCtrl.refreshMap()">Show all employees</button>
+                    <button type="submit" class="btn btn-primary" ng-click="staffingCtrl.refreshMap()">Search employees</button>
                 </div>
             </div>
 		</form>
