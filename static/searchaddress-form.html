@@ -1,4 +1,4 @@
-<div class="panel panel-default" ng-controller="StaffingController as staffingCtrl" ng-submit="staffingCtrl.searchCustomer(employeeCtrl.employee)">
+<div class="panel panel-default" ng-controller="StaffingController as staffingCtrl">
 	<div class="panel-body">
 		<form id="form" role="form" name="addressForm">
 			<div class="row">
@@ -8,9 +8,6 @@
                       <input type="text" id="searchField" ng-model="employeeCtrl.employee.address" class="form-control" ng-autocomplete options="options" details="details" />
                     </div>
 				</div>
-				<div class="col-xs-2">
-					<input type="submit" class="btn btn-primary" value="Place circle around customer"/>
-				</div>
                 <div class="col-xs-3">
 					<div class="input-group">
                       <span class="input-group-addon" data-toggle="tooltip">Skills</span>
@@ -18,7 +15,7 @@
                     </div>
 				</div>
                 <div class="col-xs-2">
-                    <button type="submit" class="btn btn-primary" ng-click="staffingCtrl.refreshMap()">Search employees</button>
+                    <button type="submit" class="btn btn-primary" ng-click="staffingCtrl.searchCustomer(employeeCtrl.employee)">Search employees</button>
                 </div>
             </div>
 		</form>
