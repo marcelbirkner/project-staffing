@@ -22,7 +22,7 @@
     var drawCircle = false;
     
     this.searchCustomer = function(employee) {
-      console.log('search customer ' + employees.length);
+      console.log('search customer');
       
       if( $scope.details.geometry ) {
         location = $scope.details.geometry.location;
@@ -43,7 +43,6 @@
       $http.get(searchUrl).success(function(data) {
         console.log('Get employees from backend');
         employees = data;
-        console.log('search customer end ' + employees.length);
         initializeMap();
       });      
    };
@@ -64,7 +63,6 @@
       var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
       if ( drawCircle ) {
-          console.log('draw circle');
           var circleOptions = {
               strokeColor: '#4CC417',
               strokeOpacity: 0.8,
