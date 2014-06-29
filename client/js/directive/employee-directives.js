@@ -15,6 +15,12 @@
 		templateUrl: 'employee-table.html'
 	};
   });
+  app.directive('customerTable', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'customer-table.html'
+	};
+  });
   app.directive('employeeList', function(){
 	return {
 		restrict: 'E',

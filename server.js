@@ -219,6 +219,15 @@ app.post('/api/mongo/customers', function(req, res){
 	  }
 	});
 });
+app.delete('/api/mongo/customers/:id', function(req, res){
+	console.log('DELETE - customer by id');
+	console.log(req.params.id);
+	var id = req.params.id;
+	db.customers.remove({_id: mongojs.ObjectId(id)}, function(err, lastErrorObject) {
+		if( err ) console.log(err);
+	});
+	return res.end();
+});
 
 /**
  * Project API

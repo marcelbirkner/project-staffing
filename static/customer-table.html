@@ -1,0 +1,43 @@
+
+	<!-- List of all customer -->
+	<div class="container">
+	  	<div class="row">
+	  	  <div class="col-lg-2"></div>
+		  <div class="col-lg-8">
+		    <div class="input-group">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button" disabled="true">Search!</button>
+		      </span>
+		      <input type="text" class="form-control" ng-model="searchText">
+		    </div>
+		  </div>
+		  <div class="col-lg-2"></div>
+		</div><br>
+		<div class="row">
+		  <div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">All Customers</h3>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Company Name</th>
+							<th>Industry / Sector</th>
+							<th>Address</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="customer in customerCtrl.customers | filter:searchText track by $index ">
+							<td>{{customer.company}}</td>
+							<td>{{customer.industry}}</td>
+							<td>{{customer.address}}</td>
+							<td><button ng-click="customerCtrl.deleteCustomer(customer._id)" class="btn btn-danger">Delete</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		  </div>
+		</div>
+	</div>
