@@ -117,6 +117,11 @@ app.get('/api', function(req, res) {
 		  href: '/api/mongo/search/employees/skills',
 		  method: 'GET',
 		  description: 'Get array of employee that have certain skills, i.e. ?skills=java&skills=tdd'
+		},
+        createCustomer: {
+		  href: '/api/mongo/customer',
+		  method: 'POST',
+		  description: 'Create new customer',
 		}
 	  }
     },
@@ -199,6 +204,19 @@ app.get('/api/mongo/customers', function(req, res){
 	    return res.json(404, {error: 'No customers found'});
 	  else
 	    return res.json(200, customers);
+	});
+});
+app.post('/api/mongo/customers', function(req, res){
+	console.log('POST - create new customer');
+	console.log(req.body);
+	db.customers.save(req.body, function(err, saved) {
+	  if( err || !saved ) {
+		console.log("Customer not saved");
+		return res.send(500, { error: 'Customer not saved.' })
+	  } else {
+		console.log("Customer saved");
+		return res.end();
+	  }
 	});
 });
 

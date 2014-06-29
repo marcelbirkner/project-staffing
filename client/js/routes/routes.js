@@ -9,6 +9,8 @@
     })
     .when('/dashboard', {
       templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
     })
     .when('/list-employees', {
       templateUrl: 'views/list_employees.html',
@@ -22,6 +24,8 @@
     })
     .when('/list-customers', {
       templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
     })
     .when('/staffing', {
       templateUrl: 'views/staff_project.html',
@@ -30,6 +34,8 @@
     })
     .when('/add-customer', {
       templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
     })
     .when('/help', {
       templateUrl: 'views/help.html',

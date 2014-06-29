@@ -21,7 +21,7 @@
     var employees = [];
     var drawCircle = false;
     
-    this.searchCustomer = function(employee) {
+    this.searchCustomer = function() {
       console.log('search customer');
       
       if( $scope.details.geometry ) {
@@ -31,13 +31,13 @@
       
       var searchUrl = 'http://localhost:9000/api/mongo/employees';
       if ($scope.skillQuery) {
-        var queryArray= $scope.skillQuery.toLowerCase().split(',');
+        var queryArray = $scope.skillQuery.toLowerCase().split(',');
         var fullQuery = '';
         for (var k = 0; k < queryArray.length; k++) {
             var skill = queryArray[k].trim();
-            fullQuery += '&skills='+skill; 
+            fullQuery += '&skills=' + skill; 
         }
-        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?'+fullQuery;      
+        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?' + fullQuery;      
       }
       
       $http.get(searchUrl).success(function(data) {
@@ -75,8 +75,8 @@
           };
 
           // Add the circle for this city to the map.
-          var customerCircle = new google.maps.Circle(circleOptions);
-          var marker = new google.maps.Marker({
+          google.maps.Circle(circleOptions);
+          google.maps.Marker({
               position: location,
               map: map,
               title: 'Selected Customer',
@@ -117,19 +117,20 @@
                         content += '<p><span class="label label-success">Projects</span><table class="table">';
                         
                         emp.projects.sort(function(a,b) {
-                            if (a.start < b.start)
+                            if (a.start < b.start) {
                                 return 1;
+                            }
                             return 0;
                         });
 
-                        for( var j = 0; j < emp.projects.length; j++) {
-                            var projectStart = emp.projects[j].start;
-                            var projectEnd = emp.projects[j].end;
+                        for(var m = 0; m < emp.projects.length; m++) {
+                            var projectStart = emp.projects[m].start;
+                            var projectEnd = emp.projects[m].end;
                             if( projectEnd === undefined ) {
                                 projectEnd = 'Current';
                             }
-                            var projectName = emp.projects[j].name;                                
-                            content += '<tr><td><span class="label label-primary">'+ $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
+                            var projectName = emp.projects[m].name;                                
+                            content += '<tr><td><span class="label label-primary">' + $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
                             content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
                         }
                         content += '</table></p>';

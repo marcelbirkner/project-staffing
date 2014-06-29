@@ -10,6 +10,110 @@
 
 })();
 
+(function(){
+  'use strict';
+
+  var app = angular.module('employee-directives', []);
+
+  app.directive('navigation', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'navigation.html'
+	};
+  });
+  app.directive('employeeTable', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-table.html'
+	};
+  });
+  app.directive('employeeList', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-list.html'
+	};
+  });
+  app.directive('employeeForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'employee-form.html'
+	};
+  });
+  app.directive('skillForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'skill-form.html'
+	};
+  });
+  app.directive('projectForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'project-form.html'
+	};
+  });
+  app.directive('homeaddressForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'homeaddress-form.html'
+	};
+  });
+  app.directive('searchaddressForm', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'searchaddress-form.html'
+	};
+  });
+})();
+
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'views/index.html',
+    })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
+    })
+    .when('/list-employees', {
+      templateUrl: 'views/list_employees.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/add-employee', {
+      templateUrl: 'views/add_employee.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/list-customers', {
+      templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
+    .when('/add-customer', {
+      templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+    })
+    .otherwise({
+      redirectTo: '/',
+    });
+  });
+})();
+
+
 (function() {
   'use strict';
 
@@ -37,6 +141,51 @@
 
 })();
 
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .controller('CustomerController', function($http, $scope, $filter){
+
+    console.log('Customer Controller');
+ 
+    this.customer = {};
+    
+	$scope.details = {};
+    $scope.options = {};
+    
+    $scope.form = {
+      type: 'geocode',
+      watchEnter: true
+    };
+    
+    this.addCustomer = function() {
+        console.log('add customer');
+        this.customer.companyaddress = $scope.details.geometry.location;
+        $http.post('http://localhost:9000/api/mongo/customers', JSON.stringify(this.customer));
+    };
+    
+    this.resetForm = function() {
+        console.log('reset form');    
+        this.customer = {};
+    };
+    
+  });
+
+})();
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .controller('DashboardController', function($http, $scope, $filter){
+
+    console.log('Dashboard Controller');
+ 
+  });
+
+})();
 (function() {
   'use strict';
 
@@ -211,7 +360,7 @@
     var employees = [];
     var drawCircle = false;
     
-    this.searchCustomer = function(employee) {
+    this.searchCustomer = function() {
       console.log('search customer');
       
       if( $scope.details.geometry ) {
@@ -221,13 +370,13 @@
       
       var searchUrl = 'http://localhost:9000/api/mongo/employees';
       if ($scope.skillQuery) {
-        var queryArray= $scope.skillQuery.toLowerCase().split(',');
+        var queryArray = $scope.skillQuery.toLowerCase().split(',');
         var fullQuery = '';
         for (var k = 0; k < queryArray.length; k++) {
             var skill = queryArray[k].trim();
-            fullQuery += '&skills='+skill; 
+            fullQuery += '&skills=' + skill; 
         }
-        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?'+fullQuery;      
+        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?' + fullQuery;      
       }
       
       $http.get(searchUrl).success(function(data) {
@@ -265,8 +414,8 @@
           };
 
           // Add the circle for this city to the map.
-          var customerCircle = new google.maps.Circle(circleOptions);
-          var marker = new google.maps.Marker({
+          google.maps.Circle(circleOptions);
+          google.maps.Marker({
               position: location,
               map: map,
               title: 'Selected Customer',
@@ -307,19 +456,20 @@
                         content += '<p><span class="label label-success">Projects</span><table class="table">';
                         
                         emp.projects.sort(function(a,b) {
-                            if (a.start < b.start)
+                            if (a.start < b.start) {
                                 return 1;
+                            }
                             return 0;
                         });
 
-                        for( var j = 0; j < emp.projects.length; j++) {
-                            var projectStart = emp.projects[j].start;
-                            var projectEnd = emp.projects[j].end;
+                        for(var m = 0; m < emp.projects.length; m++) {
+                            var projectStart = emp.projects[m].start;
+                            var projectEnd = emp.projects[m].end;
                             if( projectEnd === undefined ) {
                                 projectEnd = 'Current';
                             }
-                            var projectName = emp.projects[j].name;                                
-                            content += '<tr><td><span class="label label-primary">'+ $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
+                            var projectName = emp.projects[m].name;                                
+                            content += '<tr><td><span class="label label-primary">' + $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
                             content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
                         }
                         content += '</table></p>';
@@ -339,100 +489,3 @@
   });
 
 })();
-(function(){
-  'use strict';
-
-  var app = angular.module('employee-directives', []);
-
-  app.directive('navigation', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'navigation.html'
-	};
-  });
-  app.directive('employeeTable', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'employee-table.html'
-	};
-  });
-  app.directive('employeeList', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'employee-list.html'
-	};
-  });
-  app.directive('employeeForm', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'employee-form.html'
-	};
-  });
-  app.directive('skillForm', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'skill-form.html'
-	};
-  });
-  app.directive('projectForm', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'project-form.html'
-	};
-  });
-  app.directive('homeaddressForm', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'homeaddress-form.html'
-	};
-  });
-  app.directive('searchaddressForm', function(){
-	return {
-		restrict: 'E',
-		templateUrl: 'searchaddress-form.html'
-	};
-  });
-})();
-
-(function() {
-  'use strict';
-
-  angular
-  .module('project-staffing')
-  .config(function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-    })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-    })
-    .when('/list-employees', {
-      templateUrl: 'views/list_employees.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/add-employee', {
-      templateUrl: 'views/add_employee.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/list-customers', {
-      templateUrl: 'views/list_customers.html',
-    })
-    .when('/staffing', {
-      templateUrl: 'views/staff_project.html',
-      controller: 'StaffingController',
-      controllerAs: 'staffingCtrl',
-    })
-    .when('/add-customer', {
-      templateUrl: 'views/add_customer.html',
-    })
-    .when('/help', {
-      templateUrl: 'views/help.html',
-    })
-    .otherwise({
-      redirectTo: '/',
-    });
-  });
-})();
-
