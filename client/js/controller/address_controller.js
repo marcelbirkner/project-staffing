@@ -1,17 +1,15 @@
 (function() {
   'use strict';
 
-  angular
-  .module('project-staffing')
-  .controller('AddressController', function($http, $scope){
+  angular.module('project-staffing').controller('AddressController', function($http, $scope) {
 
     $scope.result = '';
-	$scope.details = {};
+    $scope.details = {};
     $scope.options = {};
 
     $scope.form = {
-      type: 'geocode',
-      watchEnter: true
+      type : 'geocode',
+      watchEnter : true
     };
 
     this.saveAddress = function(employee) {

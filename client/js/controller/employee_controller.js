@@ -51,7 +51,6 @@
         console.log('Update all employees from backend');
         company.employees = data;
       });
-      this.employee = {};
     };
 
     this.deleteEmployee = function(id) {
