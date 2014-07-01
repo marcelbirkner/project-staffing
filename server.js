@@ -1,12 +1,12 @@
 'use strict';
 
+
+// express settings
 var express = require('express'),
   customer = require('./data/customer.js'),
   project = require('./data/project.js'),
   employee = require('./data/employee.js'),
   errors = require('./lib/errors');
-
-// express settings
 var app = express();
 var cors = require('cors');
 var nodeValidator = require('validator');
@@ -20,10 +20,15 @@ var databaseUrl = "projectstaffing";
 var collections = ["employees", "customers", "projects"];
 var db = mongojs.connect(databaseUrl, collections);
 
-var version = {'version':'1.2.0'};
 
 /**
- * Statischen Content ausliefern
+ * Version of backend system. Each addition of a new REST Service changes the version number.
+ */
+var version = {'version':'1.2.0'};
+
+
+/**
+ * Deliver static content
  */
 app.configure(function(){
   app.use(express.bodyParser());
@@ -34,7 +39,7 @@ app.configure(function(){
 });
 
 /**
- * Root Resource
+ * Root resource
  */
 app.get('/api', function(req, res) {
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
@@ -59,6 +64,16 @@ app.get('/api', function(req, res) {
 		  href: '/api/mongo/customers',
 		  method: 'GET',
 		  description: 'Get an array of all customers',
+		},
+		createCustomer: {
+		  href: '/api/mongo/customers',
+		  method: 'POST',
+		  description: 'Create new customer',
+		},
+		deleteCustomer: {
+		  href: '/api/mongo/customers/:id',
+		  method: 'DELETE',
+		  description: 'Delete customer by id',
 		}
 	  }
 	},
@@ -117,11 +132,6 @@ app.get('/api', function(req, res) {
 		  href: '/api/mongo/search/employees/skills',
 		  method: 'GET',
 		  description: 'Get array of employee that have certain skills, i.e. ?skills=java&skills=tdd'
-		},
-        createCustomer: {
-		  href: '/api/mongo/customer',
-		  method: 'POST',
-		  description: 'Create new customer',
 		}
 	  }
     },
@@ -129,7 +139,7 @@ app.get('/api', function(req, res) {
 });
 
 /**
- * VERSION
+ * REST SERVICE VERSION
  */
 app.get('/api/version', function(req, res){
   console.log('GET - version');
@@ -138,7 +148,7 @@ app.get('/api/version', function(req, res){
 });
 
 /**
- * MONGODB
+ * MONGODB INIT
  */
 app.get('/api/mongo/init', function(req, res){
 	console.log('GET - init mongodb with testdata');
@@ -372,7 +382,7 @@ app.get('/api/mongo/search/employees/skills', function(req, res){
 
 // ################################################################
 // ################################################################
-// Testdata without MongoDB, will be removed later on
+// Static testdata, will be removed later on
 // ################################################################
 // ################################################################
 
@@ -489,7 +499,7 @@ function addLinksToAllEmployees(list) {
 
 
 /**
- * MAIN
+ * MAIN APP
  */
 app.listen(9000);
 console.log('Listening on port 9000');
