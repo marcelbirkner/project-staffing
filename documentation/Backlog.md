@@ -1,46 +1,41 @@
-Use Cases
+# Use Cases
 
-------------------------------------------------------
+## Staffing
 
-Staffing:
+- Add customer
+- Add employee
+- Search employee by skill set
+- Distance to customer
+- Map of customers
+- Map of employees
 
-1. Verfügbarkeit von Konsultant
-2. Skill Set
-3. Entfernung zum Kunden
+## Search Criteria
 
-Best Match:
+- Customer
+- Skills
+- Availability
+- Best Match
 
-Ausgabe: Tabelle mit Ranking & daneben eine Karte mit den Matches
-- Tabelle: Name, Entfernung, aktuelles Projekt, ab wann verfügbar, skills
-- Karte: Matches, Details bei on mouse over / oder so
+## API
 
-Suchkriterien:
-- Kunde
-- Freitext Suchfeld für Skill
-- Ab Wann
-
-API:
-- Consultant
+- Employee
 - Customer
 - Projects
 
-------------------------------------------------------
+# Location search
 
+- map search
+- list customers in region
+- past projects at customer
+- employees at customer
 
-Aktive Kundensuche in einer Region:
+# Additional API
 
-1. Umgebunsgsuche, Koordinaten/Adresse des Mitarbeiters
-2. Liste aller Kunden in der Umgebung
-3. Welche Projekte laufen/liefen beim Kunden inkl. Skills
-4. Welche Kollegen waren schon mal da
+- LinkedIn
+- Xing API for Skill Set
+- Centerdevice
 
-LinkedIn & Xing API für Skill Set
-Eventuell Centerdevice
-
-
-------------------------------------------------------
-
-Links
+# Links
 
 https://github.com/basti1302/hypermedia-api-example
 https://github.com/reggi/route-separation
