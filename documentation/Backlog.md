@@ -37,11 +37,13 @@
 
 # Links
 
-https://github.com/basti1302/hypermedia-api-example
-https://github.com/reggi/route-separation
+- https://github.com/basti1302/hypermedia-api-example
+- https://github.com/reggi/route-separation
 
 Animated Car on map
-http://econym.org.uk/gmap/example_cartrip2
+
+- http://econym.org.uk/gmap/example_cartrip2
 
 Filter Table
-http://bootsnipp.com/snippets/featured/panel-table-with-filters-per-column
+
+- http://bootsnipp.com/snippets/featured/panel-table-with-filters-per-column
