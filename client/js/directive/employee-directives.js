@@ -57,4 +57,10 @@
     templateUrl : 'customer-table.html'
   };
   });
+  app.directive('searchCustomerAddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'searchcustomeraddress-form.html'
+  };
+  });
 })();

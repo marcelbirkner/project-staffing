@@ -363,11 +363,12 @@ app.get('/api/mongo/search/employees/skills', function(req, res){
 	var fullQuery = {};
 	if( util.isArray( input.skills ) ) {
 		var query = input.skills.map(function(skill) { return { skills: skill} });
-		fullQuery = { $and: query};
+        var startDate = '2016-12-01';
+		fullQuery = { $and: query };
 	} else {
 		fullQuery = input;
 	}
-	console.log('fullQuery '+fullQuery);
+	console.log(fullQuery);
 
 	db.employees.find(fullQuery, function(err, employees) {
 	  if( err || !employees || employees.length == 0) {

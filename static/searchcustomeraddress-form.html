@@ -1,0 +1,17 @@
+<div class="panel panel-default" ng-controller="CustomerController as customerCtrl">
+	<div class="panel-body">
+		<form id="form" role="form" name="addressForm">
+			<div class="row">
+				<div class="col-xs-4">                    
+                    <div class="input-group">
+                      <span class="input-group-addon">Enter Address</span>
+                      <input type="text" id="searchField" ng-model="employeeCtrl.employee.address" class="form-control" ng-autocomplete options="options" details="details" />
+                    </div>
+				</div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-primary" ng-click="customerCtrl.searchCustomers()">Show customers</button>
+                </div>
+            </div>
+		</form>
+	</div>
+</div>

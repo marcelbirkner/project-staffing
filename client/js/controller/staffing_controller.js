@@ -25,7 +25,9 @@
       console.log('search customer');
       
       if( $scope.details.geometry ) {
-        location = $scope.details.geometry.location;
+        var keys = Object.keys($scope.details.geometry.location)
+        location.lng = $scope.details.geometry.location[keys[0]];
+        location.lat = $scope.details.geometry.location[keys[1]];
         drawCircle = true;
       }
       
@@ -75,8 +77,8 @@
           };
 
           // Add the circle for this city to the map.
-          google.maps.Circle(circleOptions);
-          google.maps.Marker({
+          new google.maps.Circle(circleOptions);
+          new google.maps.Marker({
               position: location,
               map: map,
               title: 'Selected Customer',
@@ -92,7 +94,7 @@
           employee = employees[i];
           
           markerEmp = new google.maps.Marker({
-              position: new google.maps.LatLng(employee.homeaddress.k,employee.homeaddress.A),
+              position: new google.maps.LatLng(employee.homeaddress.longitude,employee.homeaddress.latitude),
               map: map,
               icon: image,
               title: employee.name,

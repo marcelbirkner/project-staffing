@@ -15,7 +15,12 @@
     this.saveAddress = function(employee) {
       console.log('update existing employee');
       console.log($scope.details);
-      employee.homeaddress = $scope.details.geometry.location;
+      
+      var keys = Object.keys($scope.details.geometry.location);
+      employee.homeaddress = {};
+      employee.homeaddress.longitude = $scope.details.geometry.location[keys[0]];
+      employee.homeaddress.latitude = $scope.details.geometry.location[keys[1]];
+
       $http.post('http://localhost:9000/api/mongo/employees/' + employee._id, JSON.stringify(employee));
     };
 
