@@ -26,6 +26,7 @@
 							<th>Industry / Sector</th>
 							<th>Address</th>
 							<th></th>
+                            <th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -34,7 +35,8 @@
 							<td>{{customer.industry}}</td>
 							<td>{{customer.address}}</td>
 							<td><button ng-click="customerCtrl.deleteCustomer(customer._id)" class="btn btn-danger">Delete</button></td>
-						</tr>
+							<td><button ng-click="customerCtrl.editCustomer(customer._id)" class="btn btn-primary">Edit</button></td>
+                        </tr>
 					</tbody>
 				</table>
 			</div>

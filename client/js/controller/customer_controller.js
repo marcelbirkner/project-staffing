@@ -33,12 +33,6 @@
         this.customer.companyaddress = {};
         
         var keys = Object.keys($scope.details.geometry.location)
-        
-        console.log(keys);
-        console.log(keys[0]);
-        console.log(keys[1]);
-        console.log($scope.details.geometry.location);
-        
         this.customer.companyaddress.longitude = $scope.details.geometry.location[keys[0]];
         this.customer.companyaddress.latitude = $scope.details.geometry.location[keys[1]];
         
@@ -65,6 +59,15 @@
       }
     };
 
+    this.editCustomer = function(id) {
+      for (var i in company.customers){
+        if( company.customers[i]._id === id ) {
+          console.log('Edit Customer');
+          this.customer = company.customers[i];
+        }
+      }
+    };
+    
     this.resetForm = function() {
         console.log('reset form');
         this.customer = {};
