@@ -1,5 +1,7 @@
 # Getting started
 
+Example project to test AngularJS, ExpressJS, NodeJS, ...
+
 ## Starting NodeJS Server
 
 ```bash
