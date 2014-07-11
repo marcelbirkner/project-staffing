@@ -26,8 +26,8 @@
       
       if( $scope.details.geometry ) {
         var keys = Object.keys($scope.details.geometry.location)
-        location.lng = $scope.details.geometry.location[keys[0]];
-        location.lat = $scope.details.geometry.location[keys[1]];
+        location.lat = $scope.details.geometry.location[keys[0]];
+        location.lng = $scope.details.geometry.location[keys[1]];
         drawCircle = true;
       }
       

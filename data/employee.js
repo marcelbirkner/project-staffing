@@ -31,8 +31,8 @@ module.exports = {
       }
     ],
     "homeaddress": {
-      "k": 50.9569327,
-      "A": 6.913445300000035
+      "longitude": 50.9569327,
+      "latitude": 6.913445300000035
     },
     "createdOn": 1403896788443
   },
@@ -63,8 +63,8 @@ module.exports = {
       }
     ],
     "homeaddress": {
-      "k": 50.732008,
-      "A": 7.097135999999978
+      "longitude": 50.732008,
+      "latitude": 7.097135999999978
     },
     "createdOn": 1403896798968
   },
@@ -96,8 +96,8 @@ module.exports = {
       }
     ],
     "homeaddress": {
-      "k": 51.1658323,
-      "A": 7.024760499999957
+      "longitude": 51.1658323,
+      "latitude": 7.024760499999957
     },
     "createdOn": 1403896809069
   }
