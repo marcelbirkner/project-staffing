@@ -14,7 +14,7 @@ npm install
 cd static
 
 echo "Update IP"
-find . -type f -print0 | xargs -0 sed -i 's/localhost:9000/TESTSERVE_IP:9000/g'
+find . -type f -print0 | xargs -0 sed -i 's/localhost:9000/TESTSERVER_IP:9000/g'
 cd ..
 
 echo "Start NodeJS Process"
