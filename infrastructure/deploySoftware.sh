@@ -18,7 +18,9 @@ find . -type f -print0 | xargs -0 sed -i 's/localhost:9000/54.216.107.20:9000/g'
 cd ..
 
 echo "Start NodeJS Process"
-node server.js &
+# node server.js &
+sudo service project-staffing status
+
+sudo service project-staffing restart
 
 
- 
