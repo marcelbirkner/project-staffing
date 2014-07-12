@@ -17,7 +17,7 @@ var util = require('util');
 // mongodb settings
 var mongojs = require('mongojs');
 var databaseUrl = "projectstaffing";
-var collections = ["employees", "customers", "projects"];
+var collections = ["employees", "customers", "projects", "employeesNew"];
 var db = mongojs.connect(databaseUrl, collections);
 
 
@@ -155,7 +155,9 @@ app.get('/api/mongo/init', function(req, res){
 	db.customers.remove({});
 	db.projects.remove({});
 	db.employees.remove({});
-	for (var cust in customer) {
+	db.employeesNew.remove({});
+	
+    for (var cust in customer) {
 		db.customers.save(cust, function(err, saved) {
 		  if( err || !saved )
 			console.log("Customers not saved");
@@ -163,7 +165,8 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Customers saved");
 		});
 	}
-	for (var id in employee) {
+	
+    for (var id in employee) {
 		var item = employee[id];
 	  	db.employees.save(item, function(err, saved) {
 		  if( err || !saved )
@@ -172,6 +175,7 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Employee saved");
 		});
 	}
+    
 	for (var id in project) {
 		var item = project[id];
 	  	db.projects.save(item, function(err, saved) {
@@ -379,6 +383,26 @@ app.get('/api/mongo/search/employees/skills', function(req, res){
 	  }
 	});
 });
+
+/**
+ * Dashboard API
+ */
+app.get('/api/mongo/search/location/employees', function(req, res){
+	console.log('GET - array of employees grouped by location');
+
+	db.employees.aggregate([
+        { $group: { _id: "$office", total: { $sum: 1 } } }    
+    ], function(err, employees) {
+      if( err || !employees || employees.length == 0) {
+	    console.log("No employees found");
+		return res.json(404, employees);
+	  } else {
+        return res.json(200, employees);
+	  }
+    });
+    
+});
+
 
 
 // ################################################################
