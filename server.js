@@ -7,6 +7,7 @@ var express = require('express'),
   project = require('./data/project.js'),
   employee = require('./data/employee.js'),
   errors = require('./lib/errors');
+  
 var app = express();
 var cors = require('cors');
 var nodeValidator = require('validator');
@@ -401,6 +402,79 @@ app.get('/api/mongo/search/location/employees', function(req, res){
     });
     
 });
+app.get('/api/mongo/search/employees/latestproject', function(req, res){
+	console.log('GET - array of employees with latest project');
+    
+    var oldQuery = [
+        {$unwind: '$projects'},
+        {$group: {_id: '$_id', test: {end: {$max: '$end'}}}}
+    ];
+    
+    var query = [ 
+        { $project : {name:1, office:1, projects:1}},
+        { "$unwind" : "$projects"}, 
+        { "$sort" : { "projects.end" : -1}}
+    ];
+    db.employees.aggregate(query, function(err, employees) {
+      if( err || !employees || employees.length == 0) {
+        console.log(err);
+	    console.log("No employees found");
+		return res.json(404, employees);
+	  } else {
+        return res.json(200, employees);
+	  }
+    });
+});
+
+/**
+
+db.col.aggregate([
+    {$unwind: '$Array'},
+    {$group: {_id: '$_id', Array: {K: {$max: '$K'}, V: {$max: '$V'}}}}
+])
+
+{
+    "_id": "53c10a4cb29815f8044be9f0",
+    "name": "Andreas",
+    "projects": [
+      {
+        "name": "Smoketest Project 3",
+        "description": "Develop a Java backend Java application",
+        "start": "2012-01-01",
+        "end": "2013-04-01"
+      },
+      {
+        "name": "Smoketest Project 4",
+        "description": "Develop a JavaScript frontend application",
+        "start": "2013-05-01",
+        "end": "2014-09-01"
+      }
+    ]
+  },
+  
+{
+    "host" : "example.com",
+    "ips" : [
+        {
+            "ip" : NumberLong("1111111111"),
+            "timestamp" : NumberLong(1373970044)
+        },
+        {
+            "ip" : NumberLong("2222222222"),
+            "timestamp" : NumberLong(1234978746)
+        }
+    ]
+}
+
+coll.aggregate([
+  {$unwind: "$ips"},
+  {$project:{host:"$host",ip:"$ips.ip", ts:"$ips.timestamp"} },
+  {$sort:{ts:1} },
+  {$group: {_id: "$host", IPOfMaxTS:{$last: "$ip"}, ts:{$last: "$ts"} } }
+])
+
+  
+*/
 
 
 

@@ -7,10 +7,11 @@
     
     var location = this;
     location.employees = [];
+    location.latestprojects = [];
     
     // draw table
     var dataArray = [
-        ['Lat', 'Long', 'Location', 'Revenue', 'Employee', 'Utilization'],
+        ['Lat', 'Long', 'Office', 'Revenue', 'No. Employees', 'Utilization'],
         [51.1672852,7.0626139, 'Solingen', {v: 12, f: '12.0%'}, 0, 85],
         [51.2111382,6.7822516, 'Düsseldorf', {v: 7.3, f: '7.3%'}, 0, 65],
         [48.1368364,11.5234671, 'München', {v: 3.6, f: '3.6%'}, 0, 75],
@@ -26,12 +27,9 @@
         location.employees = data;
         for ( var id in dataArray ) {
             var locationKey = dataArray[id][2];
-            console.log(locationKey);
-            
             for ( var idLocation in location.employees ) {
                 if ( location.employees[idLocation]._id == locationKey ) {
                     var totalEmployees = location.employees[idLocation].total;
-                    console.log('Set ' + locationKey + ' to ' + totalEmployees);
                     dataArray[id][4] = totalEmployees;
                 };
             };            
@@ -63,18 +61,40 @@
         // When the table is selected, we set the selection on the map.
         google.visualization.events.addListener(table, 'select',
         function() {
-        map.setSelection(table.getSelection());
+            map.setSelection(table.getSelection());
         });
 
         // Set a 'select' event listener for the map.
         // When the map is selected, we set the selection on the table.
         google.visualization.events.addListener(map, 'select',
         function() {
-        table.setSelection(map.getSelection());
+            table.setSelection(map.getSelection());
         });
  
     });
 
+    $http.get('http://localhost:9000/api/mongo/search/employees/latestproject').success(function(data) {
+        console.log('Get latest project for all employees');
+        console.log(data);
+        location.latestprojects = data;
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Office');
+        data.addColumn('string', 'Project Name');
+        data.addColumn('date', 'Start');
+        data.addColumn('date', 'End');
+        
+        for ( var id in location.latestprojects) {
+            var item = location.latestprojects[id];
+            console.log(item);
+            data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end)]);
+        };
+        
+        var table = new google.visualization.Table(document.getElementById('latestprojects_div'));
+        table.draw(data, {showRowNumber: false, sortColumn: 4});
+    });   
+    
  });
 
 })();

@@ -22,14 +22,14 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-01-15",
+        "end": "2013-04-15"
       },
       {
         "name": "Smoketest Project 4",
         "description": "Develop a JavaScript frontend application",
-        "start": "2013-05-01",
-        "end": "2014-09-01"
+        "start": "2013-05-15",
+        "end": "2014-09-15"
       }
     ],
     "createdOn": 1405159510965,
@@ -60,14 +60,14 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-05-15",
+        "end": "2013-04-15"
       },
       {
         "name": "Smoketest Project 4",
         "description": "Develop a JavaScript frontend application",
-        "start": "2013-05-01",
-        "end": "2014-09-01"
+        "start": "2013-05-15",
+        "end": "2014-09-15"
       }
     ],
     "address": "Textorstraße, Frankfurt, Germany",
@@ -98,7 +98,7 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
+        "start": "2012-05-15",
         "end": "2013-04-01"
       },
       {
@@ -135,13 +135,13 @@ module.exports = [
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
         "start": "2012-01-01",
-        "end": "2013-04-01"
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
         "description": "Develop a JavaScript frontend application",
-        "start": "2013-05-01",
-        "end": "2014-09-01"
+        "start": "2013-05-15",
+        "end": "2014-09-15"
       }
     ],
     "address": "Bergedorf, Hamburg, Germany",
@@ -168,14 +168,14 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-01-15",
+        "end": ""
       },
       {
         "name": "Smoketest Project 4",
         "description": "Develop a JavaScript frontend application",
-        "start": "2013-05-01",
-        "end": "2014-09-01"
+        "start": "2013-05-15",
+        "end": ""
       }
     ],
     "address": "Ismaninger Straße, München, Germany",
@@ -203,7 +203,7 @@ module.exports = [
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
         "start": "2012-01-01",
-        "end": "2013-04-01"
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -236,8 +236,8 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-05-01",
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -271,8 +271,8 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-05-01",
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -305,8 +305,8 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-05-01",
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -341,8 +341,8 @@ module.exports = [
       {
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
-        "start": "2012-01-01",
-        "end": "2013-04-01"
+        "start": "2012-05-01",
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -379,7 +379,7 @@ module.exports = [
         "name": "Smoketest Project 3",
         "description": "Develop a Java backend Java application",
         "start": "2012-01-01",
-        "end": "2013-04-01"
+        "end": "2013-06-01"
       },
       {
         "name": "Smoketest Project 4",
@@ -454,8 +454,8 @@ module.exports = [
       {
         "name": "Smoketest Project 4",
         "description": "Develop a Java frontend application",
-        "start": "2013-05-01",
-        "end": "2014-09-01"
+        "start": "2013-05-15",
+        "end": "2014-09-15"
       }
     ],
     "homeaddress": {
