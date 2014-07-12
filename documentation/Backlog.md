@@ -8,6 +8,7 @@
 - Distance to customer
 - Map of customers
 - Map of employees
+- Enhance Map: add table to the right side of staffing map, filter by distance and availability 
 
 ## Search Criteria
 

@@ -293,7 +293,6 @@
 
     $http.get('http://localhost:9000/api/mongo/search/employees/latestproject').success(function(data) {
         console.log('Get latest project for all employees');
-        console.log(data);
         location.latestprojects = data;
         
         var data = new google.visualization.DataTable();
@@ -302,15 +301,28 @@
         data.addColumn('string', 'Project Name');
         data.addColumn('date', 'Start');
         data.addColumn('date', 'End');
+        data.addColumn('number', 'Idle since (days)');        
         
         for ( var id in location.latestprojects) {
             var item = location.latestprojects[id];
-            console.log(item);
-            data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end)]);
+            var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
+            console.log(behind);
+            data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end), behind]);
         };
+
+        var colorformatter = new google.visualization.ColorFormat();
+        colorformatter.addRange(-100000, -15, 'white', 'red');
+        colorformatter.addRange(-14, 0, 'white', 'orange');
+        colorformatter.addRange(1, 60, 'black', 'yellow');
+        colorformatter.addRange(61, 100000, 'white', 'green');
+        colorformatter.format(data, 5);
+
+        var formatter = new google.visualization.DateFormat({pattern: 'yyyy-MM-dd'});
+        formatter.format(data, 3);
+        formatter.format(data, 4);
         
         var table = new google.visualization.Table(document.getElementById('latestprojects_div'));
-        table.draw(data, {showRowNumber: false, sortColumn: 4});
+        table.draw(data, {showRowNumber: false, allowHtml: true, sortColumn: 4});
     });   
     
  });

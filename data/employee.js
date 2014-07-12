@@ -420,7 +420,7 @@ module.exports = [
         "name": "Smoketest Project 2",
         "description": "Develop a Java frontend PHP application",
         "start": "2013-05-01",
-        "end": "2014-09-01"
+        "end": "2014-07-11"
       }
     ],
     "homeaddress": {
@@ -455,7 +455,7 @@ module.exports = [
         "name": "Smoketest Project 4",
         "description": "Develop a Java frontend application",
         "start": "2013-05-15",
-        "end": "2014-09-15"
+        "end": "2014-07-11"
       }
     ],
     "homeaddress": {
