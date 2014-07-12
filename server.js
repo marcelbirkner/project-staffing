@@ -17,7 +17,7 @@ var util = require('util');
 // mongodb settings
 var mongojs = require('mongojs');
 var databaseUrl = "projectstaffing";
-var collections = ["employees", "customers", "projects", "employeesNew"];
+var collections = ["employees", "customers", "projects"];
 var db = mongojs.connect(databaseUrl, collections);
 
 
@@ -155,7 +155,6 @@ app.get('/api/mongo/init', function(req, res){
 	db.customers.remove({});
 	db.projects.remove({});
 	db.employees.remove({});
-	db.employeesNew.remove({});
 	
     for (var cust in customer) {
 		db.customers.save(cust, function(err, saved) {
