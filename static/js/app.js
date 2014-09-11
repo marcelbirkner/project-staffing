@@ -5,7 +5,7 @@
     'ngRoute',
     'ngAutocomplete',
     'employee-directives',
-    'ngAnimate',    
+    'ngAnimate',
   ]);
 
 })();
@@ -489,54 +489,54 @@
         origin: new google.maps.Point(0,0),  // The origin for this image is 0,0
         anchor: new google.maps.Point(0, 64) // The anchor for this image is the base of the flagpole at 0,64
     };
-    
-    $scope.details = {};    
+
+    $scope.details = {};
     $scope.skillQuery = '';
-    
+
     var employees = [];
     var drawCircle = false;
-    
+
     this.searchCustomer = function() {
       console.log('search customer');
-      
+
       if( $scope.details.geometry ) {
-        var keys = Object.keys($scope.details.geometry.location)
+        var keys = Object.keys($scope.details.geometry.location);
         location.lat = $scope.details.geometry.location[keys[0]];
         location.lng = $scope.details.geometry.location[keys[1]];
         drawCircle = true;
       }
-      
+
       var searchUrl = 'http://localhost:9000/api/mongo/employees';
       if ($scope.skillQuery) {
         var queryArray = $scope.skillQuery.toLowerCase().split(',');
         var fullQuery = '';
         for (var k = 0; k < queryArray.length; k++) {
             var skill = queryArray[k].trim();
-            fullQuery += '&skills=' + skill; 
+            fullQuery += '&skills=' + skill;
         }
-        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?' + fullQuery;      
+        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?' + fullQuery;
       }
-      
+
       $http.get(searchUrl).success(function(data) {
         console.log('Get employees from backend');
         employees = data;
         initializeMap();
-      });      
+      });
    };
-   
+
     /**
      * Function to initialize Google Map
      */
     function initializeMap() {
       console.log('initialze map');
-         
+
       // Create the map
       var mapOptions = {
           zoom: 9,
           center: location,
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-    
+
       var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
       if ( drawCircle ) {
@@ -559,23 +559,23 @@
               title: 'Selected Customer',
           });
       }
-      
+
       // Display multiple markers on a map
       var infoWindow = new google.maps.InfoWindow();
       var markerEmp, i;
       var employee;
-            
+
       for (i = 0; i < employees.length; i++) {
           employee = employees[i];
-          
+
           markerEmp = new google.maps.Marker({
               position: new google.maps.LatLng(employee.homeaddress.longitude,employee.homeaddress.latitude),
               map: map,
               icon: image,
               title: employee.name,
           });
-          
-           // Allow each marker to have an info window    
+
+           // Allow each marker to have an info window
            google.maps.event.addListener(markerEmp, 'click', (function(markerEmp, i) {
                 return function() {
                     var emp = employees[i];
@@ -592,7 +592,7 @@
                     }
                     if (emp.projects) {
                         content += '<p><span class="label label-success">Projects</span><table class="table">';
-                        
+
                         emp.projects.sort(function(a,b) {
                             if (a.start < b.start) {
                                 return 1;
@@ -606,7 +606,7 @@
                             if( projectEnd === undefined ) {
                                 projectEnd = 'Current';
                             }
-                            var projectName = emp.projects[m].name;                                
+                            var projectName = emp.projects[m].name;
                             content += '<tr><td><span class="label label-primary">' + $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
                             content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
                         }
@@ -614,19 +614,37 @@
                     } else {
                         content += '<br>No projects.';
                     }
-                    
+
                     infoWindow.setContent(content);
                     infoWindow.open(map, markerEmp);
                 };
-           })(markerEmp, i));                
-        }        
+           })(markerEmp, i));
+        }
     }
 
     google.maps.event.addDomListener(window, 'load', initializeMap);
- 
+
   });
 
 })();
+
+(function() {
+  'use strict';
+
+  angular.module('project-staffing').controller('TimelineController', function($http) {
+
+    var timeline = this;
+
+    timeline.list = [];
+
+    $http.get('http://localhost:9000/api/mongo/timeline').success(function(data) {
+      console.log('Get recent timeline entries');
+      timeline.list = data;
+    });
+  });
+
+})();
+
 (function(){
   'use strict';
 
@@ -703,6 +721,11 @@
     $routeProvider.when('/', {
       templateUrl: 'views/index.html',
     })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
     .when('/dashboard', {
       templateUrl: 'views/dashboard.html',
       controller: 'DashboardController',
@@ -741,4 +764,3 @@
     });
   });
 })();
-

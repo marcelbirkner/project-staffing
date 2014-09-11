@@ -7,6 +7,11 @@
     $routeProvider.when('/', {
       templateUrl: 'views/index.html',
     })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
     .when('/dashboard', {
       templateUrl: 'views/dashboard.html',
       controller: 'DashboardController',
@@ -45,4 +50,3 @@
     });
   });
 })();
-

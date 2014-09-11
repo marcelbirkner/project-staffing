@@ -15,8 +15,8 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li ng-class="active === 'dashboard' ? 'active' : ''">
-          <a href="#/dashboard" ng-click="set('dashboard')">Dashboard</a>
+        <li ng-class="active === 'timeline' ? 'active' : ''">
+          <a href="#/timeline" ng-click="set('timeline')">Timeline</a>
         </li>
         <li ng-class="{active:active === 'staffing'}" ng-click="set('staffing')"><a href="#/staffing">Staff Project</a></li>
         <li ng-class="{active:active === 'employees', dropdown:true}">
@@ -32,6 +32,9 @@
             <li><a href="#/add-customer" ng-click="set('customers')">Manage Customers</a></li>
             <li><a href="#/list-customers" ng-click="set('customers')">Show Customers</a></li>
           </ul>
+        </li>
+        <li ng-class="active === 'dashboard' ? 'active' : ''">
+          <a href="#/dashboard" ng-click="set('dashboard')">Stats</a>
         </li>
         <li ng-class="{active:active === 'help'}" ng-click="set('help')"><a href="#/help">Help</a></li>
       </ul>
