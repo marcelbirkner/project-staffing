@@ -35,8 +35,13 @@
         var keys = Object.keys($scope.details.geometry.location)
         this.customer.companyaddress.longitude = $scope.details.geometry.location[keys[0]];
         this.customer.companyaddress.latitude = $scope.details.geometry.location[keys[1]];
-        
+
+        // TODO: get userid from session
+        var user = 'jon';
+        var msg = 'created a new customer';
+        var activity = {timestamp: new Date(), subject: user, action: msg, object: this.customer.company};
         $http.post('http://localhost:9000/api/mongo/customers', JSON.stringify(this.customer));
+        $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
 
         $http.get('http://localhost:9000/api/mongo/customers').success(function(data) {
             console.log('Get all customers from backend');
@@ -49,14 +54,23 @@
       console.log('delete customer ' + id);
       $http.delete('http://localhost:9000/api/mongo/customers/' + id);
 
+      var deletedCustomer;
       for (var i in company.customers){
         console.log(company.customers[i]);
         console.log(i);
         if( company.customers[i]._id === id ) {
           console.log('Delete item from array');
+          deletedCustomer = company.customers[i];
           company.customers.splice(i,1);
         }
       }
+
+      // TODO: get userid from session
+      var user = 'julia'
+      var msg = 'deleted customer';
+      var activity = {timestamp: new Date(), subject: user, action: msg, object: deletedCustomer.company};
+      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+
     };
 
     this.editCustomer = function(id) {

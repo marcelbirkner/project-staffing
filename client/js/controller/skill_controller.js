@@ -10,6 +10,13 @@
       console.log(employee.skills[id]);
       employee.skills.splice(id, 1);
       $http.post('http://localhost:9000/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+
+      // TODO: get userid from session
+      var user = 'julia'
+      var msg = 'deleted skill';
+      var activity = {timestamp: new Date(), subject: user, action: msg, object: employee.skills[id]};
+      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+
     };
 
     this.addSkill = function(employee) {
@@ -24,6 +31,12 @@
       employee.skills.push(this.skill);
 
       $http.post('http://localhost:9000/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+
+      // TODO: get userid from session
+      var user = 'jon'
+      var msg = 'added skill';
+      var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
+      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
 
       this.skill = '';
     };

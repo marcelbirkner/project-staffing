@@ -47,6 +47,12 @@
         console.log('update existing employee');
         $http.post('http://localhost:9000/api/mongo/employees/' + this.employee._id, JSON.stringify(this.employee));
       }
+      // TODO: get userid from session
+      var user = 'jon'
+      var msg = 'added a new employee';
+      var activity = {timestamp: new Date(), subject: user, action: msg, object: this.employee.name};
+      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+
       $http.get('http://localhost:9000/api/mongo/employees').success(function(data) {
         console.log('Update all employees from backend');
         company.employees = data;
@@ -57,14 +63,23 @@
       console.log('Delete employee with id: ' + JSON.stringify(id));
       $http.delete('http://localhost:9000/api/mongo/employees/' + id);
 
+      var deletedEmployee;
       for (var i in this.employees){
         console.log(this.employees[i]);
         console.log(i);
         if( this.employees[i]._id === id ) {
+          deletedEmployee = this.employees[i];
           console.log('Delete item from array');
           this.employees.splice(i,1);
         }
       }
+    
+      // TODO: get userid from session
+      var user = 'max'
+      var msg = 'deleted a employee';
+      var activity = {timestamp: new Date(), subject: user, action: msg, object: deletedEmployee.name};
+      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+
     };
 
     });

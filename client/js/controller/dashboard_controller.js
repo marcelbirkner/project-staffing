@@ -1,14 +1,14 @@
 ﻿(function() {
   'use strict';
 
-  angular.module('project-staffing').controller('DashboardController', function($http, $scope, $filter) {
+  angular.module('project-staffing').controller('DashboardController', function($http, $scope) {
 
     console.log('Dashboard Controller');
-    
+
     var location = this;
     location.employees = [];
     location.latestprojects = [];
-    
+
     // draw table
     var dataArray = [
         ['Lat', 'Long', 'Office', 'Revenue', 'No. Employees', 'Utilization'],
@@ -21,20 +21,21 @@
         [53.55539,9.98492, 'Hamburg', {v: 2.5, f: '2.5%'}, 0, 30],
         [51.4969802, 11.9688029, 'Halle (Saale)', {v: -5.1, f: '5.1%'}, 0, 20]
     ];
-    
+
     $http.get('http://localhost:9000/api/mongo/search/location/employees').success(function(data) {
         console.log('Get employees grouped by location');
         location.employees = data;
+
         for ( var id in dataArray ) {
             var locationKey = dataArray[id][2];
             for ( var idLocation in location.employees ) {
-                if ( location.employees[idLocation]._id == locationKey ) {
+                if ( location.employees[idLocation]._id === locationKey ) {
                     var totalEmployees = location.employees[idLocation].total;
                     dataArray[id][4] = totalEmployees;
-                };
-            };            
-        };
-        
+                }
+            }
+        }
+
         var geoData = google.visualization.arrayToDataTable(dataArray);
         var geoView = new google.visualization.DataView(geoData);
         geoView.setColumns([0, 1]);
@@ -70,27 +71,27 @@
         function() {
             table.setSelection(map.getSelection());
         });
- 
+
     });
 
-    $http.get('http://localhost:9000/api/mongo/search/employees/latestproject').success(function(data) {
+    $http.get('http://localhost:9000/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
         console.log('Get latest project for all employees');
-        location.latestprojects = data;
-        
+        location.latestprojects = dataLatestProjects;
+
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Name');
         data.addColumn('string', 'Office');
         data.addColumn('string', 'Project Name');
         data.addColumn('date', 'Start');
         data.addColumn('date', 'End');
-        data.addColumn('number', 'Idle since (days)');        
-        
+        data.addColumn('number', 'Idle since (days)');
+
         for ( var id in location.latestprojects) {
             var item = location.latestprojects[id];
             var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
             console.log(behind);
             data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end), behind]);
-        };
+        }
 
         var colorformatter = new google.visualization.ColorFormat();
         colorformatter.addRange(-100000, -15, 'white', 'red');
@@ -102,11 +103,11 @@
         var formatter = new google.visualization.DateFormat({pattern: 'yyyy-MM-dd'});
         formatter.format(data, 3);
         formatter.format(data, 4);
-        
+
         var table = new google.visualization.Table(document.getElementById('latestprojects_div'));
         table.draw(data, {showRowNumber: false, allowHtml: true, sortColumn: 4});
-    });   
-    
+    });
+
  });
 
 })();
