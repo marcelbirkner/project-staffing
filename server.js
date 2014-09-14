@@ -18,14 +18,14 @@ var util = require('util');
 // mongodb settings
 var mongojs = require('mongojs');
 var databaseUrl = "projectstaffing";
-var collections = ["employees", "customers", "projects"];
+var collections = ["employees", "customers", "projects", "activities"];
 var db = mongojs.connect(databaseUrl, collections);
 
 
 /**
  * Version of backend system. Each addition of a new REST Service changes the version number.
  */
-var version = {'version':'1.2.0'};
+var version = {'version':'1.3.0'};
 
 
 /**
@@ -75,6 +75,15 @@ app.get('/api', function(req, res) {
 		  href: '/api/mongo/customers/:id',
 		  method: 'DELETE',
 		  description: 'Delete customer by id',
+		}
+	  }
+	},
+	activities: {
+      links: {
+	    allActivities: {
+		  href: '/api/mongo/activities',
+		  method: 'GET',
+		  description: 'Get an array of all activities',
 		}
 	  }
 	},
@@ -156,6 +165,7 @@ app.get('/api/mongo/init', function(req, res){
 	db.customers.remove({});
 	db.projects.remove({});
 	db.employees.remove({});
+	db.activities.remove({});
 	
     for (var cust in customer) {
 		db.customers.save(cust, function(err, saved) {
@@ -205,7 +215,7 @@ app.get('/api/mongo/init', function(req, res){
 		}
 	}
 
-	return res.json(200, {'message':	'MongoDB test data initialized'});
+	return res.json(200, {'message': 'MongoDB test data initialized'});
 });
 
 /**
@@ -257,10 +267,38 @@ app.get('/api/mongo/projects', function(req, res){
 });
 
 /**
+ * Activities API
+ */
+app.get('/api/mongo/activities', function(req, res){
+	console.log('GET - array of all activities');
+
+	db.activities.find().sort({timestamp:-1}, function(err, activities) {
+	
+	  if( err || !activities)
+	    return res.json(404, {error: 'No activities found'});
+	  else
+	    return res.json(200, activities);
+	});
+});
+app.post('/api/mongo/activities', function(req, res){
+	console.log('POST - create new activity');
+	console.log(req.body);
+	db.activities.save(req.body, function(err, saved) {
+	  if( err || !saved ) {
+		console.log("Activity not saved");
+		return res.send(500, { error: 'Activity not saved.' })
+	  } else {
+		console.log("Activity saved");
+		return res.end();
+	  }
+	});
+});
+
+/**
  * Employee API
  */
 app.get('/api/mongo/employees', function(req, res){
-	console.log('GET - array of all all employees');
+	console.log('GET - array of all employees');
 	db.employees.find({}, function(err, employees) {
 	  if( err || !employees)
 	    return res.json(404, {error: 'No employees found'});
