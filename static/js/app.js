@@ -363,6 +363,7 @@
   .controller('EmployeeController', function($http, $location) {
 
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    console.log('URL ' + url);
 
     var company = this;
 
