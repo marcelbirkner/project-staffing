@@ -1,13 +1,14 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('TimelineController', function($http) {
+  angular.module('project-staffing').controller('TimelineController', function($http, $location) {
+
+    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var timeline = this;
-
     timeline.list = [];
 
-    $http.get('http://localhost:9000/api/mongo/activities').success(function(data) {
+    $http.get(url + '/api/mongo/activities').success(function(data) {
       console.log('Get recent timeline entries');
       timeline.list = data;
     });

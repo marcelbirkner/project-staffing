@@ -1,9 +1,12 @@
-﻿(function() {
+/* global google */
+(function() {
   'use strict';
 
-  angular.module('project-staffing').controller('DashboardController', function($http, $scope) {
+  angular.module('project-staffing').controller('DashboardController', function($http, $location) {
 
     console.log('Dashboard Controller');
+
+    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = this;
     location.employees = [];
@@ -22,7 +25,7 @@
         [51.4969802, 11.9688029, 'Halle (Saale)', {v: -5.1, f: '5.1%'}, 0, 20]
     ];
 
-    $http.get('http://localhost:9000/api/mongo/search/location/employees').success(function(data) {
+    $http.get(url + '/api/mongo/search/location/employees').success(function(data) {
         console.log('Get employees grouped by location');
         location.employees = data;
 
@@ -74,7 +77,7 @@
 
     });
 
-    $http.get('http://localhost:9000/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
+    $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
         console.log('Get latest project for all employees');
         location.latestprojects = dataLatestProjects;
 

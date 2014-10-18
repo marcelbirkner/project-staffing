@@ -1,7 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('SkillController', function($http) {
+  angular.module('project-staffing').controller('SkillController', function($http, $location) {
+
+    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     this.skill = '';
 
@@ -9,13 +11,13 @@
       console.log('delete skill ' + id);
       console.log(employee.skills[id]);
       employee.skills.splice(id, 1);
-      $http.post('http://localhost:9000/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+      $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
       // TODO: get userid from session
-      var user = 'julia'
+      var user = 'julia';
       var msg = 'deleted skill';
       var activity = {timestamp: new Date(), subject: user, action: msg, object: employee.skills[id]};
-      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
     };
 
@@ -30,13 +32,13 @@
       }
       employee.skills.push(this.skill);
 
-      $http.post('http://localhost:9000/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+      $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
       // TODO: get userid from session
-      var user = 'jon'
+      var user = 'jon';
       var msg = 'added skill';
       var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
-      $http.post('http://localhost:9000/api/mongo/activities', JSON.stringify(activity));
+      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
       this.skill = '';
     };

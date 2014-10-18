@@ -16,27 +16,27 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-left">
         <li ng-class="active === 'timeline' ? 'active' : ''">
-          <a href="#/timeline" ng-click="set('timeline')">Timeline</a>
+          <a id="navTimeline" href="#/timeline" ng-click="set('timeline')">Timeline</a>
         </li>
-        <li ng-class="{active:active === 'staffing'}" ng-click="set('staffing')"><a href="#/staffing">Staff Project</a></li>
-        <li ng-class="{active:active === 'employees', dropdown:true}">
+        <li id="navStaffProject" ng-class="{active:active === 'staffing'}" ng-click="set('staffing')"><a href="#/staffing">Staff Project</a></li>
+        <li id="navEmployees" ng-class="{active:active === 'employees', dropdown:true}">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#/add-employee" ng-click="set('employees')">Manage Employees</a></li>
-            <li><a href="#/list-employees" ng-click="set('employees')">List Employees</a></li>
+            <li><a id="navManageEmployees" href="#/add-employee" ng-click="set('employees')">Manage Employees</a></li>
+            <li><a id="navListEmployees" href="#/list-employees" ng-click="set('employees')">List Employees</a></li>
           </ul>
         </li>
-        <li ng-class="{active:active === 'customers', dropdown:true}">
+        <li id="navCustomers" ng-class="{active:active === 'customers', dropdown:true}">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#/add-customer" ng-click="set('customers')">Manage Customers</a></li>
-            <li><a href="#/list-customers" ng-click="set('customers')">Show Customers</a></li>
+            <li><a id="navManageCustomers" href="#/add-customer" ng-click="set('customers')">Manage Customers</a></li>
+            <li><a id="navListCustomers" href="#/list-customers" ng-click="set('customers')">List Customers</a></li>
           </ul>
         </li>
         <li ng-class="active === 'dashboard' ? 'active' : ''">
-          <a href="#/dashboard" ng-click="set('dashboard')">Stats</a>
+          <a id="navDashboard" href="#/dashboard" ng-click="set('dashboard')">Stats</a>
         </li>
-        <li ng-class="{active:active === 'help'}" ng-click="set('help')"><a href="#/help">Help</a></li>
+        <li ng-class="{active:active === 'help'}" ng-click="set('help')"><a id="navHelp" href="#/help">Help</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <input type="text" class="form-control" placeholder="Search...">

@@ -1,11 +1,15 @@
+/* global google */
+/* eslint-disable no-loop-func, no-new */
 (function() {
   'use strict';
 
   angular
   .module('project-staffing')
-  .controller('StaffingController', function($http, $scope, $filter){
+  .controller('StaffingController', function($http, $scope, $filter, $location){
 
     console.log('Staffing Controller');
+
+    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = {lat: 51.161295, lng: 7.010175000000004}; // default location
     var image = {
@@ -31,7 +35,7 @@
         drawCircle = true;
       }
 
-      var searchUrl = 'http://localhost:9000/api/mongo/employees';
+      var searchUrl = url + '/api/mongo/employees';
       if ($scope.skillQuery) {
         var queryArray = $scope.skillQuery.toLowerCase().split(',');
         var fullQuery = '';
@@ -39,7 +43,7 @@
             var skill = queryArray[k].trim();
             fullQuery += '&skills=' + skill;
         }
-        searchUrl = 'http://localhost:9000/api/mongo/search/employees/skills?' + fullQuery;
+        searchUrl = url + '/api/mongo/search/employees/skills?' + fullQuery;
       }
 
       $http.get(searchUrl).success(function(data) {

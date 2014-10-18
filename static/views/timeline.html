@@ -5,41 +5,39 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
 
-        	<!-- Nav tabs -->
-			<ul class="nav nav-tabs" role="tablist">
-			  <li class="active"><a href="" role="tab" data-toggle="tab">All Activities</a></li>
-			  <li><a href="" role="tab" data-toggle="tab">New Employees</a></li>
-			  <li><a href="" role="tab" data-toggle="tab">New Projects</a></li>
-			  <li><a href="" role="tab" data-toggle="tab">New Customer</a></li>
-			</ul>
-			<br/>
+          <!-- Nav tabs -->
+    			<ul class="nav nav-tabs" role="tablist">
+    			  <li class="active"><a id="tabActivities" href="" role="tab" data-toggle="tab">All Activities</a></li>
+    			  <li><a href="" role="tab" data-toggle="tab">New Employees</a></li>
+    			  <li><a href="" role="tab" data-toggle="tab">New Projects</a></li>
+    			  <li><a href="" role="tab" data-toggle="tab">New Customer</a></li>
+    			</ul>
+    			<br/>
 
-			<!-- TODO: Replace static content with dynamic data from backend -->
-			<ul class="list-group">
-			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list">
-			    <span class="badge">{{activities.timestamp | date:'medium'}}</span>
-			    <img src="/img/{{activities.subject}}.png" width="50px" class="img-rounded">&nbsp;
-			    <b>{{activities.subject}}</b> {{activities.action}} <b>{{activities.object}}</b>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">45min ago</span>
-			    <img src="/img/julia.png" width="50px" class="img-rounded">&nbsp;
-			    <b>Maggie Jordan</b> created a new employee <b>User A</b>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">2 hours ago</span>
-			    <img src="/img/max.png" width="50px" class="img-rounded">&nbsp;
-			    <b>Max Smith</b> added a new project to <b>userid</b>
-			  </li>
-			  <li class="list-group-item">
-			    <span class="badge">1 day ago</span>
-			    <img src="/img/maria.png" width="50px" class="img-rounded">&nbsp;
-			    <b>Barbara Johnson</b> created a new employee <b>User A</b>
-			  </li>
-			</ul>
+    			<ul class="list-group">
+    			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list">
+    			    <span class="badge">{{activities.timestamp | date:'medium'}}</span>
+    			    <img ng-src="/img/{{activities.subject}}.png" width="50px" class="img-rounded">&nbsp;
+    			    <b>{{activities.subject}}</b> {{activities.action}} <b>{{activities.object}}</b>
+    			  </li>
+    			</ul>
+
         </div>
         <div class="col-md-3"></div>
       </div>
     </div>
   </div>
 </div>
+
+
+<div class="parent">
+  <div class="child">
+    Child text
+    <div>{{person.phone}}</div>
+  </div>
+</div>
+
+var child = element(by.css('.nav nav-tabs')).element(by.css('.active'));
+expect(child.getText()).toBe('All Activities');
+var child = element(by.id('tabActivities'));
+expect(child.getText()).toBe('All Activities');
