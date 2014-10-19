@@ -2,13 +2,18 @@
 
 Here is a summary of the current project layout
 
-- *server.js* is the central location for all backend REST services
-- *client* contains the AngularJS frontend JavaScript code
-- *data* contains some test data for MongoDB
-- *documentation* to be written :-)
-- *infrastructure* scripts for deployment
-- *smoketests* scripts with tests that run after a fresh deployment
-- *static* contains frontend assets
+- **server.js** is the central location for all backend REST services
+- **client** contains the AngularJS frontend JavaScript code
+- **data** contains some test data for MongoDB
+- **documentation** to be written :-)
+- **infrastructure** scripts for deployment
+- **smoketests** scripts with tests that run after a fresh deployment
+- **static** contains frontend assets
+
+# Tests
+
+- End-2-End Integration Tests [Documentation](e2e/README.md)
+- Unit Tests (Work in Progress)
 
 # Getting started
 
