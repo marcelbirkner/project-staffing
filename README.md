@@ -1,5 +1,8 @@
 # Project overview
 
+- [Project Documentation & Screenshots](documentation/README.md)
+- Technologies: AngularJS, ExpressJS, NodeJS, Bootstrap, Google Maps API, Google Visualization API, Jasmine JS Tests, Protrator
+
 Here is a summary of the current project layout
 
 - **server.js** is the central location for all backend REST services
@@ -16,8 +19,6 @@ Here is a summary of the current project layout
 - Unit Tests (Work in Progress)
 
 # Getting started
-
-Example project to test AngularJS, ExpressJS, NodeJS, ...
 
 ## Starting NodeJS Server
 
