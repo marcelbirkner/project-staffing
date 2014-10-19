@@ -14,13 +14,21 @@ describe('Manage Employees Page', function() {
     expect(ptor.getCurrentUrl()).toMatch(/#\/add-employee/);
   });
 
-  it('should delete all existing employees', function() {
-    var list = element.all(by.css('.btn-danger')).each(function(element) {
-      element.click();
+  describe('Add new employees and validate creation', function() {
+    
+    it('should delete all existing employees', function() {
+      var list = element.all(by.css('.btn-danger')).each(function(element) {
+        element.click();
+      });
+
+      list = element.all(by.css('.btn-danger'));
+      expect(list.count()).toBe(0);
     });
 
-    list = element.all(by.css('.btn-danger'));
-    expect(list.count()).toBe(0);
+    it('Add new employee', function() {
+
+    });
+
   });
 
 });

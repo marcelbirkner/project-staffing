@@ -101,19 +101,19 @@
     };
 
     this.deleteCustomer = function(id) {
-      console.log('delete customer ' + id);
-      $http.delete(url + '/api/mongo/customers/' + id);
+      console.log('delete customer by id ' + id);
 
       var deletedCustomer;
       for (var i in company.customers){
-        console.log(company.customers[i]);
-        console.log(i);
         if( company.customers[i]._id === id ) {
           console.log('Delete item from array');
           deletedCustomer = company.customers[i];
           company.customers.splice(i,1);
         }
       }
+
+      // delete customer in backend
+      $http.delete(url + '/api/mongo/customers/' + id);
 
       // TODO: get userid from session
       var user = 'julia';

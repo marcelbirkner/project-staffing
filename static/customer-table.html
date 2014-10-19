@@ -34,8 +34,12 @@
 							<td>{{customer.company}}</td>
 							<td>{{customer.industry}}</td>
 							<td>{{customer.address}}</td>
-							<td><button ng-click="customerCtrl.deleteCustomer(customer._id)" class="btn btn-danger">Delete</button></td>
-							<td><button ng-click="customerCtrl.editCustomer(customer._id)" class="btn btn-primary">Edit</button></td>
+							<td>
+								<button id="deleteButton" ng-click="customerCtrl.deleteCustomer(customer._id)" class="btn btn-danger">Delete</button>
+							</td>
+							<td>
+								<button id="editButton" ng-click="customerCtrl.editCustomer(customer._id)" class="btn btn-primary">Edit</button>
+							</td>
                         </tr>
 					</tbody>
 				</table>
