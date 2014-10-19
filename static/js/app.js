@@ -314,8 +314,10 @@
         function() {
             table.setSelection(map.getSelection());
         });
-
     });
+    //.error(function (data, status, headers, config) {
+    //  return status;
+    //});
 
     $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
         console.log('Get latest project for all employees');
@@ -723,6 +725,59 @@
 
 })();
 
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'views/index.html',
+    })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
+    })
+    .when('/list-employees', {
+      templateUrl: 'views/list_employees.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/add-employee', {
+      templateUrl: 'views/add_employee.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/list-customers', {
+      templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
+    .when('/add-customer', {
+      templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+    })
+    .otherwise({
+      redirectTo: '/',
+    });
+  });
+})();
+
 (function(){
   'use strict';
 
@@ -787,58 +842,5 @@
     restrict: 'E',
     templateUrl: 'searchcustomeraddress-form.html'
   };
-  });
-})();
-
-(function() {
-  'use strict';
-
-  angular
-  .module('project-staffing')
-  .config(function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-    })
-    .when('/timeline', {
-      templateUrl: 'views/timeline.html',
-      controller: 'TimelineController',
-      controllerAs: 'timelineCtrl',
-    })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dashboardCtrl',
-    })
-    .when('/list-employees', {
-      templateUrl: 'views/list_employees.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/add-employee', {
-      templateUrl: 'views/add_employee.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/list-customers', {
-      templateUrl: 'views/list_customers.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/staffing', {
-      templateUrl: 'views/staff_project.html',
-      controller: 'StaffingController',
-      controllerAs: 'staffingCtrl',
-    })
-    .when('/add-customer', {
-      templateUrl: 'views/add_customer.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/help', {
-      templateUrl: 'views/help.html',
-    })
-    .otherwise({
-      redirectTo: '/',
-    });
   });
 })();

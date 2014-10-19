@@ -431,7 +431,7 @@ app.get('/api/mongo/search/location/employees', function(req, res){
 	db.employees.aggregate([
         { $group: { _id: "$office", total: { $sum: 1 } } }    
     ], function(err, employees) {
-      if( err || !employees || employees.length == 0) {
+      if( err ) {
 	    console.log("No employees found");
 		return res.json(404, employees);
 	  } else {
@@ -454,7 +454,7 @@ app.get('/api/mongo/search/employees/latestproject', function(req, res){
         { "$sort" : { "projects.end" : -1}}
     ];
     db.employees.aggregate(query, function(err, employees) {
-      if( err || !employees || employees.length == 0) {
+      if( err ) {
         console.log(err);
 	    console.log("No employees found");
 		return res.json(404, employees);

@@ -74,8 +74,10 @@
         function() {
             table.setSelection(map.getSelection());
         });
-
     });
+    //.error(function (data, status, headers, config) {
+    //  return status;
+    //});
 
     $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
         console.log('Get latest project for all employees');
