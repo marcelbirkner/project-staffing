@@ -1,5 +1,13 @@
 # End-2-End Integration Tests
 
+The integration tests will start up a webbrowser and click thru the web application.
+Each tests tests expected behaviour from the web application.
+
+## Prerequisites
+
+- App (NodeJS Backend) needs to be running
+- MongoDB needs to be running 
+
 ## Setup
 
 Use npm to install Protractor globally with:
@@ -29,6 +37,7 @@ Now run the test with
 ```
 protractor e2e/conf.js
 ```
+
 ## E2E Result Example Output
 
 ```
