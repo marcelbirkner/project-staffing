@@ -15,7 +15,7 @@
     			<br/>
 
     			<ul class="list-group">
-    			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list">
+    			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list.slice(0, 20)">
     			    <span class="badge">{{activities.timestamp | date:'medium'}}</span>
     			    <img ng-src="/img/{{activities.subject}}.png" width="50px" class="img-rounded">&nbsp;
     			    <b>{{activities.subject}}</b> {{activities.action}} <b>{{activities.object}}</b>
@@ -28,16 +28,3 @@
     </div>
   </div>
 </div>
-
-
-<div class="parent">
-  <div class="child">
-    Child text
-    <div>{{person.phone}}</div>
-  </div>
-</div>
-
-var child = element(by.css('.nav nav-tabs')).element(by.css('.active'));
-expect(child.getText()).toBe('All Activities');
-var child = element(by.id('tabActivities'));
-expect(child.getText()).toBe('All Activities');
