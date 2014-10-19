@@ -4,4 +4,5 @@ node_modules
 *.swp
 *.un~
 
+xmloutput/
 data/mongodb
