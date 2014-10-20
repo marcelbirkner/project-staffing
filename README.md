@@ -10,7 +10,7 @@
 - **server.js** is the central location for all backend REST services
 - **client** contains the AngularJS frontend JavaScript code
 - **data** contains some test data for MongoDB
-- **documentation** to be written :-)
+- **documentation** project documentation incl. screenshots
 - **infrastructure** scripts for deployment
 - **smoketests** scripts with tests that run after a fresh deployment
 - **static** contains frontend assets
