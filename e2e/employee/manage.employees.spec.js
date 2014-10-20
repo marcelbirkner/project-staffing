@@ -1,7 +1,6 @@
 describe('Manage Employees Page', function() {
 
   var ptor;
-
   var nameField = element(by.model('employeeCtrl.employee.name'));
   var emailField = element(by.model('employeeCtrl.employee.email'));
   var officeField = element(by.model('employeeCtrl.employee.office'));
@@ -28,6 +27,11 @@ describe('Manage Employees Page', function() {
     createEmployee('Max', 'Frankfurt');
     createEmployee('Daniel', 'München');
     createEmployee('Maria', 'Solingen');
+  }
+
+  function createSkill(skill) {
+    element(by.model('skillCtrl.skill')).sendKeys(skill);
+    element(by.id('saveSkillButton')).click();
   }
 
   beforeEach(function() {
@@ -69,6 +73,18 @@ describe('Manage Employees Page', function() {
     element(by.id('searchText')).sendKeys('ria');
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(1);
+  });
+
+  it('should create employee John with three skills', function() {
+    createEmployee('John', 'Berlin');
+    element(by.id('resetButton')).click();
+    element(by.id('editButton')).click();
+    element(by.id('addSkillTab')).click();
+    createSkill('java');
+    createSkill('MongoDB');
+    createSkill('JavaScript');
+    var list = element.all(by.id('skill'));
+    expect(list.count()).toBe(3);
   });
 
 });

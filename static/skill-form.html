@@ -8,12 +8,15 @@
 							<input type="text" ng-model="skillCtrl.skill" class="form-control" title="Skill"></input>
 						  </div>
 						  <div class="col-xs-2">
-							<input type="submit" class="btn btn-primary pull-right" value="Save Skills"/>
+							<input id="saveSkillButton" type="submit" class="btn btn-primary pull-right" value="Save Skills"/>
 						  </div>
 						</div>
 						<div ng-repeat="skill in employeeCtrl.employee.skills track by $index" style="float:left">
-							<h4><span class="label label-success">{{skill | firstLetterUppercase}} <a ng-click="skillCtrl.deleteSkill($index,employeeCtrl.employee)" class="glyphicon glyphicon-remove"></a></span>&nbsp;
-							</h4>
+						  <h4>
+							<span class="label label-success">{{skill | firstLetterUppercase}} 
+							  <a id="skill" ng-click="skillCtrl.deleteSkill($index,employeeCtrl.employee)" class="glyphicon glyphicon-remove"></a>
+							</span>&nbsp;
+						  </h4>
 						</div>
 					</form>
 					<br>
