@@ -1,4 +1,4 @@
-describe('Delete all customer and add new customer', function() {
+describe('List customer on map tests:', function() {
 
   var ptor;
 
@@ -23,7 +23,8 @@ describe('Delete all customer and add new customer', function() {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navCustomers')).click();
-    element(by.id('navManageCustomers')).click();
+    element(by.id('navManageCustomers')).click(); 
+ 	// delete all existing customer
     var customers = element.all(by.id('deleteButton'))
     customers.count().then(function(count) {
       while(count > 0) {
@@ -31,24 +32,27 @@ describe('Delete all customer and add new customer', function() {
         count--;
       }
     });
+    createCustomer('Test Company 1', 'IT', 'Köln');
+    element(by.id('navCustomers')).click();
+    element(by.id('navListCustomers')).click();
   });
 
   it('should navigate to manage customers', function() {
-    expect(ptor.getCurrentUrl()).toMatch(/#\/add-customer/);
+    expect(ptor.getCurrentUrl()).toMatch(/#\/list-customers/);
   });
 
-  it('all customers should have been deleted', function() {
-    var list = element.all(by.id('deleteButton'));
-    expect(list.count()).toBe(0);
-  });
-
-  it('Add new customer', function() {
-    createCustomer('Test Company 1', 'IT', 'Köln');
-    createCustomer('Test Company 2', 'Telecommunication', 'Bonn');
-    createCustomer('Test Company 3', 'Sport', 'Berlin');
-    createCustomer('Test Company 4', 'Banking', 'Frankfurt');
-    var listAfter = element.all(by.id('deleteButton'));
-    expect(listAfter.count()).toBe(4);
+  it('navigate to cologne should find customer on map', function() {
+    var customerField = element(by.model('employeeCtrl.employee.address'));
+    customerField.sendKeys('Köln');
+	browser.driver.sleep(500);
+    ptor.actions().sendKeys(protractor.Key.DOWN).perform();
+    var searchButton = element(by.id('searchButton'));
+	searchButton.click();
+	browser.driver.sleep(500);
+	// check that element is present on google map initialized map
+	element.all(by.css('.gm-style-mtc')).then(function(items) {
+	  expect(items.length > 0).toBeTruthy();
+	});
   });
 
 });

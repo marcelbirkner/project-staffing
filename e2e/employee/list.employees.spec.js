@@ -18,7 +18,6 @@ describe('List All Employees Page', function() {
     var list = element.all(by.css('.btn-danger')).each(function(element) {
       element.click();
     });
-
     list = element.all(by.css('.btn-danger'));
     expect(list.count()).toBe(0);
   });

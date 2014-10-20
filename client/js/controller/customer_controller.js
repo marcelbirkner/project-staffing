@@ -172,7 +172,7 @@
           google.maps.event.addListener(markerCustomer, 'click', (function(markerCustomer, i) {
             return function() {
               var cust = customers[i];
-              var content = '<p><b>' + cust.company + '</b></p><table class="table"><tr>';
+              var content = '<p><b id="customerTitle">' + cust.company + '</b></p><table class="table"><tr>';
               content += '<tr><td><span class="label label-primary">Industry</span></td><td>' + cust.industry + '</td></tr>';
               content += '<tr><td><span class="label label-primary">Address</span></td><td>' + cust.address + '</td></tr></table>';
 

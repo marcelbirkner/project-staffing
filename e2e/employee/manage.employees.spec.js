@@ -20,13 +20,8 @@ describe('Manage Employees Page', function() {
       var list = element.all(by.css('.btn-danger')).each(function(element) {
         element.click();
       });
-
       list = element.all(by.css('.btn-danger'));
       expect(list.count()).toBe(0);
-    });
-
-    it('Add new employee', function() {
-
     });
 
   });

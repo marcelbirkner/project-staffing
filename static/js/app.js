@@ -222,7 +222,7 @@
           google.maps.event.addListener(markerCustomer, 'click', (function(markerCustomer, i) {
             return function() {
               var cust = customers[i];
-              var content = '<p><b>' + cust.company + '</b></p><table class="table"><tr>';
+              var content = '<p><b id="customerTitle">' + cust.company + '</b></p><table class="table"><tr>';
               content += '<tr><td><span class="label label-primary">Industry</span></td><td>' + cust.industry + '</td></tr>';
               content += '<tr><td><span class="label label-primary">Address</span></td><td>' + cust.address + '</td></tr></table>';
 
@@ -730,77 +730,6 @@
 
 })();
 
-(function() {
-  'use strict';
-
-  angular.module('project-staffing').filter('firstLetterUppercase', function() {
-    return function(input) {
-      if( input.length === 0 ) {
-        return '';
-      }
-      var array = input.split(/[ ]+/);
-      var result = '';
-      for(var i = 0; i < array.length; i++) {
-        result += array[i].charAt(0).toUpperCase() + array[i].slice(1) + ' ';
-      }
-      return result.trim();
-    };
-  });
-
-})();
-(function() {
-  'use strict';
-
-  angular
-  .module('project-staffing')
-  .config(function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-    })
-    .when('/timeline', {
-      templateUrl: 'views/timeline.html',
-      controller: 'TimelineController',
-      controllerAs: 'timelineCtrl',
-    })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dashboardCtrl',
-    })
-    .when('/list-employees', {
-      templateUrl: 'views/list_employees.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/add-employee', {
-      templateUrl: 'views/add_employee.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/list-customers', {
-      templateUrl: 'views/list_customers.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/staffing', {
-      templateUrl: 'views/staff_project.html',
-      controller: 'StaffingController',
-      controllerAs: 'staffingCtrl',
-    })
-    .when('/add-customer', {
-      templateUrl: 'views/add_customer.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/help', {
-      templateUrl: 'views/help.html',
-    })
-    .otherwise({
-      redirectTo: '/',
-    });
-  });
-})();
-
 (function(){
   'use strict';
 
@@ -865,5 +794,77 @@
     restrict: 'E',
     templateUrl: 'searchcustomeraddress-form.html'
   };
+  });
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('project-staffing').filter('firstLetterUppercase', function() {
+    return function(input) {
+      if( input.length === 0 ) {
+        return '';
+      }
+      var array = input.split(/[ ]+/);
+      var result = '';
+      for(var i = 0; i < array.length; i++) {
+        result += array[i].charAt(0).toUpperCase() + array[i].slice(1) + ' ';
+      }
+      return result.trim();
+    };
+  });
+
+})();
+
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'views/index.html',
+    })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
+    })
+    .when('/list-employees', {
+      templateUrl: 'views/list_employees.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/add-employee', {
+      templateUrl: 'views/add_employee.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/list-customers', {
+      templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
+    .when('/add-customer', {
+      templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+    })
+    .otherwise({
+      redirectTo: '/',
+    });
   });
 })();
