@@ -11,9 +11,11 @@
 - **client** contains the AngularJS frontend JavaScript code
 - **data** contains some test data for MongoDB
 - **documentation** project documentation incl. screenshots
+- **e2e** contains Jasmine and Protrator End-2-End tests
 - **infrastructure** scripts for deployment
 - **smoketests** scripts with tests that run after a fresh deployment
 - **static** contains frontend assets
+- **test** contains Jasmine and Karma unit tests
 
 # Getting started
 
