@@ -15,12 +15,19 @@ describe('Manage Employees Page', function() {
   function createEmployee(name, office) {
     resetButton.click();
     nameField.sendKeys(name);
-    emailField.sendKeys(name + '@codecentric.de');
+    emailField.sendKeys(name.toLowerCase() + '@codecentric.de');
     officeField.sendKeys(office);
-    resumeField.sendKeys('http://link.centerdevice.de/downloads/' + name);
-    twitterField.sendKeys(name + '-twitter');
-    xingField.sendKeys(name + '@xing.de');
+    resumeField.sendKeys('http://link.centerdevice.de/downloads/' + name.toLowerCase());
+    twitterField.sendKeys(name.toLowerCase() + '-twitter');
+    xingField.sendKeys(name.toLowerCase() + '@xing.de');
     saveButton.click();
+  }
+
+  function createMultipleEmployees() {
+    createEmployee('John', 'Berlin');
+    createEmployee('Max', 'Frankfurt');
+    createEmployee('Daniel', 'München');
+    createEmployee('Maria', 'Solingen');
   }
 
   beforeEach(function() {
@@ -47,12 +54,21 @@ describe('Manage Employees Page', function() {
   });
 
   it('should create new employees', function() {
-    createEmployee('John', 'Berlin');
-    createEmployee('Max', 'Frankfurt');
-    createEmployee('Daniel', 'München');
-    createEmployee('Maria', 'Solingen');
+    createMultipleEmployees()
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(4);
+  });
+
+  it('should find employee John on list search page', function() {
+    createMultipleEmployees();
+    element(by.id('navEmployees')).click();
+    element(by.id('navListEmployees')).click();
+    element(by.id('searchText')).sendKeys('Ma');
+    var list = element.all(by.id('deleteButton'));
+    expect(list.count()).toBe(2);
+    element(by.id('searchText')).sendKeys('ria');
+    var list = element.all(by.id('deleteButton'));
+    expect(list.count()).toBe(1);
   });
 
 });
