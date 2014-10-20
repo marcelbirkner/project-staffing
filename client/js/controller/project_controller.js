@@ -33,6 +33,7 @@
       var activity = {timestamp: new Date(), subject: user, action: msg, object: this.project.name};
       $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
     };
+
   });
 
 })();
