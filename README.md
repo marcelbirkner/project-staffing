@@ -1,9 +1,11 @@
 # Project overview
 
 - [Project Documentation & Screenshots](documentation/README.md)
-- Technologies: AngularJS, ExpressJS, NodeJS, Bootstrap, Google Maps API, Google Visualization API, Jasmine JS Tests, Protrator
+- Frontend Tests
+ - End-2-End Integration Tests [E2E-Documentation](e2e/README.md)
+ - Unit Tests [Unit-Test-Documentation](test/README.md)
 
-Here is a summary of the current project layout
+## Project layout
 
 - **server.js** is the central location for all backend REST services
 - **client** contains the AngularJS frontend JavaScript code
@@ -13,22 +15,13 @@ Here is a summary of the current project layout
 - **smoketests** scripts with tests that run after a fresh deployment
 - **static** contains frontend assets
 
-# Tests
-
-- End-2-End Integration Tests -> [E2E-Documentation](e2e/README.md)
-- Unit Tests -> [Unit-Test Documentation](test/README.md)
-
 # Getting started
 
 ## Starting NodeJS Server
 
 ```bash
-npm install
-
-# start node server
-node server.js
-
-# Alternative: start node server via supervisor
+# start node server via supervisor
+npm install -g supervisor
 supervisor server.js
 ```
 
@@ -36,6 +29,7 @@ supervisor server.js
 
 ```bash
 # install gulp and the gulp plugins
+cd client
 npm install 
 
 # install gulp binary in the path
@@ -59,13 +53,15 @@ After you started the server, you can access the webapp under: <a href="http://l
 
 ## Technologies used
 
-* NodeJS, ExpressJS
+* NodeJS, ExpressJS, AngularJS
 * Bootstrap CSS/JavaScript
 * Google Maps API
 * Google Visulization API
 * MongoDB
 
 # REST API
+
+The frontend code communicates with the backend via a REST API. Here is a list of useful REST commands you can use.
 
 * Root Resource: [http://localhost:9000/api/](http://localhost:9000/api/)
 
