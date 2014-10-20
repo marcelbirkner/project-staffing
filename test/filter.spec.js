@@ -1,14 +1,14 @@
-describe('filter', function() {
+describe('Test Filter', function() {
 
-    beforeEach(module('project-staffing'));
+  beforeEach(module('project-staffing'));
 
-    describe('checkmark', function() {
+  describe('UpperCase Test', function() {
 
-      it('should convert boolean values to unicode checkmark or cross', inject(function(firstLetterUppercaseFilter) {
-        expect(firstLetterUppercaseFilter('string')).toBe('String');
-        expect(firstLetterUppercaseFilter('a')).toBe('A');
-      }));
+    it('should convert first charactor of string to UpperCase', inject(function(firstLetterUppercaseFilter) {
+      expect(firstLetterUppercaseFilter('string')).toBe('String');
+      expect(firstLetterUppercaseFilter('a')).toBe('A');
+    }));
 
-    });
+  });
 
 });

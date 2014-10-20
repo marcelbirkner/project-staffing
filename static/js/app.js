@@ -10,126 +10,6 @@
 
 })();
 
-(function(){
-  'use strict';
-
-  var app = angular.module('employee-directives', []);
-
-  app.directive('navigation', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'navigation.html'
-  };
-  });
-  app.directive('employeeTable', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-table.html'
-  };
-  });
-  app.directive('employeeList', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-list.html'
-  };
-  });
-  app.directive('employeeForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-form.html'
-  };
-  });
-  app.directive('skillForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'skill-form.html'
-  };
-  });
-  app.directive('projectForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'project-form.html'
-  };
-  });
-  app.directive('homeaddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'homeaddress-form.html'
-  };
-  });
-  app.directive('searchaddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'searchaddress-form.html'
-  };
-  });
-  app.directive('customerTable', function() {
-  return {
-    restrict : 'E',
-    templateUrl : 'customer-table.html'
-  };
-  });
-  app.directive('searchCustomerAddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'searchcustomeraddress-form.html'
-  };
-  });
-})();
-
-(function() {
-  'use strict';
-
-  angular
-  .module('project-staffing')
-  .config(function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-    })
-    .when('/timeline', {
-      templateUrl: 'views/timeline.html',
-      controller: 'TimelineController',
-      controllerAs: 'timelineCtrl',
-    })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dashboardCtrl',
-    })
-    .when('/list-employees', {
-      templateUrl: 'views/list_employees.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/add-employee', {
-      templateUrl: 'views/add_employee.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/list-customers', {
-      templateUrl: 'views/list_customers.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/staffing', {
-      templateUrl: 'views/staff_project.html',
-      controller: 'StaffingController',
-      controllerAs: 'staffingCtrl',
-    })
-    .when('/add-customer', {
-      templateUrl: 'views/add_customer.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/help', {
-      templateUrl: 'views/help.html',
-    })
-    .otherwise({
-      redirectTo: '/',
-    });
-  });
-})();
-
 (function() {
   'use strict';
 
@@ -665,12 +545,7 @@
 
       this.skill = '';
     };
-  });
-
-  angular.module('project-staffing').filter('firstLetterUppercase', function() {
-    return function(input) {
-      return input.charAt(0).toUpperCase() + input.slice(1);
-    };
+    
   });
 
 })();
@@ -850,4 +725,135 @@
     });
   });
 
+})();
+
+(function(){
+  'use strict';
+
+  var app = angular.module('employee-directives', []);
+
+  app.directive('navigation', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'navigation.html'
+  };
+  });
+  app.directive('employeeTable', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-table.html'
+  };
+  });
+  app.directive('employeeList', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-list.html'
+  };
+  });
+  app.directive('employeeForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-form.html'
+  };
+  });
+  app.directive('skillForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'skill-form.html'
+  };
+  });
+  app.directive('projectForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'project-form.html'
+  };
+  });
+  app.directive('homeaddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'homeaddress-form.html'
+  };
+  });
+  app.directive('searchaddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'searchaddress-form.html'
+  };
+  });
+  app.directive('customerTable', function() {
+  return {
+    restrict : 'E',
+    templateUrl : 'customer-table.html'
+  };
+  });
+  app.directive('searchCustomerAddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'searchcustomeraddress-form.html'
+  };
+  });
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('project-staffing').filter('firstLetterUppercase', function() {
+    return function(input) {
+      return input.charAt(0).toUpperCase() + input.slice(1);
+    };
+  });
+
+})();
+
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'views/index.html',
+    })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
+    })
+    .when('/list-employees', {
+      templateUrl: 'views/list_employees.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/add-employee', {
+      templateUrl: 'views/add_employee.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/list-customers', {
+      templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
+    .when('/add-customer', {
+      templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+    })
+    .otherwise({
+      redirectTo: '/',
+    });
+  });
 })();

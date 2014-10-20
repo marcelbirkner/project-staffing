@@ -18,7 +18,7 @@ module.exports = function(config) {
       'test/requirejs-main.js',
       {pattern: 'test/*.spec.js', included: false},
       {pattern: 'node_modules/requirejs/require.js', included: false},
-      {pattern: 'static/js/app.js', included: false},
+      {pattern: 'client/js/**/*.js', included: false},
       {pattern: 'static/js/lib/angular-animate.js', included: false},
       {pattern: 'static/js/lib/angular-route.js', included: false},
       {pattern: 'static/js/lib/angular.js', included: false},
