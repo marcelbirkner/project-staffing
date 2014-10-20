@@ -533,19 +533,22 @@
       if (employee.skills == null) {
         employee.skills = [];
       }
-      employee.skills.push(this.skill);
+      if( this.skill.length > 0 ) {
+        employee.skills.push(this.skill);
 
-      $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+        $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
-      // TODO: get userid from session
-      var user = 'jon';
-      var msg = 'added skill';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
-      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+        // TODO: get userid from session
+        var user = 'jon';
+        var msg = 'added skill';
+        var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
+        $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
-      this.skill = '';
+        this.skill = '';
+      }
+
     };
-    
+
   });
 
 })();
@@ -727,6 +730,77 @@
 
 })();
 
+(function() {
+  'use strict';
+
+  angular.module('project-staffing').filter('firstLetterUppercase', function() {
+    return function(input) {
+      if( input.length === 0 ) {
+        return '';
+      }
+      var array = input.split(/[ ]+/);
+      var result = '';
+      for(var i = 0; i < array.length; i++) {
+        result += array[i].charAt(0).toUpperCase() + array[i].slice(1) + ' ';
+      }
+      return result.trim();
+    };
+  });
+
+})();
+(function() {
+  'use strict';
+
+  angular
+  .module('project-staffing')
+  .config(function($routeProvider) {
+    $routeProvider.when('/', {
+      templateUrl: 'views/index.html',
+    })
+    .when('/timeline', {
+      templateUrl: 'views/timeline.html',
+      controller: 'TimelineController',
+      controllerAs: 'timelineCtrl',
+    })
+    .when('/dashboard', {
+      templateUrl: 'views/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dashboardCtrl',
+    })
+    .when('/list-employees', {
+      templateUrl: 'views/list_employees.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/add-employee', {
+      templateUrl: 'views/add_employee.html',
+      controller: 'EmployeeController',
+      controllerAs: 'employeeCtrl',
+    })
+    .when('/list-customers', {
+      templateUrl: 'views/list_customers.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/staffing', {
+      templateUrl: 'views/staff_project.html',
+      controller: 'StaffingController',
+      controllerAs: 'staffingCtrl',
+    })
+    .when('/add-customer', {
+      templateUrl: 'views/add_customer.html',
+      controller: 'CustomerController',
+      controllerAs: 'customerCtrl',
+    })
+    .when('/help', {
+      templateUrl: 'views/help.html',
+    })
+    .otherwise({
+      redirectTo: '/',
+    });
+  });
+})();
+
 (function(){
   'use strict';
 
@@ -791,69 +865,5 @@
     restrict: 'E',
     templateUrl: 'searchcustomeraddress-form.html'
   };
-  });
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('project-staffing').filter('firstLetterUppercase', function() {
-    return function(input) {
-      return input.charAt(0).toUpperCase() + input.slice(1);
-    };
-  });
-
-})();
-
-(function() {
-  'use strict';
-
-  angular
-  .module('project-staffing')
-  .config(function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'views/index.html',
-    })
-    .when('/timeline', {
-      templateUrl: 'views/timeline.html',
-      controller: 'TimelineController',
-      controllerAs: 'timelineCtrl',
-    })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dashboardCtrl',
-    })
-    .when('/list-employees', {
-      templateUrl: 'views/list_employees.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/add-employee', {
-      templateUrl: 'views/add_employee.html',
-      controller: 'EmployeeController',
-      controllerAs: 'employeeCtrl',
-    })
-    .when('/list-customers', {
-      templateUrl: 'views/list_customers.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/staffing', {
-      templateUrl: 'views/staff_project.html',
-      controller: 'StaffingController',
-      controllerAs: 'staffingCtrl',
-    })
-    .when('/add-customer', {
-      templateUrl: 'views/add_customer.html',
-      controller: 'CustomerController',
-      controllerAs: 'customerCtrl',
-    })
-    .when('/help', {
-      templateUrl: 'views/help.html',
-    })
-    .otherwise({
-      redirectTo: '/',
-    });
   });
 })();

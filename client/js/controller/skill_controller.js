@@ -30,17 +30,20 @@
       if (employee.skills == null) {
         employee.skills = [];
       }
-      employee.skills.push(this.skill);
+      if( this.skill.length > 0 ) {
+        employee.skills.push(this.skill);
 
-      $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+        $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
-      // TODO: get userid from session
-      var user = 'jon';
-      var msg = 'added skill';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
-      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+        // TODO: get userid from session
+        var user = 'jon';
+        var msg = 'added skill';
+        var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
+        $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
-      this.skill = '';
+        this.skill = '';
+      }
+
     };
 
   });
