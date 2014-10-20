@@ -39,8 +39,12 @@
 							<td>{{employee.address}}</td>
 							<td><a href="https://public.centerdevice.de/4fd285bd-29ff-413e-b789-a30041695a05">Resume Link</a></td>
 							<td>{{employee.twitter}}</td>
-							<td><button ng-click="employeeCtrl.deleteEmployee(employee._id)" class="btn btn-danger">Delete</button></td>
-							<td><button ng-click="employeeCtrl.editEmployee(employee._id)" class="btn btn-primary">Edit</button></td>
+							<td>
+								<button id="deleteButton" ng-click="employeeCtrl.deleteEmployee(employee._id)" class="btn btn-danger">Delete</button>
+							</td>
+							<td>
+								<button id="editButton" ng-click="employeeCtrl.editEmployee(employee._id)" class="btn btn-primary">Edit</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
