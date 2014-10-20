@@ -15,8 +15,8 @@ Here is a summary of the current project layout
 
 # Tests
 
-- End-2-End Integration Tests [Documentation](e2e/README.md)
-- Unit Tests (Work in Progress)
+- End-2-End Integration Tests -> [E2E-Documentation](e2e/README.md)
+- Unit Tests -> [Unit-Test Documentation](test/README.md)
 
 # Getting started
 
