@@ -1,8 +1,2 @@
 node_modules
-
-# vim tmp files
-*.swp
-*.un~
-
 xmloutput/
-data/mongodb
