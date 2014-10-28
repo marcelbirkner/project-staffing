@@ -14,7 +14,7 @@ describe('Filter Test', function() {
       expect(firstLetterUppercaseFilter('hello world')).toBe('Hello World');
       expect(firstLetterUppercaseFilter('hello  world')).toBe('Hello World');
       expect(firstLetterUppercaseFilter('  hello  world  ')).toBe('Hello World');
-      expect(firstLetterUppercaseFilter('  hello  world  hello world')).toBe('Hello World Hello');
+      expect(firstLetterUppercaseFilter('  hello  world  hello world')).toBe('Hello World Hello World');
     }));
 
   });
