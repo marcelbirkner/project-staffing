@@ -2,6 +2,8 @@
 // Generated on Mon Oct 20 2014 09:35:40 GMT+0200 (Mitteleuropäische Sommerzeit)
 
 module.exports = function(config) {
+  'use strict';
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,7 +12,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai', 'sinon', 'sinon-chai'],
 
 
     // list of files / patterns to load in the browser

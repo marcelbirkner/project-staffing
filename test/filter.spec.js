@@ -1,22 +1,28 @@
-describe('Filter Test', function() {
+(function() {
+  'use strict';
 
-  beforeEach(module('project-staffing'));
+  var expect = chai.expect;
 
-  describe('UpperCase Test', function() {
+  describe('Filter Test', function() {
 
-    it('should convert first charactor of string to UpperCase', inject(function(firstLetterUppercaseFilter) {
-      expect(firstLetterUppercaseFilter('')).toBe('');
-      expect(firstLetterUppercaseFilter('a')).toBe('A');
-      expect(firstLetterUppercaseFilter('string')).toBe('String');
-    }));
+    beforeEach(module('project-staffing'));
 
-    it('should convert first charactor of each whitespace separated string to UpperCase', inject(function(firstLetterUppercaseFilter) {
-      expect(firstLetterUppercaseFilter('hello world')).toBe('Hello World');
-      expect(firstLetterUppercaseFilter('hello  world')).toBe('Hello World');
-      expect(firstLetterUppercaseFilter('  hello  world  ')).toBe('Hello World');
-      expect(firstLetterUppercaseFilter('  hello  world  hello world')).toBe('Hello World Hello World');
-    }));
+    describe('UpperCase Test', function() {
+
+      it('should convert first charactor of string to UpperCase', inject(function(firstLetterUppercaseFilter) {
+        expect(firstLetterUppercaseFilter('')).to.equal('');
+        expect(firstLetterUppercaseFilter('a')).to.equal('A');
+        expect(firstLetterUppercaseFilter('string')).to.equal('String');
+      }));
+
+      it('should convert first charactor of each whitespace separated string to UpperCase', inject(function(firstLetterUppercaseFilter) {
+        expect(firstLetterUppercaseFilter('hello world')).to.equal('Hello World');
+        expect(firstLetterUppercaseFilter('hello  world')).to.equal('Hello World');
+        expect(firstLetterUppercaseFilter('  hello  world  ')).to.equal('Hello World');
+        expect(firstLetterUppercaseFilter('  hello  world  hello world')).to.equal('Hello World Hello World');
+      }));
+
+    });
 
   });
-
-});
+})();
