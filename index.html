@@ -32,7 +32,161 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a name="delivery-pipeline-for-frontend-assets" class="anchor" href="#delivery-pipeline-for-frontend-assets"><span class="octicon octicon-link"></span></a>Delivery Pipeline for FrontEnd Assets</h1>
+<a name="project-overview" class="anchor" href="#project-overview"><span class="octicon octicon-link"></span></a>Project overview</h1>
+
+<ul>
+<li><a href="documentation/README.md">Project Documentation &amp; Screenshots</a></li>
+<li>Frontend Tests
+
+<ul>
+<li>End-2-End Integration Tests <a href="e2e/README.md">E2E-Documentation</a>
+</li>
+<li>Unit Tests <a href="test/README.md">Unit-Test-Documentation</a>
+</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a name="project-layout" class="anchor" href="#project-layout"><span class="octicon octicon-link"></span></a>Project layout</h2>
+
+<ul>
+<li>
+<strong>server.js</strong> is the central location for all backend REST services</li>
+<li>
+<strong>client</strong> contains the AngularJS frontend JavaScript code</li>
+<li>
+<strong>data</strong> contains some test data for MongoDB</li>
+<li>
+<strong>documentation</strong> project documentation incl. screenshots</li>
+<li>
+<strong>e2e</strong> contains Jasmine and Protrator End-2-End tests</li>
+<li>
+<strong>infrastructure</strong> scripts for deployment</li>
+<li>
+<strong>smoketests</strong> scripts with tests that run after a fresh deployment</li>
+<li>
+<strong>static</strong> contains frontend assets</li>
+<li>
+<strong>test</strong> contains Jasmine and Karma unit tests</li>
+</ul>
+
+<h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
+
+<h2>
+<a name="starting-nodejs-server" class="anchor" href="#starting-nodejs-server"><span class="octicon octicon-link"></span></a>Starting NodeJS Server</h2>
+
+<div class="highlight highlight-bash"><pre><span class="c"># start node server via supervisor</span>
+npm install -g supervisor
+supervisor server.js
+</pre></div>
+
+<h2>
+<a name="build-client-assets-with-gulp-streaming-build-system" class="anchor" href="#build-client-assets-with-gulp-streaming-build-system"><span class="octicon octicon-link"></span></a>Build client assets with gulp (streaming build system)</h2>
+
+<div class="highlight highlight-bash"><pre><span class="c"># install gulp and the gulp plugins</span>
+<span class="nb">cd </span>client
+npm install 
+
+<span class="c"># install gulp binary in the path</span>
+npm i -g gulp
+
+<span class="c"># running gulp</span>
+gulp watch
+</pre></div>
+
+<h2>
+<a name="starting-mongodb-backend" class="anchor" href="#starting-mongodb-backend"><span class="octicon octicon-link"></span></a>Starting MongoDB Backend</h2>
+
+<div class="highlight highlight-bash"><pre>// Windows
+mongod.exe --dbpath <span class="s2">"data\mongodb"</span>
+
+// Linux
+mongod --dbpath <span class="s2">"data/mongodb"</span>
+</pre></div>
+
+<p>After you started the server, you can access the webapp under: <a href="http://localhost:9000">http://localhost:9000</a></p>
+
+<h2>
+<a name="technologies-used" class="anchor" href="#technologies-used"><span class="octicon octicon-link"></span></a>Technologies used</h2>
+
+<ul>
+<li>NodeJS, ExpressJS, AngularJS</li>
+<li>Bootstrap CSS/JavaScript</li>
+<li>Google Maps API</li>
+<li>Google Visulization API</li>
+<li>MongoDB</li>
+</ul>
+
+<h1>
+<a name="rest-api" class="anchor" href="#rest-api"><span class="octicon octicon-link"></span></a>REST API</h1>
+
+<p>The frontend code communicates with the backend via a REST API. Here is a list of useful REST commands you can use.</p>
+
+<ul>
+<li>Root Resource: <a href="http://localhost:9000/api/">http://localhost:9000/api/</a>
+</li>
+</ul>
+
+<h2>
+<a name="access-mongodb-data" class="anchor" href="#access-mongodb-data"><span class="octicon octicon-link"></span></a>Access MongoDB data</h2>
+
+<p>Initialize MongoDB with test data </p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/init">http://localhost:9000/api/mongo/init</a></li>
+</ul>
+
+<p>Get all customers that are stored in MongoDB</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/customers">http://localhost:9000/api/mongo/customers</a></li>
+</ul>
+
+<p>Get all projects that are stored in MongoDB</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/projects">http://localhost:9000/api/mongo/projects</a></li>
+</ul>
+
+<p>Get all employees that are stored in MongoDB</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/employees">http://localhost:9000/api/mongo/employees</a></li>
+</ul>
+
+<h2>
+<a name="search-mongodb-data" class="anchor" href="#search-mongodb-data"><span class="octicon octicon-link"></span></a>Search MongoDB data</h2>
+
+<p>Find Employees by Twitter handle</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/search/employee?twitter=@maxm">http://localhost:9000/api/mongo/search/employee?twitter=@maxm</a></li>
+</ul>
+
+<p>Find Employees by Name</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann">http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann</a></li>
+</ul>
+
+<p>Find employee by Skill</p>
+
+<ul>
+<li><a href="http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j">http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j</a></li>
+</ul>
+
+<h1>
+<a name="license-mit" class="anchor" href="#license-mit"><span class="octicon octicon-link"></span></a>License (MIT)</h1>
+
+<p>Copyright (c) 2013 codecentric AG</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
       </section>
     </div>
 
