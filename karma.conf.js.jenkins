@@ -10,23 +10,19 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'test/requirejs-main.js',
-      {pattern: 'node_modules/requirejs/require.js', included: false},
-      {pattern: 'static/js/lib/jquery-2.1.1.js', included: false},
-      {pattern: 'static/js/lib/angular.js', included: true},
-      {pattern: 'static/js/lib/angular-mocks.js', included: true},
-      {pattern: 'static/js/lib/angular-animate.js', included: true},
-      {pattern: 'static/js/lib/angular-route.js', included: true},
-      {pattern: 'static/js/lib/ngAutocomplete.js', included: true},
-      {pattern: 'static/js/lib/bootstrap.js', included: false},
-      {pattern: 'static/js/lib/docs.min.js', included: false},
-      {pattern: 'client/js/**/*.js', included: true},
-      {pattern: 'test/*.spec.js', included: false, watched: true},
+      'static/js/lib/jquery-2.1.1.js',
+      'static/js/lib/angular.js',
+      'static/js/lib/angular-mocks.js',
+      'static/js/lib/angular-animate.js',
+      'static/js/lib/angular-route.js',
+      'static/js/lib/ngAutocomplete.js',
+      {pattern: 'client/js/**/*.js', included: true, watched: true},
+      {pattern: 'test/*.spec.js', included: true, watched: true},
     ],
 
 
