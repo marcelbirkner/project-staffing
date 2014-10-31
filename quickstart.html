@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>FrontEnd Assets Delivery Pipeline - a codecentric AG presentation</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.media.css">
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="navbar navbar-inverse navbar-static navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.codecentric.de">
+          <img alt="Brand" src="images/codecentric-logo.png">
+        </a>
+      </div>
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="container">
+        <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!-- Home -->
+            <li><a href="index.html">Home</a></li>
+
+            <!-- Quick start -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Quick Start <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="quickstart.html">Getting Started</a></li>
+              </ul>
+            </li>
+
+            <!-- FrontEnd Tests -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FrontEnd Testing <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="unit-tests.html">Unit Tests</a></li>
+                <li><a href="e2e-tests.html">End-2-End Tests</a></li>
+              </ul>
+            </li>
+
+            <!-- Useful Links -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FAQ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="necessary-software.html">Necessary Software</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <h2>Getting started</h2>
+  <p>
+    You have downloaded the necessary software and cloned the project-staffing repository. So now you are ready to start hacking.
+    <ol>
+      <li>
+        Make sure your MongoDB is running.
+        <pre>
+// Windows
+mongod.exe --dbpath "data\mongodb"
+
+// Linux
+mongod --dbpath "data/mongodb"</pre>
+      <li>
+        Open a new shell and go to the project root directory to build the 
+        static client assets with gulp (streaming build system).
+        Change to your project-staffing directory:
+        <pre>cd client</pre>
+      </li>
+      <li>
+        Let npm download the required dependencies:
+        <pre>npm install</pre>
+      </li>
+      <li>
+        Install the gulp binary in your path
+        <pre>npm i -g gulp</pre>
+      </li>  
+      <li>
+        Run gulp to concatenate your static assets
+        <pre>gulp watch</pre>
+      </li>  
+      <li>Open a new shell and go to the project root directory and install all server side dependencies via npm.
+        <pre>npm install</pre>
+      </li>  
+      <li>
+        Install supervisor to run your server side code.
+        <pre>npm install -g supervisor</pre>
+      </li> 
+      <li>
+        Start your nodejs webapp via supervisor to run the web application.  
+        <pre>supervisor server.js</pre>
+      </li>
+      <li>Open your browser and navigate to <a href="http://localhost:9000/">http://localhost:9000/</a>.</li>
+      <li>Change some code, watch for the update in your web-browser.</li> 
+    </ol>
+  </p>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

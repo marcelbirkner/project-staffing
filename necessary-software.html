@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>FrontEnd Assets Delivery Pipeline - a codecentric AG presentation</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.media.css">
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="container">
+
+  <nav class="navbar navbar-inverse navbar-static navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.codecentric.de">
+          <img alt="Brand" src="images/codecentric-logo.png">
+        </a>
+      </div>
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="container">
+        <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!-- Home -->
+            <li><a href="index.html">Home</a></li>
+
+            <!-- Quick start -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Quick Start <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="quickstart.html">Getting Started</a></li>
+              </ul>
+            </li>
+
+            <!-- FrontEnd Tests -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FrontEnd Testing <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="unit-tests.html">Unit Tests</a></li>
+                <li><a href="e2e-tests.html">End-2-End Tests</a></li>
+              </ul>
+            </li>
+
+            <!-- Useful Links -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FAQ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="necessary-software.html">Necessary Software</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <h1>Necessary Software</h1>
+
+  <h2>Installation</h2>
+  <p>
+    Make sure that every team member has a PC/Mac that can be used for
+    development. Unix based operating systems work best in our experience, but
+    Windows can also be used. If you are willing to, then you can install the
+    necessary software on your own machine. Being able to run the software
+    outside of any virtual machine is superb and will result in the best
+    experience for you during the workshop. For those who are unable to install
+    the software or are not willing to, we provide an Ubuntu-based virtual
+    machine that can be run using
+    <a href="https://www.virtualbox.org/">Oracle VirtualBox</a>.
+  </p>
+
+  <h3>Native installation</h3>
+  <p>
+    Providing installation instructions for all the tools is out of scope for
+    this document. Most of the necessary tools feature an excellent
+    documentation that you can refer to should you run into any issues.
+  </p>
+
+  <p>Please make sure that the following tools are installed:</p>
+  <ul>
+    <li>
+      <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html">
+        Java version 6 or later
+      </a>
+       (preferably Oracle JDK or Open JDK 7)</li>
+    <li>
+      <a href="http://git-scm.com/">git</a> (the version control system)
+    </li>
+    <li>
+      <a href="http://nodejs.org/">Node.JS version 10 and NPM</a>
+      (node package manager). On OS X and Linux you should use
+      <a href="https://github.com/creationix/nvm">NVM</a>
+      (Node Version Manager) which allows you to install global modules without
+      super user privileges. To install NVM you need to have git and cURL
+      installed.
+    </li>
+    <li>
+      Once NPM is installed, you will need to globally install the Grunt
+      command line interface. You can do so by running
+      <code>npm install -g grunt-cli</code>. Depending on your setup, you might
+      need to prepend <code>sudo</code> to get the necessary privileges.
+    </li>
+    <li>
+      <a href="http://phantomjs.org/">PhantomJS</a> to execute the tests
+    </li>
+    <li>
+      <a href="http://www.mongodb.org/">MongoDB</a> as this is the database that
+      we are using. Installation normally only requires an extraction of the
+      downloaded archive.
+    </li>
+    <li>
+      Some code editor that supports HTML, CSS and JavaScript. We
+      recommend either
+      <a href="http://www.sublimetext.com/">Sublime Text</a> or
+      <a href="http://www.jetbrains.com/webstorm/">WebStorm</a>.
+    </li>
+    <li>
+      At last, you will need a relatively new web browser. Chromium derivatives
+      like Google Chrome, Chrome Canary or Chromium itself would be our choice.
+    </li>
+  </ul>
+
+  <h3>Using the Virtual Machine</h3>
+  <p>
+    Make sure that you have
+    <a href="https://www.virtualbox.org/">Oracle VirtualBox</a> installed.
+    With VirtualBox Version 4.X (where X is larger than 1) you should not run
+    into any issues. Once installed you can start VirtualBox and import the
+    virtual machine using <em>File -> Import Appliance</em>. Follow the wizard
+    till the end and start the virtual machine. You should now be good to go!
+  </p>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>

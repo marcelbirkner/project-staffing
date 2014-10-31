@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../slides-common/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../slides-common/css/phone.css">
+  <base target="_blank">
+  <script src="slide_config.js"></script>
+  <script data-main="../slides-common/js/slides" src="../slides-common/js/require-1.0.8.min.js"></script>
+  <script src="../vendor/angularjs/angular.js"></script>
+  <script>
+    var $ = document.querySelector.bind(document);
+  </script>
+  <style media="screen">
+    p.footnote {
+      font-size: 20px;
+      font-weight: 300;
+      position: absolute;
+      bottom: 47px;
+    }
+
+    .takeaway {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      color: #2a7cdf;
+      margin-top: 40px;
+      font-size: 1.2em;
+    }
+
+    img.centered {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="../slides-common/images/codecentric-logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>A very high level overview</h2>
+    </hgroup>
+    <article>
+      <img src="images/angularjs.png"
+           class="centered"
+           style="margin-bottom: 30px">
+      <ul>
+        <li>MVW framework (W => whatever)</li>
+        <li>Pure JavaScript</li>
+        <li>Open source</li>
+        <li>Can be used to implement Single-Page applications (SPA)</li>
+      </ul>
+    </article>
+  </slide>
+
+
+
+  <slide class="fill nobackground"
+         style="background-image:url(images/classification.png);
+                background-size: auto 100%;
+                background-position: 50% 50%;
+                background-color: white">
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>AngularJS: A small example</h2>
+    </hgroup>
+    <article>
+      <form id="helloWorldApp"
+           ng-controller="HelloCtrl as helloCtrl"
+           ng-submit="helloCtrl.greet()"
+           style="margin-bottom: 20px">
+        <label for="name">Name</label>
+        <input type="text" id="name" ng-model="helloCtrl.name">
+        <button type="submit">Greet</button>
+      </form>
+
+      <pre class="prettyprint" data-lang="html">
+&lt;form ng-app
+      ng-controller="HelloCtrl as helloCtrl"
+      ng-submit="helloCtrl.greet()"&gt;
+  &lt;label for="name"&gt;Name&lt;/label&gt;
+  &lt;input type="text" id="name" ng-model="helloCtrl.name"&gt;
+  &lt;button type="submit"&gt;Greet&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+
+      <pre class="prettyprint" data-lang="javascript">
+function HelloCtrl() {
+  this.name = 'Tom Mason';
+
+  this.greet = function() {
+    alert('Hello ' + this.name);
+  };
+}
+</pre>
+
+    </article>
+  </slide>
+  <script>
+    var helloWorld = angular.module('helloWorld', []);
+    helloWorld.controller('HelloCtrl', function() {
+      this.name = 'Tom Mason';
+      this.greet = function() {
+        alert('Hello ' + this.name);
+      };
+    });
+    angular.bootstrap($('#helloWorldApp'), ['helloWorld']);
+  </script>
+
+
+  <slide>
+    <hgroup>
+      <h2>The Three Ds</h2>
+    </hgroup>
+    <article>
+      <h3>Data binding</h3>
+      <pre class="prettyprint" data-lang="html">
+&lt;input type="text" ng-model="helloCtrl.name"&gt;
+</pre>
+
+      <h3>Directives</h3>
+      <pre class="prettyprint" data-lang="html">
+&lt;form ng-submit="helloCtrl.greet()"&gt;
+</pre>
+
+      <h3>Dependency injection</h3>
+      <pre class="prettyprint" data-lang="javascript">
+function HelloCtrl($scope, WelcomingService) {}
+</pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Separation of View and Controller</h2>
+    </hgroup>
+    <article>
+      <img src="images/structure.png"
+           style="margin-top: 40px; max-width: 100%">
+
+      <p class="footnote">
+        Source: Google I/O 2013 - Design Decision in AngularJS
+      </p>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Focus on Testability</h2>
+    </hgroup>
+    <article>
+      <img src="images/testability-through-structure.png"
+           style="display: block; margin: 10px auto">
+      <p class="blue2" style="position: absolute;
+                top: 410px;
+                left: 230px">
+        Network
+      </p>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Application Bootstrapping</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Modules declaratively specify how an app is bootstrapped.</li>
+        <li>"Bootstrapped" means "initialized, configured and kickstarted".</li>
+        <li>To auto-bootstrap an app we use the <code>ngApp</code> directive:</li>
+      </ul>
+<pre class="prettyprint" data-lang="html">
+&lt;ANY ng-app="MovieDatabase"&gt;
+// ...
+&lt;/ANY&gt;
+</pre>
+      <ul>
+        <li>You can specify a module to be used as the root module for the application.</li>
+        <li>Only one application can be auto-bootstrapped per HTML document.</li>
+        <li>Applications cannot be nested within each other.</li>
+      </ul>
+      <div class="takeaway">
+        Angular uses <em>lower camelCase</em> throughout the documentation and
+        JS as well as <em>spinal-case</em> in HTML.
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Modules</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>A module is a collection of configuration and run blocks:</li>
+      </ul>
+        <pre class="prettyprint" data-lang="javascript">
+angular.module('MovieDatabase', [])
+  .config(function() {
+    // is executed during the provider registration and configuration phase.
+  })
+  .run(function() {
+    // is executed after the injector is created
+    // and is used to kickstart the application.
+  });</pre>
+      <ul>
+        <li>These blocks are applied to the application during the bootstrap process.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Modules (contd)</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>You can retrieve an existing module using the same method with only one parameter.</li>
+      </ul>
+        <pre class="prettyprint" data-lang="javascript">
+var movieDatabase = angular.module('MovieDatabase');
+</pre>
+      <ul>
+        <li>Multiple modules come in handy when developing large applications.</li>
+        <li>Application structure is possible in various ways.</li>
+        <li>It is quite common for mid-sized apps to use the following modules:</li>
+      </ul>
+        <pre class="prettyprint" data-lang="javascript">
+angular.module('MovieDatabase.services', []);     // A service module
+angular.module('MovieDatabase.directives', []);   // A directive module
+angular.module('MovieDatabase.filters', []);      // A filter module
+angular.module('MovieDatabase.controllers', []);  // A controller module
+angular.module('MovieDatabase',
+               ['MovieDatabase.controllers', 'MovieDatabase.filters' /*  ... */]);
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Data Binding in AngularJS</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Data-binding is the automatic synchronization of data between the model and view components.</li>
+        <li>In classic web frameworks...
+          <ul>
+            <li>Controller combine models and templates to build views (HTML).</li>
+            <li>Views are mostly transferred via HTTP and rendered in web browsers.</li>
+            <li>Unfortunately they only reflect the application's state at a specific point in time.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <img src="images/one-way-data-binding.png" style="position: absolute; right: 60px">
+
+      <p class="footnote">
+        Source: Official AngularJS Guide
+      </p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Data Binding in AngularJS (contd)</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>AngularJS takes a different approach:
+          <ul>
+            <li>It compiles templates to views and interpolates dynamic sections.</li>
+            <li>Models and views stay synchronized using dirty-checking.</li>
+            <li>
+              The approach is significantly simpler and more efficient than
+              traditional DOM manipulation and observability techniques.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <img src="images/two-way-data-binding.png" class="centered img-resize">
+
+      <p class="footnote">
+        Source: Official AngularJS Guide
+      </p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Simple Data Binding</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Dynamic sections (expressions) are defined using double courlies:</li>
+        <pre class="prettyprint" data-lang="html">
+&lt;input ng-model="person.name" type="text" /&gt;
+Hello {{ person.name }}</pre>
+        <div id="demoBinding">
+        <input ng-model="person.name" type="text" />
+        Hello, {{ person.name }}!
+        </div><br/>
+        <li>Data binding is bi-directional, meaning:
+          <ul>
+            <li>when the view changes, the model observes the change through dirty-checking,</li>
+            <li>when the model changes the value, the view will be updated with the changed value.</li>
+          </ul>
+        </li>
+        <li>It is preferrable to use ngBind when a template is momentarily displayed by the browser in its raw state before Angular compiles it.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <script>
+    angular.bootstrap($("#demoBinding"));
+  </script>
+
+  <slide>
+    <hgroup>
+      <h2>Filter</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Filter provide means to format data.</li>
+        <li>Filters are invoked in expressions with the <code>|</code> (pipe) character</li>
+      </ul>
+        <pre class="prettyprint" data-lang="html">
+{{ person.name | uppercase }}</pre>
+      <div id="demoFilter">
+        <input ng-model="person.name" type="text" />
+        Hello, {{ person.name | uppercase }}!
+      </div><br>
+      <ul>
+        <li>Angular gives us several built-in filters...</li>
+      </ul>
+        <!-- TODO Adam add a comment after each line detailing the result of the expression -->
+        <pre class="prettyprint" data-lang="html">
+{{ 123.456789 | number:2 }}
+{{ 123 | currency }}
+{{ today | date:'medium' }}
+{{ ['Ari', 'Lerner', 'Likes', 'To', 'Eat', 'Pizza'] | filter:'e' }}
+{{ 'San Francisco' | limitTo:3 }}
+</pre>
+    </article>
+  </slide>
+
+  <script>
+    angular.bootstrap($("#demoFilter"));
+  </script>
+
+  <slide>
+    <hgroup>
+      <h2>Filter (contd)</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>...as well as a way to create our own:</li>
+      </ul>
+<pre class="prettyprint" data-lang="javascript">
+var module = angular.module('MovieDatabase', []);
+module.filter('myFilter', function() {
+    return function(input) {
+      /* transform input to output */
+      return output;
+    }
+});</pre>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

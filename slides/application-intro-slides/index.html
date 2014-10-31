@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="../slides-common/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="../slides-common/css/phone.css">
+  <base target="_blank">
+  <script src="slide_config.js"></script>
+  <script data-main="../slides-common/js/slides" src="../slides-common/js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="../slides-common/images/codecentric-logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Features</h2>
+    </hgroup>
+    <article>
+        This application will help you to manage customers, employees and staff projects.<br/><br/>
+        <ul>
+          <li>add/delete/modify employees</li>
+          <li>add/delete/modify customers</li>
+          <li>see latest changes to employees/projects/customers on timeline</li>
+        </ul>
+
+        On the staffing page you can search a customer address and find employees that are a good match for the customer.<br/><br/>
+        <ul>
+          <li>employee has certain skills for project</li>
+          <li>employee lives close to the customer</li>
+          <li>employees current project is running or has already run out</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/1-startpage.png"></span>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/2-consultantSearch.png"></span>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/3-addEmployees.png"></span>
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/4-activity-timeline.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure</h2>
+    </hgroup>
+    <article>
+        <pre class="prettyprint" data-lang="bash">
+|-- client/
+|-- data/
+|-- documentation/
+|-- node_modules/
+|-- test/
+|-- static/
+|-- README.md
+|-- package.json
+`-- server.js
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>client/</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>contains the AngularJS frontend JavaScript code</li>
+           <li>contains HTML, CSS, JavaScript and images</li>
+          <li>
+            implements client-side behavior and data presentation
+          </li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>data/</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>contains some test data for MongoDB</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>documentation/</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>Information about the app</li>
+          <li>Screenshots</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>node_modules/</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>Dependencies that can be required (imported) in Node.JS</li>
+          <li>
+            are automatically downloaded once you run <code>npm install</code> in
+            the root directory
+          </li>
+          <li>are defined in the file <code>package.json</code></li>
+        </ul>
+        <pre class="prettyprint" data-lang="javascript">
+{
+  "dependencies": {
+    "express": "~3.2.1",
+    "neo4j": "~0.2.20",
+    "node-uuid": "~1.4.0",
+    "superagent": "~0.14.2"
+  }
+}
+
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>test/</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>unit and integration tests for client and server</li>
+          <li>test are run using mocha and Karma</li>
+          <li>starts up a browser in the background to test the user interface</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Directory Structure: <code>server.js</code></h2>
+    </hgroup>
+    <article>
+        <ul>
+          <li>contains Node.JS sources</li>
+          <li>
+            implements server-side behavior like request handling and persistence
+          </li>
+          <li>also responsible for serving static files, i.e. the frontend</li>
+        </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h2><span class="blue3">Thanks for your attention</span></h2>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

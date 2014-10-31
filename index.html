@@ -1,204 +1,231 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>FrontEnd Assets Delivery Pipeline - a codecentric AG presentation</title>
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Delivery Pipeline for FrontEnd Assets : NPM, JavaScript, NodeJS, AngularJS, MongoDB, Karma, Protrator, Google Visulization API, ExpressJS">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap.media.css">
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<div class="container">
 
-    <title>Delivery Pipeline for FrontEnd Assets</title>
-  </head>
+  <nav class="navbar navbar-inverse navbar-static navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://www.codecentric.de">
+          <img alt="Brand" src="images/codecentric-logo.png">
+        </a>
+      </div>
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="container">
+        <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!-- Home -->
+            <li><a href="index.html">Home</a></li>
 
-  <body>
+            <!-- Quick start -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Quick Start <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="quickstart.html">Getting Started</a></li>
+              </ul>
+            </li>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/marcelbirkner/project-staffing">View on GitHub</a>
+            <!-- FrontEnd Tests -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FrontEnd Testing <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="unit-tests.html">Unit Tests</a></li>
+                <li><a href="e2e-tests.html">End-2-End Tests</a></li>
+              </ul>
+            </li>
 
-          <h1 id="project_title">Delivery Pipeline for FrontEnd Assets</h1>
-          <h2 id="project_tagline">NPM, JavaScript, NodeJS, AngularJS, MongoDB, Karma, Protrator, Google Visulization API, ExpressJS</h2>
+            <!-- Useful Links -->
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">FAQ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="useful-links.html">Useful Links</a></li>
+                <li><a href="necessary-software.html">Necessary Software</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    </div><!-- /.container-fluid -->
+  </nav>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/marcelbirkner/project-staffing/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/marcelbirkner/project-staffing/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+  <h1>
+    FrontEnd Assets Delivery Pipeline<br/>
+    <small>a codecentric AG presenation</small>
+  </h1>
+  <p class="well">
+    If you are reading this, then you are probably here because one of the
+    speakers has given you this URI. Should you be interested in a
+    workshop, please contact our
+    <a href="mailto:training@codecentric.de">training team</a> 
+    (workshop is available in German and English).
+  </p>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="project-overview" class="anchor" href="#project-overview"><span class="octicon octicon-link"></span></a>Project overview</h1>
+  <h2>Slides</h2>
+  <ul class="media-list">
+    <li class="media">
+      <a class="pull-left" href="introduction">
+        <img class="media-object" style="width: 128px" src="images/codecentric-people.png"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a href="slides/introduction/index.html">Introduction</a>
+        </h4>
+        <p>Who we are, what we do and what the presentation is about</p>
+      </div>
+    </li>
 
-<ul>
-<li><a href="documentation/README.md">Project Documentation &amp; Screenshots</a></li>
-<li>Frontend Tests
+    <li class="media">
+      <a class="pull-left" href="application-intro-slides">
+        <img class="media-object" style="width: 128px" src="images/project-staffing.png"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a href="slides/application-intro-slides/index.html">About the Project Staffing WebApp</a>
+        </h4>
+        <p>Quick presentation of the demo project that is used throughout the presentation.</p>
+      </div>
+    </li>
 
-<ul>
-<li>End-2-End Integration Tests <a href="e2e/README.md">E2E-Documentation</a>
-</li>
-<li>Unit Tests <a href="test/README.md">Unit-Test-Documentation</a>
-</li>
-</ul>
-</li>
-</ul>
+    <li class="media">
+      <a class="pull-left" href="javascript-basics-slides">
+        <img class="media-object" style="width: 128px" src="images/javascript-basics.png"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a href="slides/javascript-basics-slides/index.html">JavaScript Basics</a>
+        </h4>
+        <p>Introduction to JavaScript, basic features and common pitfalls. Start here, if you are new to JavaScript or want to learn more about the language. These slides are part of the 
+          <a href="http://codecentric.github.io/coding-serbia-angularjs-workshop/">AngularJS Workshop</a>
+          from 
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/benripkens">@BenRipkens</a>
+          and
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/mlex">@MLex</a>
+        </p>  
+      </div>
+    </li>
 
-<h2>
-<a name="project-layout" class="anchor" href="#project-layout"><span class="octicon octicon-link"></span></a>Project layout</h2>
+    <li class="media">
+      <a class="pull-left" href="angularjs-basics-slides">
+        <img class="media-object" style="width: 128px" src="images/angularjs-basics.png"/>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a href="slides/angularjs-basics-slides/index.html">AngularJS Basics</a>
+        </h4>
+        <p>
+          The project-staffing application is based on AngularJS. 
+          These slides are part of the 
+          <a href="http://codecentric.github.io/coding-serbia-angularjs-workshop/">AngularJS Workshop</a>
+          from 
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/benripkens">@BenRipkens</a>
+          and
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/mlex">@MLex</a>
+        </p>
+      </div>
+    </li>
 
-<ul>
-<li>
-<strong>server.js</strong> is the central location for all backend REST services</li>
-<li>
-<strong>client</strong> contains the AngularJS frontend JavaScript code</li>
-<li>
-<strong>data</strong> contains some test data for MongoDB</li>
-<li>
-<strong>documentation</strong> project documentation incl. screenshots</li>
-<li>
-<strong>e2e</strong> contains Jasmine and Protrator End-2-End tests</li>
-<li>
-<strong>infrastructure</strong> scripts for deployment</li>
-<li>
-<strong>smoketests</strong> scripts with tests that run after a fresh deployment</li>
-<li>
-<strong>static</strong> contains frontend assets</li>
-<li>
-<strong>test</strong> contains Jasmine and Karma unit tests</li>
-</ul>
+  </ul>
 
-<h1>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h1>
+  <h2>Source Code</h2>
+  <p>
+    All the project's sources are available through a GitHub repository
+    under
+    <a href="https://github.com/marcelbirkner/project-staffing">
+      marcelbirkner/project-staffing</a>.
+  </p>
 
-<h2>
-<a name="starting-nodejs-server" class="anchor" href="#starting-nodejs-server"><span class="octicon octicon-link"></span></a>Starting NodeJS Server</h2>
+  <h2>Speaker</h2>
+  <ul class="trainers">
+    <li>
+      <img src="http://1.gravatar.com/avatar/93a1cf600ab7c97e30f2f9fd62170e36?s=80"
+           alt="Marcels's avatar"
+           class="avatar">
+      <span class="name">Marcel Birkner</span>
+      <ul class="social">
+        <li>
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/marcelbirkner">
+            @marcelbirkner
+          </a>
+        </li>
+        <li>
+          <i class="icon-github"></i>
+          <a href="https://github.com/marcelbirkner">
+            github.com/marcelbirkner
+          </a>
+        </li>
+        <li>
+          <i class="icon-envelope"></i>
+          <a href="mailto:marcel.birkner@codecentric.de">
+            marcel.birkner@codecentric.de
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <img src="https://lh5.googleusercontent.com/-iPYW0q1B-ag/AAAAAAAAAAI/AAAAAAAAAFk/Lx0lCbb-amA/photo.jpg"
+           alt="Bastian's avatar"
+           class="avatar"
+           height="80px" 
+           width="80px">
+      <span class="name">Bastian Krol</span>
+      <ul class="social">
+        <li>
+          <i class="icon-twitter"></i>
+          <a href="https://twitter.com/bastiankrol">
+            @bastiankrol
+          </a>
+        </li>
+        <li>
+          <i class="icon-github"></i>
+          <a href="https://github.com/bastian1302">
+            github.com/bastian1302
+          </a>
+        </li>
+        <li>
+          <i class="icon-envelope"></i>
+          <a href="mailto:bastian.krol@codecentric.de">
+            bastian.krol@codecentric.de
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
-<div class="highlight highlight-bash"><pre><span class="c"># start node server via supervisor</span>
-npm install -g supervisor
-supervisor server.js
-</pre></div>
+</div>
 
-<h2>
-<a name="build-client-assets-with-gulp-streaming-build-system" class="anchor" href="#build-client-assets-with-gulp-streaming-build-system"><span class="octicon octicon-link"></span></a>Build client assets with gulp (streaming build system)</h2>
+<a href="https://github.com/marcelbirkner/project-staffing">
+  <img style="position: absolute; top: 60px; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+       alt="Fork me on GitHub"
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</a>
 
-<div class="highlight highlight-bash"><pre><span class="c"># install gulp and the gulp plugins</span>
-<span class="nb">cd </span>client
-npm install 
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
-<span class="c"># install gulp binary in the path</span>
-npm i -g gulp
-
-<span class="c"># running gulp</span>
-gulp watch
-</pre></div>
-
-<h2>
-<a name="starting-mongodb-backend" class="anchor" href="#starting-mongodb-backend"><span class="octicon octicon-link"></span></a>Starting MongoDB Backend</h2>
-
-<div class="highlight highlight-bash"><pre>// Windows
-mongod.exe --dbpath <span class="s2">"data\mongodb"</span>
-
-// Linux
-mongod --dbpath <span class="s2">"data/mongodb"</span>
-</pre></div>
-
-<p>After you started the server, you can access the webapp under: <a href="http://localhost:9000">http://localhost:9000</a></p>
-
-<h2>
-<a name="technologies-used" class="anchor" href="#technologies-used"><span class="octicon octicon-link"></span></a>Technologies used</h2>
-
-<ul>
-<li>NodeJS, ExpressJS, AngularJS</li>
-<li>Bootstrap CSS/JavaScript</li>
-<li>Google Maps API</li>
-<li>Google Visulization API</li>
-<li>MongoDB</li>
-</ul>
-
-<h1>
-<a name="rest-api" class="anchor" href="#rest-api"><span class="octicon octicon-link"></span></a>REST API</h1>
-
-<p>The frontend code communicates with the backend via a REST API. Here is a list of useful REST commands you can use.</p>
-
-<ul>
-<li>Root Resource: <a href="http://localhost:9000/api/">http://localhost:9000/api/</a>
-</li>
-</ul>
-
-<h2>
-<a name="access-mongodb-data" class="anchor" href="#access-mongodb-data"><span class="octicon octicon-link"></span></a>Access MongoDB data</h2>
-
-<p>Initialize MongoDB with test data </p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/init">http://localhost:9000/api/mongo/init</a></li>
-</ul>
-
-<p>Get all customers that are stored in MongoDB</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/customers">http://localhost:9000/api/mongo/customers</a></li>
-</ul>
-
-<p>Get all projects that are stored in MongoDB</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/projects">http://localhost:9000/api/mongo/projects</a></li>
-</ul>
-
-<p>Get all employees that are stored in MongoDB</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/employees">http://localhost:9000/api/mongo/employees</a></li>
-</ul>
-
-<h2>
-<a name="search-mongodb-data" class="anchor" href="#search-mongodb-data"><span class="octicon octicon-link"></span></a>Search MongoDB data</h2>
-
-<p>Find Employees by Twitter handle</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/search/employee?twitter=@maxm">http://localhost:9000/api/mongo/search/employee?twitter=@maxm</a></li>
-</ul>
-
-<p>Find Employees by Name</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann">http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann</a></li>
-</ul>
-
-<p>Find employee by Skill</p>
-
-<ul>
-<li><a href="http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j">http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j</a></li>
-</ul>
-
-<h1>
-<a name="license-mit" class="anchor" href="#license-mit"><span class="octicon octicon-link"></span></a>License (MIT)</h1>
-
-<p>Copyright (c) 2013 codecentric AG</p>
-
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Delivery Pipeline for FrontEnd Assets maintained by <a href="https://github.com/marcelbirkner">marcelbirkner</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+</body>
 </html>
