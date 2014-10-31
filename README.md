@@ -1,15 +1,20 @@
-# Project Documentation
-
-- http://marcelbirkner.github.io/project-staffing/
-
 # Project overview
 
-- [Project Documentation & Screenshots](documentation/README.md)
+- Features & Screenshots 
+ - http://marcelbirkner.github.io/project-staffing/slides/application-intro-slides/#1
+- Getting started
+ - http://marcelbirkner.github.io/project-staffing/quickstart.html
 - Frontend Tests
  - End-2-End Integration Tests [E2E-Documentation](e2e/README.md)
  - Unit Tests [Unit-Test-Documentation](test/README.md)
 
-## Project layout
+# Conferences
+
+- Continuous Lifecycle 2014 
+ - Slides and Documentation: http://marcelbirkner.github.io/project-staffing/
+ - Talk: http://www.continuouslifecycle.de/lecture.php?id=4566
+ 
+# Project layout
 
 - **server.js** is the central location for all backend REST services
 - **client** contains the AngularJS frontend JavaScript code
@@ -21,43 +26,7 @@
 - **static** contains frontend assets
 - **test** contains Jasmine and Karma unit tests
 
-# Getting started
-
-## Starting NodeJS Server
-
-```bash
-# start node server via supervisor
-npm install -g supervisor
-supervisor server.js
-```
-
-## Build client assets with gulp (streaming build system)
-
-```bash
-# install gulp and the gulp plugins
-cd client
-npm install 
-
-# install gulp binary in the path
-npm i -g gulp
-
-# running gulp
-gulp watch
-```
-
-## Starting MongoDB Backend
-
-```bash
-// Windows
-mongod.exe --dbpath "data\mongodb"
-
-// Linux
-mongod --dbpath "data/mongodb"
-```
-
-After you started the server, you can access the webapp under: <a href="http://localhost:9000">http://localhost:9000</a>
-
-## Technologies used
+# Technologies used
 
 * NodeJS, ExpressJS, AngularJS
 * Bootstrap CSS/JavaScript
