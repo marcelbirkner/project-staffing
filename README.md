@@ -1,3 +1,7 @@
+# Project Documentation
+
+- http://marcelbirkner.github.io/project-staffing/
+
 # Project overview
 
 - [Project Documentation & Screenshots](documentation/README.md)
