@@ -4,9 +4,11 @@
  - http://marcelbirkner.github.io/project-staffing/slides/application-intro-slides/#1
 - Getting started
  - http://marcelbirkner.github.io/project-staffing/quickstart.html
+- REST API
+ - http://marcelbirkner.github.io/project-staffing/rest-api.html
 - Frontend Tests
- - End-2-End Integration Tests [E2E-Documentation](e2e/README.md)
- - Unit Tests [Unit-Test-Documentation](test/README.md)
+ - End-2-End Integration Tests http://marcelbirkner.github.io/project-staffing/e2e-tests.html
+ - Unit Tests http://marcelbirkner.github.io/project-staffing/unit-tests.html
 
 # Conferences
 
@@ -33,44 +35,6 @@
 * Google Maps API
 * Google Visulization API
 * MongoDB
-
-# REST API
-
-The frontend code communicates with the backend via a REST API. Here is a list of useful REST commands you can use.
-
-* Root Resource: [http://localhost:9000/api/](http://localhost:9000/api/)
-
-## Access MongoDB data
-
-Initialize MongoDB with test data 
-
-* [http://localhost:9000/api/mongo/init](http://localhost:9000/api/mongo/init)
-
-Get all customers that are stored in MongoDB
-
-* [http://localhost:9000/api/mongo/customers](http://localhost:9000/api/mongo/customers)
-
-Get all projects that are stored in MongoDB
-
-* [http://localhost:9000/api/mongo/projects](http://localhost:9000/api/mongo/projects)
-
-Get all employees that are stored in MongoDB
-
-* [http://localhost:9000/api/mongo/employees](http://localhost:9000/api/mongo/employees)
-
-## Search MongoDB data
-
-Find Employees by Twitter handle
-
-* [http://localhost:9000/api/mongo/search/employee?twitter=@maxm](http://localhost:9000/api/mongo/search/employee?twitter=@maxm)
-
-Find Employees by Name
-
-* [http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann](http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann)
-
-Find employee by Skill
-
-* [http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j](http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j)
 
 # License (MIT)
 
