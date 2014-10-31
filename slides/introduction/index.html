@@ -137,16 +137,129 @@
 
   <slide>
     <hgroup>
-      <h2>Agenda</h2>
+      <h2>Agenda (Draft)</h2>
     </hgroup>
     <article>
-      <h3>ToDo</h3>
       <ul>
-        <li>What are we not talking about</li>
-        <li>Technological overview</li>
-        <li>Demo</li>
-        <li>Testing</li>
+        <li>Continuous Delivery Overview (Outline)</li>
+        <li>Problematic Trends</li>
+        <li>Demo: Project-Staffing App
+          <ul>
+            <li>
+              Testing
+              <ul>
+                <li>FrontEnd Unit &amp; End-2-End Tests</li>
+                <li>BackEnd Unit Tests</li>
+              </ul>
+            </li>
+            <li>
+              Deployment
+              <ul>
+                <li>Build/Deploy Server, Version Control, Artifact Repository</li>
+                <li>Configuration Management</li>
+                <li>Automated Testing</li>
+                <li>Reports</li>
+              </ul>
+            </li>
+          </ul>
         <li>Tools &amp; Best Practices</li>
+      </ul>
+    </article>
+  </slide>
+
+<slide class="nobackground">
+    <hgroup>
+      <h2>Talk Outline</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/handwerkszeug.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Trend: growing number of static assets</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>JavaScript Code</li>
+        <li>Stylesheets</li>
+        <li>Images</li>
+      </ul>
+      <img src="images/quad-logos.png" style="position: fixed; left: 350px; width: 400px">
+      <img src="images/angularjs-logo.png" style="position: fixed; right: 450px; top: 200px; width: 250px">
+      <img src="images/jquery-logo.png" style="position: fixed; right: 450px; top: 350px; width: 200px">
+      <img src="images/knockoutjs-logo.png" style="position: fixed; right: 350px; top: 450px; width: 200px">
+      <img src="images/emberjs-logo.jpg" style="position: fixed; right: 600px; top: 500px; width: 200px">
+    </article>
+  </slide>
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>NPM Growth</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/growth-of-npm-package-downloads.png"></span>
+      <p class="footnote">
+        Source: https://developer.salesforce.com/blogs/developer-relations/2014/09/explosive-growth-javascript-npm-enterprise.html
+      </p>
+    </article>
+  </slide>  
+
+  <slide class="nobackground">
+    <hgroup>
+      <h2>Deployment Pipeline</h2>
+    </hgroup>
+    <article>
+      <img src="images/deployment-pipeline.png" style="position: fixed; top: 300px">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Infrastructure</h2>
+    </hgroup>
+    <article>
+      <img src="images/cd-infrastructure-min.png" style="position: fixed; right: 400px; top: 180px; width: 800px">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tools &amp; Best Practices</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Best Practices: Deployment Patterns</li>
+         <ul>
+            <li>Smoke-Test for each Artefact</li>
+            <li>Green - Blue Deployment</li>
+            <li>Zero Downtime Deployments</li>
+            <li>Rolling Deployments</li>
+            <li>Feature Toggles</li>
+            <li>Canary Releases</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tools &amp; Best Practices</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Best Practices: Jenkins Server</li>
+         <ul>
+            <li>Master for Job Configuration / Coordination</li>
+            <li>Slaves do the Work</li>
+            <li>Label slaves for different job types and needs</li>
+            <li>Plan for Disk Usage Growth Up Front</li>
+            <li>Discard Old Builds</li>
+            <li>Virtualize Infrastructure</li>
+          </ul>
+        </li>
       </ul>
     </article>
   </slide>
