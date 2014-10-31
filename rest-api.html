@@ -66,8 +66,73 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <h1>ToDo: Unit Tests</h1>
+  <h2>REST API</h2>
+  <p>
+    The frontend code communicates with the backend via a REST API. Here is a list of useful REST commands you can use.
+    Make sure the NodeJS server is up and running.
+    
+    <h3>Root Resource</h3> 
 
+    <h4>Display all available REST requests incl. documentation</h4>
+    <ul>
+      <li>
+        <a href="http://localhost:9000/api/">http://localhost:9000/api/</a>
+      </li>
+    </ul>
+
+    <h3>Access MongoDB data</h3>
+
+    <h4>Initialize MongoDB with test data</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/init">http://localhost:9000/api/mongo/init</a>
+      </li>
+    </ul>
+
+    <h4>Get all customers that are stored in MongoDB</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/customers">http://localhost:9000/api/mongo/customers</a>
+      </li>
+    </ul>
+
+    <h4>Get all projects that are stored in MongoDB</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/projects">http://localhost:9000/api/mongo/projects</a>
+      </li>
+    </ul>
+
+    <h4>Get all employees that are stored in MongoDB</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/employees">http://localhost:9000/api/mongo/employees</a>
+      </li>
+    </ul>
+
+    <h3>Search MongoDB data</h3>
+
+    <h4>Find employees by Twitter handle</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/search/employee?twitter=@maxm">http://localhost:9000/api/mongo/search/employee?twitter=@maxm</a>
+      </li>
+    </ul>
+
+    <h4>Find employees by Name</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann">http://localhost:9000/api/mongo/search/employee?name=Max%20Mustermann</a>
+      </li>
+    </ul>
+
+    <h4>Find employees by Skill</h4>
+    <ul>      
+      <li>
+        <a href="http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j">http://localhost:9000/api/mongo/search/employees/skills?skills=neo4j</a>
+      </li>
+    </ul>
+  </p>
 </div>
 
 <!-- Bootstrap core JavaScript
