@@ -11,12 +11,12 @@ echo "Kill Selenium Process"
 PID=`ps aux | grep node | grep webdriver | awk '{print $2}'`
 sudo kill -9 $PID 
 
-echo "Install npm packages and reporters"
+echo "Install npm packages"
 npm install
-npm install jasmine-reporters
 
 echo "Start WebDriver Manager"
 webdriver-manager start &
+npm install jasmine-reporters
 
 echo "Start E2E test"
 protractor e2e/conf.js
