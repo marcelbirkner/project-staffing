@@ -13,6 +13,9 @@ echo "Install server side dependencies"
 cd ..
 npm install
 
+echo "Store Build Version in Navigation"
+find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"
+
 echo "Package JS App"
 zip -r project-staffing.zip server.js static/ node_modules/ data/ lib/
 
