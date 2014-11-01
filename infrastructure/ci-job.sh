@@ -1,8 +1,8 @@
 #!/bin/sh
 
-SERVER = $1
-NEXUS_CREDENTIALS = $2
-BUILD_NUMBER = $3
+SERVER=$1
+NEXUS_CREDENTIALS=$2
+BUILD_NUMBER=$3
 
 echo "Build static client assets and run gulp"
 cd client
