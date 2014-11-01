@@ -1,12 +1,14 @@
 #!/bin/sh
 
-npm install
+TEST_SERVER=$1
+echo "Running End2End Test $TEST_SERVER"
 
 echo "Kill Selenium Process"
 PID=`ps aux | grep node | grep webdriver | awk '{print $2}'`
 sudo kill -9 $PID 
 
 echo "Run End2End Test against Server"
+npm install
 webdriver-manager start &
 export CHROME_BIN=/usr/bin/chromium-browser
 
