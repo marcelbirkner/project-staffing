@@ -10,79 +10,15 @@
 
 })();
 
-(function(){
+;(function() {
   'use strict';
 
-  var app = angular.module('employee-directives', []);
+  angular
+  .module('project-staffing')
+  .controller('AddressController', function($http, $scope, $location) {
 
-  app.directive('navigation', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'navigation.html'
-  };
-  });
-  app.directive('employeeTable', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-table.html'
-  };
-  });
-  app.directive('employeeList', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-list.html'
-  };
-  });
-  app.directive('employeeForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'employee-form.html'
-  };
-  });
-  app.directive('skillForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'skill-form.html'
-  };
-  });
-  app.directive('projectForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'project-form.html'
-  };
-  });
-  app.directive('homeaddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'homeaddress-form.html'
-  };
-  });
-  app.directive('searchaddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'searchaddress-form.html'
-  };
-  });
-  app.directive('customerTable', function() {
-  return {
-    restrict : 'E',
-    templateUrl : 'customer-table.html'
-  };
-  });
-  app.directive('searchCustomerAddressForm', function(){
-  return {
-    restrict: 'E',
-    templateUrl: 'searchcustomeraddress-form.html'
-  };
-  });
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('project-staffing').controller('AddressController', function($http, $scope, $location) {
-
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = $location.protocol() + '://' + $location.host() + ':' +
+      $location.port();
 
     $scope.result = '';
     $scope.details = {};
@@ -98,15 +34,22 @@
 
       var keys = Object.keys($scope.details.geometry.location);
       employee.homeaddress = {};
-      employee.homeaddress.longitude = $scope.details.geometry.location[keys[0]];
+      employee.homeaddress.longitude =
+        $scope.details.geometry.location[keys[0]];
       employee.homeaddress.latitude = $scope.details.geometry.location[keys[1]];
 
-      $http.post(url + '/api/mongo/employees/' + employee._id, JSON.stringify(employee));
+      $http.post(url + '/api/mongo/employees/' + employee._id,
+        JSON.stringify(employee));
 
       // TODO: get userid from session
       var user = 'max';
       var msg = 'updated the address of an existing employee ';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: employee.name};
+      var activity = {
+        timestamp: new Date(),
+        subject: user,
+        action: msg,
+        object: employee.name
+      };
       $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
     };
@@ -115,7 +58,7 @@
 
 })();
 
-/* global google */
+;/* global google */
 /* eslint-disable no-loop-func, no-new */
 (function() {
   'use strict';
@@ -125,7 +68,8 @@
   .controller('CustomerController', function($http, $scope, $location){
 
     console.log('Customer Controller');
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = $location.protocol() + '://' + $location.host() + ':' +
+      $location.port();
 
     var company = this;
     company.customers = [];
@@ -247,7 +191,8 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
-      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
 
       if ( drawCircle ) {
           var circleOptions = {
@@ -279,7 +224,9 @@
           customer = customers[i];
 
           markerCustomer = new google.maps.Marker({
-              position: new google.maps.LatLng(customer.companyaddress.longitude, customer.companyaddress.latitude),
+              position:
+                new google.maps.LatLng(customer.companyaddress.longitude,
+                customer.companyaddress.latitude),
               map: map,
               icon: image,
               title: customer.company,
@@ -289,10 +236,12 @@
           google.maps.event.addListener(markerCustomer, 'click', (function(markerCustomer, i) {
             return function() {
               var cust = customers[i];
-              var content = '<p><b id="customerTitle">' + cust.company + '</b></p><table class="table"><tr>';
-              content += '<tr><td><span class="label label-primary">Industry</span></td><td>' + cust.industry + '</td></tr>';
-              content += '<tr><td><span class="label label-primary">Address</span></td><td>' + cust.address + '</td></tr></table>';
-
+              var content = '<p><b id="customerTitle">' +
+                cust.company + '</b></p><table class="table"><tr>' +
+                '<tr><td><span class="label label-primary">' +
+                'Industry</span></td><td>' + cust.industry + '</td></tr>' +
+                '<tr><td><span class="label label-primary">Address' +
+                '</span></td><td>' + cust.address + '</td></tr></table>';
               infoWindow.setContent(content);
               infoWindow.open(map, markerCustomer);
             };
@@ -305,7 +254,7 @@
 
 })();
 
-/* global google */
+;/* global google */
 (function() {
   'use strict';
 
@@ -322,13 +271,13 @@
     // draw table
     var dataArray = [
         ['Lat', 'Long', 'Office', 'Revenue', 'No. Employees', 'Utilization'],
-        [51.1672852,7.0626139, 'Solingen', {v: 12, f: '12.0%'}, 0, 85],
-        [51.2111382,6.7822516, 'Düsseldorf', {v: 7.3, f: '7.3%'}, 0, 65],
-        [48.1368364,11.5234671, 'München', {v: 3.6, f: '3.6%'}, 0, 75],
-        [52.5083545,13.3771307, 'Berlin', {v: 2.1, f: '2.1%'}, 0, 86],
-        [49.00367,8.36476, 'Karlsruhe', {v: 5.4, f: '5.4%'}, 0, 40],
-        [50.0779865,8.6246555, 'Frankfurt', {v: 3.1, f: '3.1%'}, 0, 55],
-        [53.55539,9.98492, 'Hamburg', {v: 2.5, f: '2.5%'}, 0, 30],
+        [51.1672852, 7.0626139, 'Solingen', {v: 12, f: '12.0%'}, 0, 85],
+        [51.2111382, 6.7822516, 'Düsseldorf', {v: 7.3, f: '7.3%'}, 0, 65],
+        [48.1368364, 11.5234671, 'München', {v: 3.6, f: '3.6%'}, 0, 75],
+        [52.5083545, 13.3771307, 'Berlin', {v: 2.1, f: '2.1%'}, 0, 86],
+        [49.00367, 8.36476, 'Karlsruhe', {v: 5.4, f: '5.4%'}, 0, 40],
+        [50.0779865, 8.6246555, 'Frankfurt', {v: 3.1, f: '3.1%'}, 0, 55],
+        [53.55539, 9.98492, 'Hamburg', {v: 2.5, f: '2.5%'}, 0, 30],
         [51.4969802, 11.9688029, 'Halle (Saale)', {v: -5.1, f: '5.1%'}, 0, 20]
     ];
 
@@ -402,7 +351,8 @@
             var item = location.latestprojects[id];
             var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
             console.log(behind);
-            data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end), behind]);
+            data.addRow([item.name, item.office, item.projects.name,
+              new Date(item.projects.start), new Date(item.projects.end), behind]);
         }
 
         var colorformatter = new google.visualization.ColorFormat();
@@ -424,7 +374,7 @@
 
 })();
 
-(function() {
+;(function() {
   'use strict';
 
   angular
@@ -515,7 +465,7 @@
 
 })();
 
-(function() {
+;(function() {
   'use strict';
 
   angular.module('project-staffing').controller('NavigationController', function($scope) {
@@ -528,7 +478,7 @@
 
 })();
 
-(function() {
+;(function() {
   'use strict';
 
   angular.module('project-staffing').controller('ProjectController', function($http, $location) {
@@ -568,7 +518,7 @@
 
 })();
 
-(function() {
+;(function() {
   'use strict';
 
   angular.module('project-staffing').controller('SkillController', function($http, $location) {
@@ -620,7 +570,7 @@
 
 })();
 
-/* global google */
+;/* global google */
 /* eslint-disable no-loop-func, no-new */
 (function() {
   'use strict';
@@ -744,7 +694,7 @@
                     if (emp.projects) {
                         content += '<p><span class="label label-success">Projects</span><table class="table">';
 
-                        emp.projects.sort(function(a,b) {
+                        emp.projects.sort(function(a, b) {
                             if (a.start < b.start) {
                                 return 1;
                             }
@@ -758,8 +708,11 @@
                                 projectEnd = 'Current';
                             }
                             var projectName = emp.projects[m].name;
-                            content += '<tr><td><span class="label label-primary">' + $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
-                            content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
+                            content += '<tr><td><span class="label label-primary">' +
+                              $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
+                            content += '<td><span class="label label-info">' +
+                              $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' +
+                              projectName + '</td></tr>';
                         }
                         content += '</table></p>';
                     } else {
@@ -779,7 +732,7 @@
 
 })();
 
-(function() {
+;(function() {
   'use strict';
 
   angular.module('project-staffing').controller('TimelineController', function($http, $location) {
@@ -797,7 +750,74 @@
 
 })();
 
-(function() {
+;(function(){
+  'use strict';
+
+  var app = angular.module('employee-directives', []);
+
+  app.directive('navigation', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'navigation.html'
+  };
+  });
+  app.directive('employeeTable', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-table.html'
+  };
+  });
+  app.directive('employeeList', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-list.html'
+  };
+  });
+  app.directive('employeeForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'employee-form.html'
+  };
+  });
+  app.directive('skillForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'skill-form.html'
+  };
+  });
+  app.directive('projectForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'project-form.html'
+  };
+  });
+  app.directive('homeaddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'homeaddress-form.html'
+  };
+  });
+  app.directive('searchaddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'searchaddress-form.html'
+  };
+  });
+  app.directive('customerTable', function() {
+  return {
+    restrict : 'E',
+    templateUrl : 'customer-table.html'
+  };
+  });
+  app.directive('searchCustomerAddressForm', function(){
+  return {
+    restrict: 'E',
+    templateUrl: 'searchcustomeraddress-form.html'
+  };
+  });
+})();
+
+;(function() {
   'use strict';
 
   angular.module('project-staffing').filter('firstLetterUppercase', function() {
@@ -816,7 +836,171 @@
 
 })();
 
-(function() {
+;'use strict';
+
+/**
+ * A directive for adding google places autocomplete to a text box
+ * google places autocomplete info: https://developers.google.com/maps/documentation/javascript/places
+ *
+ * Usage:
+ *
+ * + ng-model - autocomplete textbox value
+ *
+ * + details - more detailed autocomplete result, includes address parts, latlng, etc. (Optional)
+ *
+ * + options - configuration for the autocomplete (Optional)
+ *
+ *       + types: type,        String, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
+ *       + bounds: bounds,     Google maps LatLngBounds Object, biases results to bounds, but may return results outside these bounds
+ *       + country: country    String, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
+ *       + watchEnter:         Boolean, true; on Enter select top autocomplete result. false(default); enter ends autocomplete
+ *
+ * example:
+ *
+ *    options = {
+ *        types: '(cities)',
+ *        country: 'ca'
+ *    }
+**/
+
+angular.module( "ngAutocomplete", [])
+  .directive('ngAutocomplete', function() {
+    return {
+      require: 'ngModel',
+      scope: {
+        ngModel: '=',
+        options: '=?',
+        details: '=?'
+      },
+
+      link: function(scope, element, attrs, controller) {
+
+        //options for autocomplete
+        var opts
+        var watchEnter = false
+        //convert options provided to opts
+        var initOpts = function() {
+
+          opts = {}
+          if (scope.options) {
+
+            if (scope.options.watchEnter !== true) {
+              watchEnter = false
+            } else {
+              watchEnter = true
+            }
+
+            if (scope.options.types) {
+              opts.types = []
+              opts.types.push(scope.options.types)
+              scope.gPlace.setTypes(opts.types)
+            } else {
+              scope.gPlace.setTypes([])
+            }
+
+            if (scope.options.bounds) {
+              opts.bounds = scope.options.bounds
+              scope.gPlace.setBounds(opts.bounds)
+            } else {
+              scope.gPlace.setBounds(null)
+            }
+
+            if (scope.options.country) {
+              opts.componentRestrictions = {
+                country: scope.options.country
+              }
+              scope.gPlace.setComponentRestrictions(opts.componentRestrictions)
+            } else {
+              scope.gPlace.setComponentRestrictions(null)
+            }
+          }
+        }
+
+        if (scope.gPlace == undefined) {
+          scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
+        }
+        google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+          var result = scope.gPlace.getPlace();
+          if (result !== undefined) {
+            if (result.address_components !== undefined) {
+
+              scope.$apply(function() {
+
+                scope.details = result;
+
+                controller.$setViewValue(element.val());
+              });
+            }
+            else {
+              if (watchEnter) {
+                getPlace(result)
+              }
+            }
+          }
+        })
+
+        //function to get retrieve the autocompletes first result using the AutocompleteService
+        var getPlace = function(result) {
+          var autocompleteService = new google.maps.places.AutocompleteService();
+          if (result.name.length > 0){
+            autocompleteService.getPlacePredictions(
+              {
+                input: result.name,
+                offset: result.name.length
+              },
+              function listentoresult(list, status) {
+                if(list == null || list.length == 0) {
+
+                  scope.$apply(function() {
+                    scope.details = null;
+                  });
+
+                } else {
+                  var placesService = new google.maps.places.PlacesService(element[0]);
+                  placesService.getDetails(
+                    {'reference': list[0].reference},
+                    function detailsresult(detailsResult, placesServiceStatus) {
+
+                      if (placesServiceStatus == google.maps.GeocoderStatus.OK) {
+                        scope.$apply(function() {
+
+                          controller.$setViewValue(detailsResult.formatted_address);
+                          element.val(detailsResult.formatted_address);
+
+                          scope.details = detailsResult;
+
+                          //on focusout the value reverts, need to set it again.
+                          var watchFocusOut = element.on('focusout', function(event) {
+                            element.val(detailsResult.formatted_address);
+                            element.unbind('focusout')
+                          })
+
+                        });
+                      }
+                    }
+                  );
+                }
+              });
+          }
+        }
+
+        controller.$render = function () {
+          var location = controller.$viewValue;
+          element.val(location);
+        };
+
+        //watch options provided to directive
+        scope.watchOptions = function () {
+          return scope.options
+        };
+        scope.$watch(scope.watchOptions, function () {
+          initOpts()
+        }, true);
+
+      }
+    };
+  });
+;(function() {
   'use strict';
 
   angular

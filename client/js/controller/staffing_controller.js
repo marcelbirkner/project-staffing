@@ -122,7 +122,7 @@
                     if (emp.projects) {
                         content += '<p><span class="label label-success">Projects</span><table class="table">';
 
-                        emp.projects.sort(function(a,b) {
+                        emp.projects.sort(function(a, b) {
                             if (a.start < b.start) {
                                 return 1;
                             }
@@ -136,8 +136,11 @@
                                 projectEnd = 'Current';
                             }
                             var projectName = emp.projects[m].name;
-                            content += '<tr><td><span class="label label-primary">' + $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
-                            content += '<td><span class="label label-info">' + $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' + projectName + '</td></tr>';
+                            content += '<tr><td><span class="label label-primary">' +
+                              $filter('date')(projectStart, 'yyyy-MM-dd') + '</span></td>';
+                            content += '<td><span class="label label-info">' +
+                              $filter('date')(projectEnd, 'yyyy-MM-dd') + '</span></td><td>' +
+                              projectName + '</td></tr>';
                         }
                         content += '</table></p>';
                     } else {

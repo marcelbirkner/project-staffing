@@ -1,0 +1,2 @@
+static/js/*.js     -diff
+static/js/*.js.map -diff

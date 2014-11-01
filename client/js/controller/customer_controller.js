@@ -8,7 +8,8 @@
   .controller('CustomerController', function($http, $scope, $location){
 
     console.log('Customer Controller');
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = $location.protocol() + '://' + $location.host() + ':' +
+      $location.port();
 
     var company = this;
     company.customers = [];
@@ -130,7 +131,8 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
-      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var map = new google.maps.Map(document.getElementById('map-canvas'),
+        mapOptions);
 
       if ( drawCircle ) {
           var circleOptions = {
@@ -162,7 +164,9 @@
           customer = customers[i];
 
           markerCustomer = new google.maps.Marker({
-              position: new google.maps.LatLng(customer.companyaddress.longitude, customer.companyaddress.latitude),
+              position:
+                new google.maps.LatLng(customer.companyaddress.longitude,
+                customer.companyaddress.latitude),
               map: map,
               icon: image,
               title: customer.company,
@@ -172,10 +176,12 @@
           google.maps.event.addListener(markerCustomer, 'click', (function(markerCustomer, i) {
             return function() {
               var cust = customers[i];
-              var content = '<p><b id="customerTitle">' + cust.company + '</b></p><table class="table"><tr>';
-              content += '<tr><td><span class="label label-primary">Industry</span></td><td>' + cust.industry + '</td></tr>';
-              content += '<tr><td><span class="label label-primary">Address</span></td><td>' + cust.address + '</td></tr></table>';
-
+              var content = '<p><b id="customerTitle">' +
+                cust.company + '</b></p><table class="table"><tr>' +
+                '<tr><td><span class="label label-primary">' +
+                'Industry</span></td><td>' + cust.industry + '</td></tr>' +
+                '<tr><td><span class="label label-primary">Address' +
+                '</span></td><td>' + cust.address + '</td></tr></table>';
               infoWindow.setContent(content);
               infoWindow.open(map, markerCustomer);
             };

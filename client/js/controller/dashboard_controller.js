@@ -15,13 +15,13 @@
     // draw table
     var dataArray = [
         ['Lat', 'Long', 'Office', 'Revenue', 'No. Employees', 'Utilization'],
-        [51.1672852,7.0626139, 'Solingen', {v: 12, f: '12.0%'}, 0, 85],
-        [51.2111382,6.7822516, 'Düsseldorf', {v: 7.3, f: '7.3%'}, 0, 65],
-        [48.1368364,11.5234671, 'München', {v: 3.6, f: '3.6%'}, 0, 75],
-        [52.5083545,13.3771307, 'Berlin', {v: 2.1, f: '2.1%'}, 0, 86],
-        [49.00367,8.36476, 'Karlsruhe', {v: 5.4, f: '5.4%'}, 0, 40],
-        [50.0779865,8.6246555, 'Frankfurt', {v: 3.1, f: '3.1%'}, 0, 55],
-        [53.55539,9.98492, 'Hamburg', {v: 2.5, f: '2.5%'}, 0, 30],
+        [51.1672852, 7.0626139, 'Solingen', {v: 12, f: '12.0%'}, 0, 85],
+        [51.2111382, 6.7822516, 'Düsseldorf', {v: 7.3, f: '7.3%'}, 0, 65],
+        [48.1368364, 11.5234671, 'München', {v: 3.6, f: '3.6%'}, 0, 75],
+        [52.5083545, 13.3771307, 'Berlin', {v: 2.1, f: '2.1%'}, 0, 86],
+        [49.00367, 8.36476, 'Karlsruhe', {v: 5.4, f: '5.4%'}, 0, 40],
+        [50.0779865, 8.6246555, 'Frankfurt', {v: 3.1, f: '3.1%'}, 0, 55],
+        [53.55539, 9.98492, 'Hamburg', {v: 2.5, f: '2.5%'}, 0, 30],
         [51.4969802, 11.9688029, 'Halle (Saale)', {v: -5.1, f: '5.1%'}, 0, 20]
     ];
 
@@ -95,7 +95,8 @@
             var item = location.latestprojects[id];
             var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
             console.log(behind);
-            data.addRow([item.name, item.office, item.projects.name, new Date(item.projects.start), new Date(item.projects.end), behind]);
+            data.addRow([item.name, item.office, item.projects.name,
+              new Date(item.projects.start), new Date(item.projects.end), behind]);
         }
 
         var colorformatter = new google.visualization.ColorFormat();
