@@ -4,7 +4,7 @@ TEST_SERVER=$1
 export CHROME_BIN=/usr/bin/chromium-browser
 
 echo "Running End2End Test $TEST_SERVER"
-echo "Update IP"
+echo "Update IP in base_url"
 find e2e/conf.js -type f -print0 | xargs -0 sed -i "s/localhost:9000/$TEST_SERVER:9000/g"
 
 echo "Kill Selenium Process"
