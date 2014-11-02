@@ -226,6 +226,79 @@
 
   <slide>
     <hgroup>
+      <h2>FrontEnd Unit Tests</h2>
+    </hgroup>
+    <article>
+      <h3>Karma and Jasmine</h3>
+      <pre class="prettyprint" data-lang="javascript">
+  var expect = chai.expect;
+  beforeEach(module('project-staffing'));
+  describe('UpperCase Test', function() {
+    it('should convert first charactor to UpperCase', inject(function(uppercaseFilter) {
+      expect(uppercaseFilter('')).to.equal('');
+      expect(uppercaseFilter('a')).to.equal('A');
+      expect(uppercaseFilter('string')).to.equal('String');
+    }));
+  });
+</pre>
+      <h3>Running Unit Tests with Karma</h3>
+      <pre class="prettyprint" data-lang="bash">
+npm install -g karma-cli
+karma start karma.conf.js
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>End2End Tests (1/2)</h2>
+    </hgroup>
+    <article>
+      <h3>Protractor and Jasmine</h3>
+      <pre class="prettyprint" data-lang="javascript">
+describe('Manage customer', function() {
+  var ptor;
+  beforeEach(function() {
+    browser.get('/');
+    ptor = protractor.getInstance();
+    element(by.id('navEmployees')).click();
+    element(by.id('navListEmployees')).click();
+  });
+  it('should navigate to list employees page', function() {
+    expect(ptor.getCurrentUrl()).toMatch(/#\/list-employees/);
+  });
+});
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>End2End Tests (2/2)</h2>
+    </hgroup>
+    <article>
+      <h3>Protractor and Jasmine</h3>
+      <pre class="prettyprint" data-lang="javascript">
+it('should find employee Maria on list search page', function() {
+  createMultipleEmployees(); // Creates employees: Max, Maria, Daniel, John
+  ...
+  element(by.id('searchText')).sendKeys('Ma');
+  expect(element.all(by.id('employee')).count()).toBe(2);
+  element(by.id('searchText')).sendKeys('ria');
+  expect(element.all(by.id('employee')).count()).toBe(1);
+});
+</pre>
+      <h3>Running End2End Tests with Protractor</h3>
+      <pre class="prettyprint" data-lang="bash">
+npm install -g protractor
+webdriver-manager start
+protractor e2e/conf.js
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
       <h2>Tools &amp; Best Practices</h2>
     </hgroup>
     <article>
