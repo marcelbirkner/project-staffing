@@ -17,6 +17,7 @@ npm install
 
 echo "Start WebDriver Manager"
 webdriver-manager start &
+sleep 20
 
 echo "Start E2E test"
 protractor $E2E_TEST_CONF
