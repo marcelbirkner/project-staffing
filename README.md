@@ -14,27 +14,18 @@
 
 - Continuous Lifecycle 2014 
  - Slides and Documentation: http://marcelbirkner.github.io/project-staffing/
- - Talk: http://www.continuouslifecycle.de/lecture.php?id=4566
+ - Talk: 
+  - http://www.continuouslifecycle.de/lecture.php?id=4566
+  - http://marcelbirkner.github.io/project-staffing/introduction/
  
 # Project layout
 
 - **server.js** is the central location for all backend REST services
 - **client** contains the AngularJS frontend JavaScript code
 - **data** contains some test data for MongoDB
-- **documentation** project documentation incl. screenshots
-- **e2e** contains Jasmine and Protrator End-2-End tests
-- **infrastructure** scripts for deployment
-- **smoketests** scripts with tests that run after a fresh deployment
+- **infrastructure** build server scripts (build/test/deploy)
 - **static** contains frontend assets
-- **test** contains Jasmine and Karma unit tests
-
-# Technologies used
-
-* NodeJS, ExpressJS, AngularJS
-* Bootstrap CSS/JavaScript
-* Google Maps API
-* Google Visulization API
-* MongoDB
+- **test** contains frontend and backend tests (unit/end2end/smoke-tests)
 
 # License (MIT)
 
