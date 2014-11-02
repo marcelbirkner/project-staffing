@@ -30,8 +30,6 @@
     };
 
     this.saveAddress = function(employee) {
-      console.log('update existing employee');
-
       var keys = Object.keys($scope.details.geometry.location);
       employee.homeaddress = {};
       employee.homeaddress.longitude =
@@ -67,7 +65,6 @@
   .module('project-staffing')
   .controller('CustomerController', ['$http', '$scope', '$location', function($http, $scope, $location){
 
-    console.log('Customer Controller');
     var url = $location.protocol() + '://' + $location.host() + ':' +
       $location.port();
 
@@ -85,13 +82,10 @@
     };
 
     $http.get(url + '/api/mongo/customers').success(function(data) {
-        console.log('Get all customers from backend');
-        console.log(data);
         company.customers = data;
     });
 
     this.addCustomer = function() {
-        console.log('add customer');
         this.customer.companyaddress = {};
         var keys = Object.keys($scope.details.geometry.location);
         this.customer.companyaddress.longitude = $scope.details.geometry.location[keys[0]];
@@ -105,19 +99,15 @@
         $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
         $http.get(url + '/api/mongo/customers').success(function(data) {
-            console.log('Get all customers from backend');
             company.customers = data;
-            console.log(data);
         });
     };
 
     this.deleteCustomer = function(id) {
-      console.log('delete customer by id ' + id);
 
       var deletedCustomer;
       for (var i in company.customers){
         if( company.customers[i]._id === id ) {
-          console.log('Delete item from array');
           deletedCustomer = company.customers[i];
           company.customers.splice(i,1);
         }
@@ -137,14 +127,12 @@
     this.editCustomer = function(id) {
       for (var i in company.customers){
         if( company.customers[i]._id === id ) {
-          console.log('Edit Customer');
           this.customer = company.customers[i];
         }
       }
     };
 
     this.resetForm = function() {
-        console.log('reset form');
         this.customer = {};
     };
 
@@ -163,7 +151,6 @@
     drawCircle = false;
 
     this.searchCustomers = function() {
-      console.log('search customers');
 
       if( $scope.details.geometry ) {
         location = $scope.details.geometry.location;
@@ -172,7 +159,6 @@
 
       var searchUrl = url + '/api/mongo/customers';
       $http.get(searchUrl).success(function(data) {
-        console.log('Get customers from backend');
         customers = data;
         initializeMap();
       });
@@ -182,7 +168,6 @@
      * Function to initialize Google Map
      */
     function initializeMap() {
-      console.log('initialze map');
 
       // Create the map
       var mapOptions = {
@@ -260,8 +245,6 @@
 
   angular.module('project-staffing').controller('DashboardController', ['$http', '$location', function($http, $location) {
 
-    console.log('Dashboard Controller');
-
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = this;
@@ -282,7 +265,6 @@
     ];
 
     $http.get(url + '/api/mongo/search/location/employees').success(function(data) {
-        console.log('Get employees grouped by location');
         location.employees = data;
 
         for ( var id in dataArray ) {
@@ -336,7 +318,6 @@
     //});
 
     $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
-        console.log('Get latest project for all employees');
         location.latestprojects = dataLatestProjects;
 
         var data = new google.visualization.DataTable();
@@ -350,7 +331,6 @@
         for ( var id in location.latestprojects) {
             var item = location.latestprojects[id];
             var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
-            console.log(behind);
             data.addRow([item.name, item.office, item.projects.name,
               new Date(item.projects.start), new Date(item.projects.end), behind]);
         }
@@ -382,7 +362,6 @@
   .controller('EmployeeController', ['$http', '$location', function($http, $location) {
 
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
-    console.log('URL ' + url);
 
     var company = this;
 
@@ -393,12 +372,10 @@
     company.employees = [];
 
     $http.get(url + '/api/mongo/employees').success(function(data) {
-      console.log('Get all employees from backend');
       company.employees = data;
     });
 
     this.showTabs = function(){
-      console.log('show tabs');
       if( this.employee._id === undefined ) {
         return false;
       }
@@ -408,7 +385,6 @@
     this.editEmployee = function(id) {
       for (var i in this.employees){
         if( this.employees[i]._id === id ) {
-          console.log('Edit Employee');
           this.employee = this.employees[i];
         }
       }
@@ -420,10 +396,8 @@
 
     this.addEmployee = function() {
       if( this.employee._id === undefined ) {
-        console.log('add new employee');
         $http.post(url + '/api/mongo/employees', JSON.stringify(this.employee));
       } else {
-        console.log('update existing employee');
         $http.post(url + '/api/mongo/employees/' + this.employee._id, JSON.stringify(this.employee));
       }
       // TODO: get userid from session
@@ -433,22 +407,17 @@
       $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
       $http.get(url + '/api/mongo/employees').success(function(data) {
-        console.log('Update all employees from backend');
         company.employees = data;
       });
     };
 
     this.deleteEmployee = function(id) {
-      console.log('Delete employee with id: ' + JSON.stringify(id));
       $http.delete(url + '/api/mongo/employees/' + id);
 
       var deletedEmployee;
       for (var i in this.employees){
-        console.log(this.employees[i]);
-        console.log(i);
         if( this.employees[i]._id === id ) {
           deletedEmployee = this.employees[i];
-          console.log('Delete item from array');
           this.employees.splice(i,1);
         }
       }
@@ -486,8 +455,6 @@
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     this.deleteProject = function(id, employee) {
-      console.log('delete project ' + id);
-      console.log(employee.projects[id]);
       employee.projects.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/projects', JSON.stringify(employee));
 
@@ -499,7 +466,6 @@
     };
 
     this.addProject = function(employee) {
-      console.log(employee);
       if (employee.projects == null) {
         employee.projects = [];
       }
@@ -528,8 +494,6 @@
     this.skill = '';
 
     this.deleteSkill = function(id, employee) {
-      console.log('delete skill ' + id);
-      console.log(employee.skills[id]);
       employee.skills.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
@@ -579,8 +543,6 @@
   .module('project-staffing')
   .controller('StaffingController', ['$http', '$scope', '$filter', '$location', function($http, $scope, $filter, $location){
 
-    console.log('Staffing Controller');
-
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = {lat: 51.161295, lng: 7.010175000000004}; // default location
@@ -598,8 +560,6 @@
     var drawCircle = false;
 
     this.searchCustomer = function() {
-      console.log('search customer');
-
       if( $scope.details.geometry ) {
         var keys = Object.keys($scope.details.geometry.location);
         location.lat = $scope.details.geometry.location[keys[0]];
@@ -619,7 +579,6 @@
       }
 
       $http.get(searchUrl).success(function(data) {
-        console.log('Get employees from backend');
         employees = data;
         initializeMap();
       });
@@ -629,8 +588,6 @@
      * Function to initialize Google Map
      */
     function initializeMap() {
-      console.log('initialze map');
-
       // Create the map
       var mapOptions = {
           zoom: 9,
@@ -743,7 +700,6 @@
     timeline.list = [];
 
     $http.get(url + '/api/mongo/activities').success(function(data) {
-      console.log('Get recent timeline entries');
       timeline.list = data;
     });
   }]);

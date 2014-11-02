@@ -18,8 +18,6 @@
     };
 
     this.saveAddress = function(employee) {
-      console.log('update existing employee');
-
       var keys = Object.keys($scope.details.geometry.location);
       employee.homeaddress = {};
       employee.homeaddress.longitude =

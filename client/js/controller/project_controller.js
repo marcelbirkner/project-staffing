@@ -6,8 +6,6 @@
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     this.deleteProject = function(id, employee) {
-      console.log('delete project ' + id);
-      console.log(employee.projects[id]);
       employee.projects.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/projects', JSON.stringify(employee));
 
@@ -19,7 +17,6 @@
     };
 
     this.addProject = function(employee) {
-      console.log(employee);
       if (employee.projects == null) {
         employee.projects = [];
       }

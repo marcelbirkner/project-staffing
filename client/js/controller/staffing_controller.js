@@ -7,8 +7,6 @@
   .module('project-staffing')
   .controller('StaffingController', function($http, $scope, $filter, $location){
 
-    console.log('Staffing Controller');
-
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = {lat: 51.161295, lng: 7.010175000000004}; // default location
@@ -26,8 +24,6 @@
     var drawCircle = false;
 
     this.searchCustomer = function() {
-      console.log('search customer');
-
       if( $scope.details.geometry ) {
         var keys = Object.keys($scope.details.geometry.location);
         location.lat = $scope.details.geometry.location[keys[0]];
@@ -47,7 +43,6 @@
       }
 
       $http.get(searchUrl).success(function(data) {
-        console.log('Get employees from backend');
         employees = data;
         initializeMap();
       });
@@ -57,8 +52,6 @@
      * Function to initialize Google Map
      */
     function initializeMap() {
-      console.log('initialze map');
-
       // Create the map
       var mapOptions = {
           zoom: 9,

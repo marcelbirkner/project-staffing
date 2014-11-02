@@ -4,8 +4,6 @@
 
   angular.module('project-staffing').controller('DashboardController', function($http, $location) {
 
-    console.log('Dashboard Controller');
-
     var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
 
     var location = this;
@@ -26,7 +24,6 @@
     ];
 
     $http.get(url + '/api/mongo/search/location/employees').success(function(data) {
-        console.log('Get employees grouped by location');
         location.employees = data;
 
         for ( var id in dataArray ) {
@@ -80,7 +77,6 @@
     //});
 
     $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
-        console.log('Get latest project for all employees');
         location.latestprojects = dataLatestProjects;
 
         var data = new google.visualization.DataTable();
@@ -94,7 +90,6 @@
         for ( var id in location.latestprojects) {
             var item = location.latestprojects[id];
             var behind = Math.ceil( ( new Date(item.projects.end) - new Date() ) / (1000 * 60 * 60 * 24) );
-            console.log(behind);
             data.addRow([item.name, item.office, item.projects.name,
               new Date(item.projects.start), new Date(item.projects.end), behind]);
         }

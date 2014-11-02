@@ -9,7 +9,6 @@
     timeline.list = [];
 
     $http.get(url + '/api/mongo/activities').success(function(data) {
-      console.log('Get recent timeline entries');
       timeline.list = data;
     });
   });

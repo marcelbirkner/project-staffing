@@ -7,7 +7,6 @@
   .module('project-staffing')
   .controller('CustomerController', function($http, $scope, $location){
 
-    console.log('Customer Controller');
     var url = $location.protocol() + '://' + $location.host() + ':' +
       $location.port();
 
@@ -25,13 +24,10 @@
     };
 
     $http.get(url + '/api/mongo/customers').success(function(data) {
-        console.log('Get all customers from backend');
-        console.log(data);
         company.customers = data;
     });
 
     this.addCustomer = function() {
-        console.log('add customer');
         this.customer.companyaddress = {};
         var keys = Object.keys($scope.details.geometry.location);
         this.customer.companyaddress.longitude = $scope.details.geometry.location[keys[0]];
@@ -45,19 +41,15 @@
         $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
         $http.get(url + '/api/mongo/customers').success(function(data) {
-            console.log('Get all customers from backend');
             company.customers = data;
-            console.log(data);
         });
     };
 
     this.deleteCustomer = function(id) {
-      console.log('delete customer by id ' + id);
 
       var deletedCustomer;
       for (var i in company.customers){
         if( company.customers[i]._id === id ) {
-          console.log('Delete item from array');
           deletedCustomer = company.customers[i];
           company.customers.splice(i,1);
         }
@@ -77,14 +69,12 @@
     this.editCustomer = function(id) {
       for (var i in company.customers){
         if( company.customers[i]._id === id ) {
-          console.log('Edit Customer');
           this.customer = company.customers[i];
         }
       }
     };
 
     this.resetForm = function() {
-        console.log('reset form');
         this.customer = {};
     };
 
@@ -103,7 +93,6 @@
     drawCircle = false;
 
     this.searchCustomers = function() {
-      console.log('search customers');
 
       if( $scope.details.geometry ) {
         location = $scope.details.geometry.location;
@@ -112,7 +101,6 @@
 
       var searchUrl = url + '/api/mongo/customers';
       $http.get(searchUrl).success(function(data) {
-        console.log('Get customers from backend');
         customers = data;
         initializeMap();
       });
@@ -122,7 +110,6 @@
      * Function to initialize Google Map
      */
     function initializeMap() {
-      console.log('initialze map');
 
       // Create the map
       var mapOptions = {

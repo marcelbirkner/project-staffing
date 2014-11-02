@@ -8,8 +8,6 @@
     this.skill = '';
 
     this.deleteSkill = function(id, employee) {
-      console.log('delete skill ' + id);
-      console.log(employee.skills[id]);
       employee.skills.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
