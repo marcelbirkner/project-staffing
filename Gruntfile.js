@@ -111,7 +111,6 @@ module.exports = function(grunt) {
       }
     },
 
-
     cssmin: {
       combine: {
         files: createCssMinMapping()
@@ -119,6 +118,21 @@ module.exports = function(grunt) {
     },
     */
 
+    /* rename static assets for indefinite cacheability */
+    versioning: {
+      options: {
+        grepFiles: [
+          'static/**/*.html',
+        ]
+      },
+      js: {
+        src: [
+          '<%= jsTargetDir %>/app.min.js',
+          '<%= jsTargetDir %>/vendor.js',
+        ]
+      },
+      // TODO css: { }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -130,6 +144,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-ng-annotate');
+  grunt.loadNpmTasks('grunt-version-assets');
 
   grunt.registerTask('default', [
     'clean',
@@ -138,6 +153,7 @@ module.exports = function(grunt) {
     'copy',
     'ngAnnotate',
     'uglify',
+    'versioning',
   ]);
 
 };
