@@ -3,7 +3,7 @@
 # Smoketests for REST API
 
 # define variables
-SERVER=http://localhost:9000
+SERVER=$1:9000
 
 # helper methods
 validate() {
