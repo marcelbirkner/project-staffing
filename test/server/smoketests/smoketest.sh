@@ -7,13 +7,13 @@ SERVER=$1:9000
 
 # helper methods
 validate() {
-    echo "Response HTTP Code: $1"
-    if [ $1 != $2 ]; then
-      echo "Expected $2";
-	  echo "Exit after error";
-      exit 1;
-    fi
-	echo "";
+  echo "Response HTTP Code: $1"
+  if [ $1 != $2 ]; then
+    echo "Expected $2";
+    echo "Exit after error";
+    exit 1;
+  fi
+  echo "";
 }
 
 #######################################################
@@ -35,14 +35,12 @@ echo "GET all customers"
 httpcode=`curl -s -o /dev/null -w "%{http_code}" -X GET $SERVER/api/mongo/customers`
 validate $httpcode "200"
 
-
 #######################################################
 # Project Smoketests
 
 echo "GET all projects"
 httpcode=`curl -s -o /dev/null -w "%{http_code}" -X GET $SERVER/api/mongo/projects`
 validate $httpcode "200"
-
 
 #######################################################
 # Employee Smoketests
@@ -60,7 +58,7 @@ httpcode=`curl -s -o /dev/null -w "%{http_code}" -X GET $SERVER/api/mongo/employ
 validate $httpcode "404"
 
 echo "Search employee by email"
-httpcode=`curl -i -o timmiller.tmp -w "%{http_code}" -X GET "$SERVER/api/mongo/search/employee?email=Tim.Miller@company.com" 2>/dev/null`
+httpcode=`curl -i -o timmiller.tmp -w "%{http_code}" -X GET "$SERVER/api/mongo/search/employee?email=Tim@company.com" 2>/dev/null`
 validate $httpcode "200"
 id=`cat timmiller.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
 
@@ -72,7 +70,7 @@ validate $httpcode "200"
 # Add new employee, search employee by name=smoketest to find id, delete employee by id
  
 echo "POST new employee"
-httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees -d @testEmployee.json 2>/dev/null`
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees -d @test/server/smoketests/testEmployee.json 2>/dev/null`
 validate $httpcode "200"
 
 echo "Search employee by name=smoketest"
@@ -92,7 +90,7 @@ validate $httpcode "200"
 # Update existing employee - create employee, search employee by name=smoketest to find id, update employee by id with new data
 
 echo "POST new employee"
-httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees -d @testEmployee.json 2>/dev/null`
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees -d @test/server/smoketests/testEmployee.json 2>/dev/null`
 validate $httpcode "200"
 
 echo "Search employee by name=smoketest"
@@ -101,7 +99,7 @@ validate $httpcode "200"
 id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
 
 echo "Update existing employee with id $id"
-httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id -d @testUpdateEmployee.json 2>/dev/null`
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id -d @test/server/smoketests/testUpdateEmployee.json 2>/dev/null`
 validate $httpcode "200"
 
 #########################################################
@@ -113,7 +111,7 @@ validate $httpcode "200"
 id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
 
 echo "Update skills of existing employee with id $id"
-httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/skills -d @testSkills.json 2>/dev/null`
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/skills -d @test/server/smoketests/testSkills.json 2>/dev/null`
 validate $httpcode "200"
 
 #########################################################
@@ -125,9 +123,8 @@ validate $httpcode "200"
 id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
 
 echo "Update projects of existing employee with id $id"
-httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/projects -d @testProjects.json 2>/dev/null`
+httpcode=`curl -H "Content-Type: application/json" -w "%{http_code}" -X POST $SERVER/api/mongo/employees/$id/projects -d @test/server/smoketests/testProjects.json 2>/dev/null`
 validate $httpcode "200"
-
 
 #########################################################
 # Search list of employees that have certain skills 
