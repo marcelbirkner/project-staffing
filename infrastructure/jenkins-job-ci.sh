@@ -4,14 +4,11 @@ NEXUS_SERVER=$1
 NEXUS_CREDENTIALS=$2
 BUILD_NUMBER=$3
 
-echo "Build static client assets and run gulp"
-cd client
+echo "Install dependencies using npm"
 npm install
-gulp
 
-echo "Install server side dependencies"
-cd ..
-npm install
+echo "Build static client assets by running Grunt"
+grunt
 
 echo "Store Build Version in Navigation"
 find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"

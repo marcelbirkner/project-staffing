@@ -36,6 +36,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-eslint": "^2.0.0",
     "grunt-ng-annotate": "^0.4.0",
+    "jasmine-reporters": "^1.0.1",
     "karma": "^0.12.24",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.5",

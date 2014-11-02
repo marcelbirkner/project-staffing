@@ -24,7 +24,7 @@ module.exports = function(config) {
       'static/js/lib/angular-route.js',
       'static/js/lib/ngAutocomplete.js',
       {pattern: 'client/js/**/*.js', included: true, watched: true},
-      {pattern: 'test/*.spec.js', included: true, watched: true},
+      {pattern: 'test/client/unit/*.spec.js', included: true, watched: true},
     ],
 
 
