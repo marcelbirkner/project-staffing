@@ -67,10 +67,49 @@
   </nav>
 
   <h1>End-2-End Tests</h1>
-
   <p>
-    See <a href="https://github.com/marcelbirkner/project-staffing/blob/master/e2e/README.md">https://github.com/marcelbirkner/project-staffing/blob/master/e2e/README.md</a>
-  </p> 
+    The integration tests will start up a webbrowser and click thru the web application. Each tests tests expected behaviour from the web application.
+  </p>
+  
+  <h2>Prerequisites</h2>
+  <p>
+    <ul>
+      <li>App (NodeJS Backend) needs to be running</li>
+      <li>MongoDB needs to be running</li>
+    </ul>
+  </p>
+
+  <h2>Setup</h2>
+  <p>
+    Use npm to install Protractor globally with:
+    <pre>npm install -g protractor</pre>
+    The webdriver-manager is a helper tool to easily get an instance of a Selenium Server running. Use it to download the necessary binaries with:
+    <pre>
+npm install webdriver-manager
+webdriver-manager update</pre>
+    Now start up a server with:
+    <pre>webdriver-manager start</pre>
+    This will start up a Selenium Server and will output a bunch of info logs. Your Protractor test will send requests to this server to control a local browser. Leave this server running throughout the tutorial. You can see information about the status of the server at <a href="http://localhost:4444/wd/hub">http://localhost:4444/wd/hub</a>
+  </p>
+
+  <h2>Running E2E-Tests</h2>
+  <p>
+    Now run the test with
+    <pre>protractor e2e/conf.js</pre>
+  </p>
+
+  <h2>E2E Result Example Output</h2>
+  <p>
+    Now run tests with
+    <pre>
+$ protractor e2e/conf.js
+Using the selenium server at http://localhost:4444/wd/hub
+............
+
+Finished in 26.042 seconds
+12 tests, 20 assertions, 0 failures
+</pre>
+  </p>
 
 </div>
 
