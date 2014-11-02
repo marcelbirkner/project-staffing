@@ -11,9 +11,15 @@ module.exports = function(grunt) {
     jsLibDir: '<%= jsSrcDir %>/lib',
     jsTargetDir: 'static/js',
 
+    cssSrcDir: 'client/css',
+    cssSrcFiles: '<%= cssSrcDir %>/*.scss',
+    cssLibDir: '<%= cssSrcDir %>/lib',
+    cssTargetDir: 'static/css',
+
     /* clean build artifacts */
     clean: {
-      js: [ '<%= jsTargetDir %>' ]
+      js: [ '<%= jsTargetDir %>' ],
+      css: [ '<%= cssTargetDir %>' ],
     },
 
     /* static source code analysis */
@@ -50,14 +56,19 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      sourceMaps: {
+      jsSourceMaps: {
         expand: true,
-        cwd: '',
         src: 'node_modules/angular*/angular*.min.js.map',
         dest: '<%= jsTargetDir %>/',
         flatten: true,
         filter: 'isFile',
-      }
+      },
+      cssThirdParty: {
+        expand: true,
+        src: '<%= cssLibDir %>/*',
+        dest: '<%= cssTargetDir %>/',
+        flatten: true,
+      },
     },
 
     /* AngularJS-specific pre-processing to prepare sources for minifying */
@@ -89,34 +100,36 @@ module.exports = function(grunt) {
       }
     },
 
-    /*
-     * watch
-     * TODO update README
-     * rename/replace references (SHA1/timestamp)
-     * TODO Move version assets to separate Grunt plugin
-     * TODO SASS / COMPASS / CSS / PNGs
-     */
-
-    /*
+    // For a working SASS/COMPASS installation:
+    // Install ruby 2.x
+    // [sudo] gem install sass
+    // [sudo] gem install compass
     sass: {
-      dist: {
+      app: {
         options: {
           compass: true,
 
-          / * compact/compressed * /
+          /* compact/compressed */
           style: 'expanded',
           unixNewlines: true,
         },
-        files: createCssMapping()
+        files: {
+          '<%= cssTargetDir %>/master.css': '<%= cssSrcDir %>/master.scss',
+          '<%= cssTargetDir %>/dashboard.css': '<%= cssSrcDir %>/dashboard.scss',
+        }
       }
     },
 
     cssmin: {
       combine: {
-        files: createCssMinMapping()
+        files: {
+          '<%= cssTargetDir %>/app.min.css': [
+            '<%= cssTargetDir %>/master.css',
+            '<%= cssTargetDir %>/dashboard.css',
+          ]
+        }
       }
     },
-    */
 
     /* rename static assets for indefinite cacheability */
     versioning: {
@@ -131,15 +144,41 @@ module.exports = function(grunt) {
           '<%= jsTargetDir %>/vendor.js',
         ]
       },
-      // TODO css: { }
+      css: {
+        src: [
+          '<%= cssTargetDir %>/app.min.css',
+        ]
+      },
     },
+
+    watch: {
+      files: [
+        'Gruntfile.js',
+        '.eslintrc',
+        '<%= jsSrcFiles %>',
+        '<%= cssSrcFiles %>',
+        '!node_modules/**/*',
+      ],
+      tasks: [
+        'default',
+      ]
+    }
   });
 
+  /*
+   * TODO
+   * Include images as data-uris in css classes
+   * Change JS to add/remove classes instead of images
+   *
+   * Unit Tests /w Karma
+   * E2E Tests /w Protractor
+   */
+
   grunt.loadNpmTasks('grunt-contrib-clean');
-  //grunt.loadNpmTasks('grunt-contrib-sass');
-  //grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-eslint');
@@ -153,6 +192,8 @@ module.exports = function(grunt) {
     'copy',
     'ngAnnotate',
     'uglify',
+    'sass',
+    'cssmin',
     'versioning',
   ]);
 
