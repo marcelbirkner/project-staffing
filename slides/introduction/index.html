@@ -141,9 +141,9 @@
     </hgroup>
     <article>
       <ul>
-        <li>Continuous Delivery Overview (Outline)</li>
+        <li>Talk Outline</li>
         <li>Problematic Trends</li>
-        <li>Demo: Project-Staffing App
+        <li><b>Live Demo</b> of Project-Staffing App
           <ul>
             <li>
               Testing
@@ -167,12 +167,18 @@
     </article>
   </slide>
 
-<slide class="nobackground">
+  <slide class="nobackground">
     <hgroup>
       <h2>Talk Outline</h2>
     </hgroup>
     <article>
-      <span><img src="images/handwerkszeug.png"></span>
+      <span><img src="images/handwerkszeug-v2.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h2><span class="blue3">Problematic Trends</span></h2>
     </article>
   </slide>
 
@@ -196,7 +202,7 @@
 
   <slide class="nobackground">
     <hgroup>
-      <h2>NPM Growth</h2>
+      <h2>Trend: NPM Growth</h2>
     </hgroup>
     <article>
       <span><img src="images/growth-of-npm-package-downloads.png"></span>
@@ -206,21 +212,20 @@
     </article>
   </slide>  
 
-  <slide class="nobackground">
-    <hgroup>
-      <h2>Deployment Pipeline</h2>
-    </hgroup>
-    <article>
-      <img src="images/deployment-pipeline.png" style="position: fixed; top: 300px">
-    </article>
-  </slide>
-
   <slide>
-    <hgroup>
-      <h2>Infrastructure</h2>
-    </hgroup>
-    <article>
-      <img src="images/cd-infrastructure-min.png" style="position: fixed; right: 400px; top: 180px; width: 800px">
+    <article class="flexbox vcenter">
+      <h2><span class="blue3">Testing</span></h2>
+      <br/><br/>
+      <h3 class="green2">Client-Side</h3>
+      <ul>
+        <li>FrontEnd Unit Tests</li>
+        <li>End2End Tests</li>
+      </ul>
+      <h3 class="green2">Server-Side</h3>
+      <ul>
+        <li>Unit Tests</li>
+        <li>Smoketests Tests</li>
+      </ul>
     </article>
   </slide>
 
@@ -299,6 +304,114 @@ protractor e2e/conf.js
 
   <slide>
     <hgroup>
+      <h2>Smoketests Tests (1/2)</h2>
+    </hgroup>
+    <article>
+      <h3>Helper method</h3>
+      <pre class="prettyprint" data-lang="bash">
+SERVER=http://TEST_SERVER:9000
+CONTENT_TYPE="Content-Type: application/json"
+
+validate() {
+    echo "Response HTTP Code: $1"
+    if [ $1 != $2 ]; then
+      echo "Expected $2";
+    echo "Exit after error";
+      exit 1;
+    fi
+  echo "";
+}</pre>
+    </article>  
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Smoketests Tests (2/2)</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="bash">
+echo "POST new employee"
+httpcode=`curl -H $CONTENT_TYPE -w "%{http_code}" \
+         -X POST $SERVER/api/mongo/employees -d @testEmployee.json 2>/dev/null`
+validate $httpcode "200"
+
+echo "Search employee by name=smoketest"
+httpcode=`curl -i -o smoketest.tmp -w "%{http_code}" \
+          -X GET "$SERVER/api/mongo/search/employee?name=smoketest" 2>/dev/null`
+validate $httpcode "200"
+id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
+
+echo "Get employee with id $id"
+httpcode=`curl -s -o /dev/null -w "%{http_code}" \
+          -X GET $SERVER/api/mongo/employees/$id`
+validate $httpcode "200"</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h2><a href="http://54.220.185.224:9000/#/">DEMO</a></h2>
+      <p class="morenote">Project Staffing App - TEST Environment</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Infrastructure</h2>
+    </hgroup>
+    <article>
+      <img src="images/cd-infrastructure-min.png" style="position: fixed; right: 400px; top: 180px; width: 800px">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Deployment Pipeline</h2>
+    </hgroup>
+    <article>
+      <img src="images/deployment-pipeline.png" style="position: fixed; top: 300px">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Build Pipeline</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/jenkins-build-pipeline-v2.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JSLint Report</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/jenkins-jslint-report.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>End2End Test Report</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/jenkins-e2e-test-result.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Artifact Repository</h2>
+    </hgroup>
+    <article>
+      <span><img src="images/nexus-project-staffing-artifacts.png"></span>
+    </article>
+  </slide>
+
+<!--
+  <slide>
+    <hgroup>
       <h2>Tools &amp; Best Practices</h2>
     </hgroup>
     <article>
@@ -336,6 +449,7 @@ protractor e2e/conf.js
       </ul>
     </article>
   </slide>
+-->
 
   <slide>
     <article class="flexbox vcenter">
