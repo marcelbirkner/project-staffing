@@ -8,7 +8,7 @@ echo "Install dependencies using npm"
 npm install
 
 echo "Build static client assets by running Grunt"
-grunt
+grunt --force
 
 echo "Store Build Version in Navigation"
 find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"
