@@ -1,0 +1,42 @@
+{
+  "browser": true,
+  "jquery": true,
+  "node": true,
+
+  "bitwise": true,
+  "camelcase": true,
+  "eqeqeq": false,
+  "forin": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "quotmark": true,
+  "strict": true,
+  "trailing": true,
+  "undef": true,
+
+  "maxparams": 4,
+  "maxdepth": 4,
+  "maxstatements": 75,
+  "maxcomplexity": 5,
+  "maxlen": 160,
+
+  "boss": true,
+  "eqnull": true,
+  "laxcomma": true,
+
+  "globals": {
+    "afterEach": true,
+    "assert": true,
+    "beforeEach": true,
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "proAppClient": true,
+    "superagent": true
+  }
+}

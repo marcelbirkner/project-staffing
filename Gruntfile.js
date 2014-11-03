@@ -31,6 +31,22 @@ module.exports = function(grunt) {
       ]
     },
 
+    jshint: {
+      files: {
+        src : [
+          'client/js/**/*.js',
+          'Gruntfile.js',
+          '.jshintrc',
+          '!node_modules/**/*',
+        ]
+      },
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: 'checkstyle',
+        reporterOutput: 'jshint-checkstyle-report.xml'
+      },
+    },
+
     /* concatenate JS */
     concat: {
       options: {
@@ -174,6 +190,7 @@ module.exports = function(grunt) {
    * E2E Tests /w Protractor
    */
 
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -187,6 +204,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [
     'clean',
+    'jshint',
     'eslint',
     'concat',
     'copy',
