@@ -79,25 +79,18 @@ mongod.exe --dbpath "data\mongodb"
 // Linux
 mongod --dbpath "data/mongodb"</pre>
       <li>
-        Open a new shell and go to the project root directory to build the 
-        static client assets with gulp (streaming build system).
-        Change to your project-staffing directory:
-        <pre>cd client</pre>
-      </li>
-      <li>
+        Open a new shell and go to the project root directory.
         Let npm download the required dependencies:
         <pre>npm install</pre>
       </li>
       <li>
-        Install the gulp binary in your path
-        <pre>npm i -g gulp</pre>
+        Install sass and compass via Ruby gem and add it to your path
+        <pre>gem install sass
+gem install compass</pre>
       </li>  
       <li>
-        Run gulp to concatenate your static assets
-        <pre>gulp watch</pre>
-      </li>  
-      <li>Open a new shell and go to the project root directory and install all server side dependencies via npm.
-        <pre>npm install</pre>
+        Run grunt to version/minify/analyse and concatenate your static assets
+        <pre>grunt</pre>
       </li>  
       <li>
         Install supervisor to run your server side code.
