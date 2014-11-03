@@ -29,6 +29,8 @@
   "eqnull": true,
   "laxcomma": true,
 
+  "predef": ["angular"],
+
   "globals": {
     "afterEach": true,
     "assert": true,
