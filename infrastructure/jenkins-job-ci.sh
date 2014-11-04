@@ -7,23 +7,20 @@ BUILD_NUMBER=$3
 echo "Install dependencies using npm"
 npm install
 
-echo "Build static client assets by running Grunt"
-grunt --force
+echo "Run Grunt build"
+grunt ci
 
-echo "Store Build Version in Navigation"
+echo "Store build version in navigation"
 find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"
 
-echo "Package JS App; remove unneccessary packages beforehand"
-rm -rf node_modules/grunt*
-rm -rf node_modules/karma*
-rm -rf node_modules/mocha*
-rm -rf node_modules/sinon*
-rm -rf node_modules/chai* 
-rm -rf node_modules/jasmine-reporters*
-rm -rf node_modules/jshint-jenkins-checkstyle-reporter*
-rm -rf node_modules/.bin*
+echo "Rimraf node_modules"
+rm -rf node_modules
 
+echo "Install dependencies using npm, again, this time no dev dependencies"
+npm install --production
+
+echo "Package app"
 zip -r project-staffing.zip server.js static/ node_modules/ data/ lib/
 
-echo "Upload JS App to Artifact Server"
+echo "Upload app to artifact server"
 curl -v -u $NEXUS_CREDENTIALS --upload-file project-staffing.zip $NEXUS_SERVER/nexus/content/repositories/releases/de/codecentric/js/project-staffing/$BUILD_NUMBER/project-staffing-$BUILD_NUMBER.zip

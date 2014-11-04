@@ -192,7 +192,6 @@ module.exports = function(grunt) {
    * E2E Tests /w Protractor
    */
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
