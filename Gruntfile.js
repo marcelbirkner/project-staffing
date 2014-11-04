@@ -31,23 +31,6 @@ module.exports = function(grunt) {
       ]
     },
 
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc',
-        reporter: 'checkstyle',
-        reporterOutput: 'jshint-checkstyle-report.xml'
-      },
-      files: {
-        src : [
-          'Gruntfile.js',
-          '<%= jsSrcFiles %>',
-          '!client/js/lib/**/*.js',
-          '.jshintrc',
-          '!node_modules/** /*',
-        ]
-      },
-    },
-
     /* concatenate JS */
     concat: {
       options: {
@@ -107,7 +90,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         banner:
-          '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+          '/*! <%= pkg.name %> <%= pkg.version %> */\n',
         sourceMap: true,
       },
       app: {
@@ -224,7 +207,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('shared', [
     'clean',
-    'jshint',
     'eslint',
     'concat',
     'copy',
@@ -241,10 +223,15 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('ci', [
+    'init-ci',
     'shared',
     'karma:ci',
   ]);
 
   grunt.registerTask('default', [ 'local' ]);
 
+  grunt.registerTask('init-ci', function() {
+    grunt.config('eslint.options.output-file', 'eslint-checkstyle-report.xml');
+    grunt.config('eslint.options.format', 'checkstyle');
+  });
 };

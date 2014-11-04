@@ -1,4 +1,6 @@
 node_modules
 xmloutput/
 .sass-cache
-test-result.xml
+test-results.xml
+jshint-checkstyle-report.xml
+eslint-checkstyle-report.xml
