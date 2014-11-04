@@ -1,32 +1,18 @@
 # Project overview
 
-- Features & Screenshots 
- - http://marcelbirkner.github.io/project-staffing/slides/application-intro-slides/#1
-- Getting started
- - http://marcelbirkner.github.io/project-staffing/quickstart.html
-- REST API
- - http://marcelbirkner.github.io/project-staffing/rest-api.html
+- Getting started - http://marcelbirkner.github.io/project-staffing/quickstart.html
+- Features & Screenshots - http://marcelbirkner.github.io/project-staffing/slides/application-intro-slides/#1
+- REST API - http://marcelbirkner.github.io/project-staffing/rest-api.html
 - Frontend Tests
- - End-2-End Integration Tests http://marcelbirkner.github.io/project-staffing/e2e-tests.html
- - Unit Tests http://marcelbirkner.github.io/project-staffing/unit-tests.html
+ - End-2-End Integration Tests - http://marcelbirkner.github.io/project-staffing/e2e-tests.html
+ - Unit Tests - http://marcelbirkner.github.io/project-staffing/unit-tests.html
 
 # Conferences
 
 - Continuous Lifecycle 2014 
- - Slides and Documentation: http://marcelbirkner.github.io/project-staffing/
- - Talk: 
-  - http://www.continuouslifecycle.de/lecture.php?id=4566
-  - http://marcelbirkner.github.io/project-staffing/introduction/
+ - Proposal - http://www.continuouslifecycle.de/lecture.php?id=4566
+ - Slides - http://marcelbirkner.github.io/project-staffing/introduction/
  
-# Project layout
-
-- **server.js** is the central location for all backend REST services
-- **client** contains the AngularJS frontend JavaScript code
-- **data** contains some test data for MongoDB
-- **infrastructure** build server scripts (build/test/deploy)
-- **static** contains frontend assets
-- **test** contains frontend and backend tests (unit/end2end/smoke-tests)
-
 # License (MIT)
 
 Copyright (c) 2013 codecentric AG
