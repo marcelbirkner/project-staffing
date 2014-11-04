@@ -10,7 +10,7 @@
 # Conferences
 
 - Continuous Lifecycle 2014 
- - Proposal - http://www.continuouslifecycle.de/lecture.php?id=4566
+ - Agenda - http://www.continuouslifecycle.de/lecture.php?id=4566
  - Slides - http://marcelbirkner.github.io/project-staffing/introduction/
  
 # License (MIT)
