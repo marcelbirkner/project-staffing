@@ -17,14 +17,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'static/js/lib/jquery-2.1.1.js',
-      'static/js/lib/angular.js',
-      'static/js/lib/angular-mocks.js',
-      'static/js/lib/angular-animate.js',
-      'static/js/lib/angular-route.js',
-      'static/js/lib/ngAutocomplete.js',
-      {pattern: 'client/js/**/*.js', included: true, watched: true},
-      {pattern: 'test/client/unit/*.spec.js', included: true, watched: true},
+      'static/js/vendor.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'static/js/app.js',
+      {
+        pattern: 'test/client/unit/*.spec.js',
+        included: true,
+        watched: true,
+      },
     ],
 
 
@@ -64,7 +64,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

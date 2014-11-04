@@ -32,18 +32,19 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: {
-        src : [
-          'client/js/**/*.js',
-          'Gruntfile.js',
-          '.jshintrc',
-          '!node_modules/**/*',
-        ]
-      },
       options: {
         jshintrc: '.jshintrc',
         reporter: 'checkstyle',
         reporterOutput: 'jshint-checkstyle-report.xml'
+      },
+      files: {
+        src : [
+          'Gruntfile.js',
+          '<%= jsSrcFiles %>',
+          '!client/js/lib/**/*.js',
+          '.jshintrc',
+          '!node_modules/** /*',
+        ]
       },
     },
 
@@ -167,6 +168,24 @@ module.exports = function(grunt) {
       },
     },
 
+    karma: {
+      local: {
+        configFile: 'karma.conf.js',
+        reporters: ['progress'],
+        browsers: ['Chrome'],
+        autoWatch: false,
+        singleRun: true,
+      },
+      ci: {
+        configFile: 'karma.conf.js',
+        reporters: ['junit'],
+        browsers: ['PhantomJS'],
+        autoWatch: false,
+        singleRun: true,
+      },
+
+    },
+
     watch: {
       files: [
         'Gruntfile.js',
@@ -198,11 +217,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-ng-annotate');
   grunt.loadNpmTasks('grunt-version-assets');
 
-  grunt.registerTask('default', [
+  grunt.registerTask('shared', [
     'clean',
     'jshint',
     'eslint',
@@ -214,5 +234,17 @@ module.exports = function(grunt) {
     'cssmin',
     'versioning',
   ]);
+
+  grunt.registerTask('local', [
+    'shared',
+    'karma:local',
+  ]);
+
+  grunt.registerTask('ci', [
+    'shared',
+    'karma:ci',
+  ]);
+
+  grunt.registerTask('default', [ 'local' ]);
 
 };
