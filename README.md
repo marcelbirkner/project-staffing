@@ -11,7 +11,7 @@
 
 - Continuous Lifecycle 2014 
  - Agenda - http://www.continuouslifecycle.de/lecture.php?id=4566
- - Slides - http://marcelbirkner.github.io/project-staffing/introduction/
+ - Slides - http://marcelbirkner.github.io/project-staffing/slides/introduction/
  
 # License (MIT)
 
