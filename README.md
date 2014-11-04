@@ -1,40 +1,6 @@
-# Project overview
+# Documentation
 
-- Features & Screenshots 
- - http://marcelbirkner.github.io/project-staffing/slides/application-intro-slides/#1
-- Getting started
- - http://marcelbirkner.github.io/project-staffing/quickstart.html
-- REST API
- - http://marcelbirkner.github.io/project-staffing/rest-api.html
-- Frontend Tests
- - End-2-End Integration Tests http://marcelbirkner.github.io/project-staffing/e2e-tests.html
- - Unit Tests http://marcelbirkner.github.io/project-staffing/unit-tests.html
-
-# Conferences
-
-- Continuous Lifecycle 2014 
- - Slides and Documentation: http://marcelbirkner.github.io/project-staffing/
- - Talk: http://www.continuouslifecycle.de/lecture.php?id=4566
- 
-# Project layout
-
-- **server.js** is the central location for all backend REST services
-- **client** contains the AngularJS frontend JavaScript code
-- **data** contains some test data for MongoDB
-- **documentation** project documentation incl. screenshots
-- **e2e** contains Jasmine and Protrator End-2-End tests
-- **infrastructure** scripts for deployment
-- **smoketests** scripts with tests that run after a fresh deployment
-- **static** contains frontend assets
-- **test** contains Jasmine and Karma unit tests
-
-# Technologies used
-
-* NodeJS, ExpressJS, AngularJS
-* Bootstrap CSS/JavaScript
-* Google Maps API
-* Google Visulization API
-* MongoDB
+http://marcelbirkner.github.io/project-staffing/
 
 # License (MIT)
 
