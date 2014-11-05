@@ -17,7 +17,7 @@
     			<ul class="list-group">
     			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list.slice(0, 20)">
     			    <span class="badge">{{activities.timestamp | date:'medium'}}</span>
-    			    <img ng-src="/img/{{activities.subject}}.png" width="50px" class="img-rounded">&nbsp;
+              <div ng-class="'img-face-{{activities.subject}}'" class="img-rounded">&nbsp;</div>
     			    <b>{{activities.subject}}</b> {{activities.action}} <b>{{activities.object}}</b>
     			  </li>
     			</ul>

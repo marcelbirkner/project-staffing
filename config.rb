@@ -9,7 +9,7 @@
 http_path = "/"
 css_dir = "static/css"
 sass_dir = "client/css"
-images_dir = "client/images"
+images_dir = "static/img"
 # javascripts_dir = "javascripts"
 
 # You can select your preferred output style here (can be overridden via the command line):

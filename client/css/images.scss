@@ -1,0 +1,15 @@
+@mixin img-face($name) {
+  background-image: inline-image("#{$name}.png");
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-size: 50px;
+}
+
+.img-face-default-face { @include img-face(default-face); }
+.img-face-jon { @include img-face(jon); }
+.img-face-julia { @include img-face(julia); }
+.img-face-maggie { @include img-face(maggie); }
+.img-face-male-face { @include img-face(male-face); }
+.img-face-max { @include img-face(max); }
+
