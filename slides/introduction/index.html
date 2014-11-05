@@ -181,20 +181,16 @@
     </article>
   </slide>
 
-  <slide class="nobackground">
+  <slide>
     <hgroup>
       <h2>Trend: growing number of static assets</h2>
     </hgroup>
     <article>
-      <img src="images/quad-logos.png" style="position: fixed; left: 350px; width: 400px">
-      <img src="images/angularjs-logo.png" style="position: fixed; right: 450px; top: 200px; width: 250px">
-      <img src="images/jquery-logo.png" style="position: fixed; right: 450px; top: 350px; width: 200px">
-      <img src="images/knockoutjs-logo.png" style="position: fixed; right: 350px; top: 450px; width: 200px">
-      <img src="images/emberjs-logo.jpg" style="position: fixed; right: 600px; top: 500px; width: 200px">
+      <span><img src="images/js-html-css-frameworks.png"></span>
     </article>
   </slide>
 
-  <slide class="nobackground">
+  <slide>
     <hgroup>
       <h2>Trend: NPM Growth</h2>
     </hgroup>
@@ -228,7 +224,7 @@
       <h2>FrontEnd Unit Tests</h2>
     </hgroup>
     <article>
-      <h3>Karma and Jasmine</h3>
+      <h3>Karma and Mocha</h3>
       <pre class="prettyprint" data-lang="javascript">
   var expect = chai.expect;
   beforeEach(module('project-staffing'));
@@ -297,52 +293,6 @@ protractor e2e/conf.js
   </slide>
 
   <slide>
-    <hgroup>
-      <h2>Smoketests Tests (1/2)</h2>
-    </hgroup>
-    <article>
-      <h3>Helper method</h3>
-      <pre class="prettyprint" data-lang="bash">
-SERVER=http://TEST_SERVER:9000
-CONTENT_TYPE="Content-Type: application/json"
-
-validate() {
-    echo "Response HTTP Code: $1"
-    if [ $1 != $2 ]; then
-      echo "Expected $2";
-    echo "Exit after error";
-      exit 1;
-    fi
-  echo "";
-}</pre>
-    </article>  
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Smoketests Tests (2/2)</h2>
-    </hgroup>
-    <article>
-      <pre class="prettyprint" data-lang="bash">
-echo "POST new employee"
-httpcode=`curl -H $CONTENT_TYPE -w "%{http_code}" \
-         -X POST $SERVER/api/mongo/employees -d @testEmployee.json 2>/dev/null`
-validate $httpcode "200"
-
-echo "Search employee by name=smoketest"
-httpcode=`curl -i -o smoketest.tmp -w "%{http_code}" \
-          -X GET "$SERVER/api/mongo/search/employee?name=smoketest" 2>/dev/null`
-validate $httpcode "200"
-id=`cat smoketest.tmp | grep "_id" | awk '{print $2}' | sed 's/"\|,//g'`
-
-echo "Get employee with id $id"
-httpcode=`curl -s -o /dev/null -w "%{http_code}" \
-          -X GET $SERVER/api/mongo/employees/$id`
-validate $httpcode "200"</pre>
-    </article>
-  </slide>
-
-  <slide>
     <article class="flexbox vcenter">
       <h2><a href="http://54.220.185.224:9000/#/">DEMO</a></h2>
       <p class="morenote">Project Staffing App - TEST Environment</p>
@@ -354,7 +304,7 @@ validate $httpcode "200"</pre>
       <h2>Infrastructure</h2>
     </hgroup>
     <article>
-      <img src="images/cd-infrastructure-min.png" style="position: fixed; right: 400px; top: 180px; width: 800px">
+      <span><img src="images/cd-infrastructure-min.png"></span>
     </article>
   </slide>
 
@@ -363,7 +313,7 @@ validate $httpcode "200"</pre>
       <h2>Deployment Pipeline</h2>
     </hgroup>
     <article>
-      <img src="images/deployment-pipeline.png" style="position: fixed; top: 300px">
+      <span><img src="images/deployment-pipeline.png"></span>
     </article>
   </slide>
 
@@ -402,48 +352,6 @@ validate $httpcode "200"</pre>
       <span><img src="images/nexus-project-staffing-artifacts.png"></span>
     </article>
   </slide>
-
-<!--
-  <slide>
-    <hgroup>
-      <h2>Tools &amp; Best Practices</h2>
-    </hgroup>
-    <article>
-      <ul>
-        <li>Best Practices: Deployment Patterns</li>
-         <ul>
-            <li>Smoke-Test for each Artefact</li>
-            <li>Green - Blue Deployment</li>
-            <li>Zero Downtime Deployments</li>
-            <li>Rolling Deployments</li>
-            <li>Feature Toggles</li>
-            <li>Canary Releases</li>
-          </ul>
-        </li>
-      </ul>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Tools &amp; Best Practices</h2>
-    </hgroup>
-    <article>
-      <ul>
-        <li>Best Practices: Jenkins Server</li>
-         <ul>
-            <li>Master for Job Configuration / Coordination</li>
-            <li>Slaves do the Work</li>
-            <li>Label slaves for different job types and needs</li>
-            <li>Plan for Disk Usage Growth Up Front</li>
-            <li>Discard Old Builds</li>
-            <li>Virtualize Infrastructure</li>
-          </ul>
-        </li>
-      </ul>
-    </article>
-  </slide>
--->
 
   <slide>
     <article class="flexbox vcenter">
