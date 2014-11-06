@@ -24,8 +24,8 @@ var SLIDE_CONFIG = {
   }, {
     name: 'Bastian Krol',
     company: 'Software Consultant<br>codecentric AG',
-    gplus: 'https://plus.google.com/116252915765949444123',
     twitter: '@bastiankrol',
+    www: 'https://blog.codecentric.de/en/author/bastian.krol/',
     github: 'http://github.com/basti1302'
   }]
 };
