@@ -1,5 +1,6 @@
 node_modules/
-data/
-log
-static/
 xmloutput/
+.sass-cache
+test-results.xml
+jshint-checkstyle-report.xml
+eslint-checkstyle-report.xml
