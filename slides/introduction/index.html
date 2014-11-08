@@ -153,7 +153,6 @@
         <li>There is <em>no</em> app without JS &amp; CSS</li>
       </li>
     </aside>
-
     <hgroup>
       <h2>JavaScript &amp; CSS have grown up</h2>
     </hgroup>
@@ -211,6 +210,7 @@
         <li>Testing</li>
         <li>The Delivery Pipeline</li>
       </ul>
+      <br/><br/>
       <ul class="build">
         <li><b>This is frontend only</b></li>
         <li>Ideal: backend &amp; frontend in one CD pipeline</li>
@@ -415,25 +415,6 @@ versioning: {
   </slide>
 
   <slide>
-    <hgroup>
-      <h2>What can we test?</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <h3 class="green2">Client Side Tests</h3>
-      <ul>
-        <li>JavaScript: Unit Tests</li>
-        <li>Functionality: End2End Tests</li>
-      </ul>
-      <h3 class="green2">Server Side Tests</h3>
-      <ul>
-        <li>Java/PHP/...: Unit Tests</li>
-        <li>Functionality: Integration Tests</li>
-        <li>NFR: Performance/Loadtest/...</li>
-      </ul>
-    </article>
-  </slide>
-
-  <slide>
     <article class="flexbox vcenter">
       <h2>Front end unit tests</h2>
     </article>
@@ -441,7 +422,7 @@ versioning: {
 
   <slide>
     <hgroup>
-      <h2>Karma and Mocha</h2>
+      <h2>Karma and Mocha (JS Test Framework)</h2>
     </hgroup>
     <article>
       <pre class="prettyprint" data-lang="javascript">
@@ -464,7 +445,7 @@ karma start karma.conf.js
 
   <slide>
     <hgroup>
-      <h2>Chai BDD / TDD assertion library</h2>
+      <h2>Chai (BDD/TDD framework)</h2>
     </hgroup>
     <article>
       <p>Should</p>
@@ -493,21 +474,24 @@ assert.equal(foo, 'bar');</pre>
 
   <slide>
     <hgroup>
-      <h2>Protractor and Jasmine</h2>
+      <h2>Protractor and Jasmine (BDD framework)</h2>
     </hgroup>
     <article>
       <pre class="prettyprint" data-lang="javascript">
 describe('Manage customer', function() {
   var ptor;
+
   beforeEach(function() {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navEmployees')).click();
     element(by.id('navListEmployees')).click();
   });
-  it('should navigate to list employees page', function() {
+
+  <b>it('should navigate to list employees page', function() {
     expect(ptor.getCurrentUrl()).toMatch(/#\/list-employees/);
-  });
+  });</b>
+
 });
 </pre>
     </article>
@@ -515,25 +499,24 @@ describe('Manage customer', function() {
 
   <slide>
     <hgroup>
-      <h2>End2End Tests (2/2)</h2>
+      <h2>Protractor and Jasmine</h2>
     </hgroup>
     <article>
-      <h3>Protractor and Jasmine</h3>
       <pre class="prettyprint" data-lang="javascript">
 it('should find employee Maria on list search page', function() {
   createMultipleEmployees(); // Creates employees: Max, Maria, Daniel, John
   ...
-  element(by.id('searchText')).sendKeys('Ma');
+  <b>element(by.id('searchText')).sendKeys('Ma');
   expect(element.all(by.id('employee')).count()).toBe(2);
   element(by.id('searchText')).sendKeys('ria');
-  expect(element.all(by.id('employee')).count()).toBe(1);
+  expect(element.all(by.id('employee')).count()).toBe(1);</b>
 });
 </pre>
       <h3>Running End2End Tests with Protractor</h3>
       <pre class="prettyprint" data-lang="bash">
 npm install -g protractor
 webdriver-manager start
-protractor test/client/e2e/conf.js
+<b>protractor test/client/e2e/conf.js</b>
 </pre>
     </article>
   </slide>
@@ -545,18 +528,19 @@ protractor test/client/e2e/conf.js
     </hgroup>
   </slide>
 
-  <slide class="fill nobackground">
-    <article>
-      <iframe data-src="http://54.220.185.224:9000"></iframe>
+  <slide>
+    <article class="flexbox vcenter">
+      <span><img src="images/project-staffing-app.png"></span>
     </article>
   </slide>
 
- <slide>
+  <slide>
     <article class="flexbox vcenter">
       <h3>Project Staffing App - TEST Environment</h3>
       <p><a href="http://54.220.185.224:9000/#/">http://54.220.185.224:9000/</a></p><br/>
       <h3>Delivery Pipeline</h3>
-      <p><a href="http://54.74.89.170/jenkins/view/CL-Pipeline/">http://54.74.89.170/jenkins/view/CL-Pipeline/</a></p>
+      <p><a href="http://54.74.89.170/jenkins/view/CL-Pipeline/">http://54.74.89.170/jenkins/view/CL-Pipeline/</a></p><br/><br/>
+      <p>Info: Server will be shutdown after talk</p>
     </article>
   </slide>
 
@@ -580,28 +564,41 @@ protractor test/client/e2e/conf.js
 
   <slide>
     <hgroup>
-      <h2>Artifact Repository</h2>
+      <h2>Collect the reports</h2>
     </hgroup>
     <article class="flexbox vcenter">
-      <span><img src="images/nexus-project-staffing-artifacts.png"></span>
+      <ul>
+        <li>Mocha reporter &rArr; unit test</li>
+        <li>Jasmine reporter &rArr; end2end tests</li>
+        <li>JSLint &rArr; static code analysis</li>
+      </ul>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>JSLint Report</h2>
+      <h2>Mocha Report (unit tests)</h2>
     </hgroup>
     <article class="flexbox vcenter">
-      <span><img src="images/jenkins-jslint-report.png"></span>
+      <span><img src="images/jenkins-mocha-unit-test-report.png"></span>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>End2End Test Report</h2>
+      <h2>Protractor Report (end2end tests)</h2>
     </hgroup>
     <article class="flexbox vcenter">
       <span><img src="images/jenkins-e2e-test-result.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JSLint Report (static code analysis)</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <span><img src="images/jenkins-jslint-report.png"></span>
     </article>
   </slide>
 
