@@ -24,6 +24,7 @@
   </slide>
 
   <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
     <hgroup class="auto-fadein">
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
@@ -135,12 +136,12 @@
     </article>
   </slide>
 
-  <slide>
-    <article class="flexbox vcenter">
-      <h2>Continuous Delivery for the Frontend:</h2>
-      <h2>&nbsp;</h2>
-      <h2>Why do we need this?</h2>
-    </article>
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Continuous Delivery for the Frontend</h2>
+      <h3>Why do we need this?</h3>
+    </hgroup>
   </slide>
 
   <slide>
@@ -183,7 +184,7 @@
     </aside>
 
     <hgroup>
-      <h2>And Still...</h2>
+      <h2>And Still ...</h2>
     </hgroup>
     <article class="flexbox vcenter">
       <ul class="build">
@@ -211,16 +212,17 @@
         <li>The Delivery Pipeline</li>
       </ul>
       <ul class="build">
-        <li>This is frontend only</li>
+        <li><b>This is frontend only</b></li>
         <li>Ideal: backend &amp; frontend in one CD pipeline</li>
       </ul>
     </article>
   </slide>
 
-  <slide>
-    <article class="flexbox vcenter">
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <hgroup class="auto-fadein">
       <h2>Asset Optimization</h2>
-    </article>
+    </hgroup>
   </slide>
 
   <slide>
@@ -279,29 +281,10 @@
     </article>
   </slide>
 
-  <!--
-  <slide>
-    <aside class="note">
-      <section>
-    	<ul>
-    	  <li>This talk only covers technical details of Continuous Delivery</li>
-    	  <li>Growing trend of static assets in webpages</li>
-      <h2>&nbsp;</h2>
-    	<p>You shall treat your frontend source code just like your backend</p>
-    	</ul>
-      </section>
-    </aside>
-    <article class="flexbox vcenter">
-      <h2>Problematic Trends</h2>
-    </article>
-  </slide>
-  -->
-
   <slide>
     <hgroup>
       <h2># of HTTP Requests &mdash; Concatenation</h2>
     </hgroup>
-
     <article>
       <pre class="prettyprint" data-lang="javascript">
 concat: {
@@ -314,8 +297,7 @@ concat: {
     ],
     dest: '<%= jsTargetDir %>/app.js'
   }
-},
-      </pre>
+},    </pre>
     </article>
   </slide>
 
@@ -332,8 +314,7 @@ uglify: {
       '<%= jsTargetDir %>/app.min.js': [ '<%= jsTargetDir %>/app.js' ],
     }
   }
-},
-      </pre>
+},    </pre>
     </article>
   </slide>
 
@@ -346,22 +327,19 @@ uglify: {
       <pre class="prettyprint" data-lang="css">
 .img-foo {
   background-image: inline-image("foo.png");
-}
-      </pre>
+}     </pre>
       <pre class="prettyprint" data-lang="javascript">
 sass: {
   app: {
     options: { compass: true, },
     files: { '<%= cssTargetDir %>/master.css': '<%= cssSrcDir %>/master.scss', }
   }
-},
-      </pre>
+},    </pre>
       <pre class="prettyprint" data-lang="css">
 .img-foo {
   background-image:
     url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAA...');
-}
-      </pre>
+}     </pre>
     </article>
   </slide>
 
@@ -412,7 +390,7 @@ versioning: {
       '<%= cssTargetDir %>/master.css',
     ]
   },
-},
+},</pre>
     </article>
   </slide>
 
@@ -429,62 +407,95 @@ versioning: {
     </article>
   </slide>
 
-  <slide>
-    <article class="flexbox vcenter">
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <hgroup class="auto-fadein">
       <h2>Testing</h2>
-    </article>
+    </hgroup>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>Testing</h2>
+      <h2>What can we test?</h2>
     </hgroup>
     <article class="flexbox vcenter">
       <h3 class="green2">Client Side Tests</h3>
       <ul>
-        <li>Frontend Unit Tests</li>
-        <li>End2End Tests</li>
+        <li>JavaScript: Unit Tests</li>
+        <li>Functionality: End2End Tests</li>
       </ul>
       <h3 class="green2">Server Side Tests</h3>
       <ul>
-        <li>Unit Tests</li>
+        <li>Java/PHP/...: Unit Tests</li>
+        <li>Functionality: Integration Tests</li>
+        <li>NFR: Performance/Loadtest/...</li>
       </ul>
     </article>
   </slide>
 
   <slide>
+    <article class="flexbox vcenter">
+      <h2>Front end unit tests</h2>
+    </article>
+  </slide>
+
+  <slide>
     <hgroup>
-      <h2>Frontend Unit Tests</h2>
+      <h2>Karma and Mocha</h2>
     </hgroup>
     <article>
-      <h3>Karma and Mocha</h3>
       <pre class="prettyprint" data-lang="javascript">
   var expect = chai.expect;
   beforeEach(module('project-staffing'));
   describe('UpperCase Test', function() {
-    it('should convert first charactor to UpperCase', inject(function(uppercaseFilter) {
-      expect(uppercaseFilter('')).to.equal('');
+    <b>it('should convert first charactor to UpperCase', inject(function(uppercaseFilter) {
       expect(uppercaseFilter('a')).to.equal('A');
-      expect(uppercaseFilter('string')).to.equal('String');
-    }));
-  });
-</pre>
+      expect(uppercaseFilter('hello world')).to.equal('Hello World');
+    }));</b>
+  }); </pre>
       <h3>Running Unit Tests with Karma</h3>
       <pre class="prettyprint" data-lang="bash">
 npm install -g karma-cli
 karma start karma.conf.js
 // or
-grunt karma
-</pre>
+<b>grunt karma</b></pre>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>End2End Tests (1/2)</h2>
+      <h2>Chai BDD / TDD assertion library</h2>
     </hgroup>
     <article>
-      <h3>Protractor and Jasmine</h3>
+      <p>Should</p>
+      <pre class="prettyprint" data-lang="javascript">
+chai.should();
+foo.should.be.a('string');
+foo.should.equal('bar');</pre>
+      <p>Expect</p>
+      <pre class="prettyprint" data-lang="javascript">
+var expect = chai.expect;
+expect(foo).to.be.a('string');
+expect(foo).to.equal('bar');</pre>
+      <p>Assert</p>
+      <pre class="prettyprint" data-lang="javascript">
+var assert = chai.assert;
+assert.typeOf(foo, 'string');
+assert.equal(foo, 'bar');</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <h2>End2End tests</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Protractor and Jasmine</h2>
+    </hgroup>
+    <article>
       <pre class="prettyprint" data-lang="javascript">
 describe('Manage customer', function() {
   var ptor;
@@ -527,34 +538,40 @@ protractor test/client/e2e/conf.js
     </article>
   </slide>
 
-  <slide>
-    <article class="flexbox vcenter">
-      <h2><a href="http://54.220.185.224:9000/#/">DEMO</a></h2>
-      <p class="morenote">Project Staffing App - TEST Environment</p>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Infrastructure</h2>
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Demo</h2>
     </hgroup>
+  </slide>
+
+  <slide class="fill nobackground">
+    <article>
+      <iframe data-src="http://54.220.185.224:9000"></iframe>
+    </article>
+  </slide>
+
+ <slide>
     <article class="flexbox vcenter">
-      <span><img src="images/cd-infrastructure-min.png" height="500px"></span>
+      <h3>Project Staffing App - TEST Environment</h3>
+      <p><a href="http://54.220.185.224:9000/#/">http://54.220.185.224:9000/</a></p><br/>
+      <h3>Delivery Pipeline</h3>
+      <p><a href="http://54.74.89.170/jenkins/view/CL-Pipeline/">http://54.74.89.170/jenkins/view/CL-Pipeline/</a></p>
     </article>
   </slide>
 
   <slide>
+    <aside class="note">
+      <section>
+        <ul>
+          <li>#1 Early feedback</li>
+          <li>#2 Fail fast</li>
+          <li>#3 Production Readiness</li>
+        </ul>
+      </section>
+    </aside>
     <hgroup>
       <h2>Delivery Pipeline</h2>
-    </hgroup>
-    <article class="flexbox vcenter">
-      <span><img src="images/deployment-pipeline.png"></span>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>Build Pipeline</h2>
     </hgroup>
     <article class="flexbox vcenter">
       <span><img src="images/jenkins-build-pipeline-v2.png"></span>
@@ -602,10 +619,10 @@ protractor test/client/e2e/conf.js
         </ul>
       </p>
       <p>
-        Demo Project Documentation
+        Project Documentation
         <ul>
           <li>
-            <a href="http://marcelbirkner.github.io/project-staffing/slides/introduction/">http://marcelbirkner.github.io/project-staffing/slides/introduction/</a>
+            <a href="http://marcelbirkner.github.io/project-staffing/">http://marcelbirkner.github.io/project-staffing/</a>
           </li>
         </ul>
       </p>
@@ -620,10 +637,20 @@ protractor test/client/e2e/conf.js
      </article>
   </slide>
 
-  <slide>
-    <article class="flexbox vcenter">
-      <h2>Thanks for your attention</h2>
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Thank You!</h2>
       <p class="morenote">Do you have comments or questions?</p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="../slides-common/images/codecentric-logo.png"></span>
     </article>
   </slide>
 
