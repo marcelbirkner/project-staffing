@@ -4,3 +4,6 @@ xmloutput/
 test-results.xml
 jshint-checkstyle-report.xml
 eslint-checkstyle-report.xml
+data/
+log
+static/
