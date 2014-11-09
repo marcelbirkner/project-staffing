@@ -2,12 +2,7 @@
 
 
 // express settings
-var express = require('express'),
-  customer = require('./data/customer.js'),
-  project = require('./data/project.js'),
-  employee = require('./data/employee.js'),
-  errors = require('./lib/errors');
-  
+var express = require('express');
 var app = express();
 var cors = require('cors');
 var nodeValidator = require('validator');
@@ -15,28 +10,46 @@ var expressValidator = require('express-validator');
 var http = require('http');
 var util = require('util');
 
+var path = require('path');
+
 // mongodb settings
 var mongojs = require('mongojs');
 var databaseUrl = "projectstaffing";
 var collections = ["employees", "customers", "projects", "activities"];
 var db = mongojs.connect(databaseUrl, collections);
 
+var customer = require('./data/customer.js');
+var project = require('./data/project.js');
+var employee = require('./data/employee.js');
+var errors = require('./lib/errors');
 
 /**
  * Version of backend system. Each addition of a new REST Service changes the version number.
  */
 var version = {'version':'1.3.0'};
 
+function mapStatic(dirname, maxAge) {
+  if (maxAge) {
+    return express.static(path.join(__dirname, dirname), { maxAge: 31536000000 });
+  } else {
+    return express.static(path.join(__dirname, dirname));
+  }
+}
 
 /**
  * Deliver static content
  */
 app.configure(function(){
+  app.use(express.compress());
   app.use(express.bodyParser());
   app.use(expressValidator());
   app.use(cors());
-  app.use(express.static(__dirname + '/static'));
-  app.use('/static', express.static(__dirname + '/static'));
+  // app.use(express.static(__dirname + '/static'));
+  app.use('/css', mapStatic('static/css', true));
+  app.use('/js', mapStatic('static/js', true));
+  app.use('/no-cache/css', mapStatic('static/no-cache/css'));
+  app.use('/no-cache/js', mapStatic('static/no-cache/js'));
+  app.use('/', mapStatic('static', false));
 });
 
 /**
@@ -166,7 +179,7 @@ app.get('/api/mongo/init', function(req, res){
 	db.projects.remove({});
 	db.employees.remove({});
 	db.activities.remove({});
-	
+
     for (var cust in customer) {
 		db.customers.save(cust, function(err, saved) {
 		  if( err || !saved )
@@ -175,7 +188,7 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Customers saved");
 		});
 	}
-	
+
     for (var id in employee) {
 		var item = employee[id];
 	  	db.employees.save(item, function(err, saved) {
@@ -185,7 +198,7 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Employee saved");
 		});
 	}
-    
+
 	for (var id in project) {
 		var item = project[id];
 	  	db.projects.save(item, function(err, saved) {
@@ -273,7 +286,7 @@ app.get('/api/mongo/activities', function(req, res){
 	console.log('GET - array of all activities');
 
 	db.activities.find().sort({timestamp:-1}, function(err, activities) {
-	
+
 	  if( err || !activities)
 	    return res.json(404, {error: 'No activities found'});
 	  else
@@ -429,7 +442,7 @@ app.get('/api/mongo/search/location/employees', function(req, res){
 	console.log('GET - array of employees grouped by location');
 
 	db.employees.aggregate([
-        { $group: { _id: "$office", total: { $sum: 1 } } }    
+        { $group: { _id: "$office", total: { $sum: 1 } } }
     ], function(err, employees) {
       if( err ) {
 	    console.log("No employees found");
@@ -438,19 +451,19 @@ app.get('/api/mongo/search/location/employees', function(req, res){
         return res.json(200, employees);
 	  }
     });
-    
+
 });
 app.get('/api/mongo/search/employees/latestproject', function(req, res){
 	console.log('GET - array of employees with latest project');
-    
+
     var oldQuery = [
         {$unwind: '$projects'},
         {$group: {_id: '$_id', test: {end: {$max: '$end'}}}}
     ];
-    
-    var query = [ 
+
+    var query = [
         { $project : {name:1, office:1, projects:1}},
-        { "$unwind" : "$projects"}, 
+        { "$unwind" : "$projects"},
         { "$sort" : { "projects.end" : -1}}
     ];
     db.employees.aggregate(query, function(err, employees) {
@@ -489,7 +502,7 @@ db.col.aggregate([
       }
     ]
   },
-  
+
 {
     "host" : "example.com",
     "ips" : [
@@ -511,7 +524,7 @@ coll.aggregate([
   {$group: {_id: "$host", IPOfMaxTS:{$last: "$ip"}, ts:{$last: "$ts"} } }
 ])
 
-  
+
 */
 
 

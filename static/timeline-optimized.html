@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Project Staffing</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/app.min.b678e30139fc04967d65da92464a6570.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!--
+    Navigation
+    -->
+    <div
+      class="navbar navbar-inverse navbar-fixed-top"
+      role="navigation"
+    >
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Company Projects</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li>
+              <a id="navTimeline" href="#">Timeline</a>
+            </li>
+            <li id="navStaffProject"><a href="/#/staffing">Staff Project</a></li>
+            <li id="navEmployees" class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Employees <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a id="navManageEmployees" href="/#/add-employee">Manage Employees</a></li>
+                <li><a id="navListEmployees" href="/#/list-employees">List Employees</a></li>
+              </ul>
+            </li>
+            <li id="navCustomers" class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Customer <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a id="navManageCustomers" href="/#/add-customer">Manage Customers</a></li>
+                <li><a id="navListCustomers" href="/#/list-customers">List Customers</a></li>
+              </ul>
+            </li>
+            <li>
+              <a id="navDashboard" href="/#/dashboard">Stats</a>
+            </li>
+            <li>
+              <a id="navNotOptimized" href="/timeline-unoptimized.html">Not Optimized</a>
+            </li>
+            <li class="active">
+              <a id="navOptimized" href="/timeline-optimized.html">Optimized</a>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    Main Content
+    -->
+    <div id="main">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="main">
+            <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="active"><a id="tabActivities" href="" role="tab" data-toggle="tab">All Activities</a></li>
+                  <li><a href="" role="tab" data-toggle="tab">New Employees</a></li>
+                  <li><a href="" role="tab" data-toggle="tab">New Projects</a></li>
+                  <li><a href="" role="tab" data-toggle="tab">New Customer</a></li>
+                </ul>
+                <br/>
+
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="badge">Nov 10, 2014 7:15:38 PM</span>
+                    <div class="img-face-julia img-rounded">&nbsp;</div>
+                    <b>Julia</b> added a new skill <b>dtrace</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 10, 2014 1:42:13 PM</span>
+                    <div class="img-face-julia img-rounded">&nbsp;</div>
+                    <b>Julia</b> added a new skill <b>React.js</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 10, 2014 9:37:33 AM</span>
+                    <div class="img-face-maggie img-rounded">&nbsp;</div>
+                    <b>Maggie</b> added a new skill <b>Node.js</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 7, 2014 3:05:28 PM</span>
+                    <div class="img-face-max img-rounded">&nbsp;</div>
+                    <b>Julio</b> added a new customer <b>ACME Corp.</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 7, 2014 11:55:58 AM</span>
+                    <div class="img-face-maggie img-rounded">&nbsp;</div>
+                    <b>Maggie</b> added a new skill <b>Angular.js</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 7, 2014 10:20:18 AM</span>
+                    <div class="img-face-max img-rounded">&nbsp;</div>
+                    <b>Julio</b> deleted a customer <b>codecentric AG</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 7, 2014 10:20:18 AM</span>
+                    <div class="img-face-jon img-rounded">&nbsp;</div>
+                    <b>Jon</b> added a customer <b>Honk Inc.</b>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">Nov 7, 2014 10:20:18 AM</span>
+                    <div class="img-face-male-face img-rounded">&nbsp;</div>
+                    <b>Joe</b> added a customer <b>Humpa Gmbh</b>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vendor.d6c29ee27ebbe8dc049aadce92e68ffd.js" type="text/javascript"></script>
+    <script src="js/app.min.dcab3d99245ff6292e4f878da6a4e82c.js" type="text/javascript"></script>
+
+  </body>
+</html>

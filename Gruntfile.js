@@ -10,11 +10,13 @@ module.exports = function(grunt) {
     jsSrcFiles: '<%= jsSrcDir %>/**/*.js',
     jsLibDir: '<%= jsSrcDir %>/lib',
     jsTargetDir: 'static/js',
+    jsNoCacheDir: 'static/no-cache/js',
 
     cssSrcDir: 'client/css',
     cssSrcFiles: '<%= cssSrcDir %>/*.scss',
     cssLibDir: '<%= cssSrcDir %>/lib',
     cssTargetDir: 'static/css',
+    cssNoCacheDir: 'static/no-cache/css',
 
     /* clean build artifacts */
     clean: {
@@ -55,22 +57,6 @@ module.exports = function(grunt) {
       }
     },
 
-    copy: {
-      jsSourceMaps: {
-        expand: true,
-        src: 'node_modules/angular*/angular*.min.js.map',
-        dest: '<%= jsTargetDir %>/',
-        flatten: true,
-        filter: 'isFile',
-      },
-      cssThirdParty: {
-        expand: true,
-        src: '<%= cssLibDir %>/*',
-        dest: '<%= cssTargetDir %>/',
-        flatten: true,
-      },
-    },
-
     /* AngularJS-specific pre-processing to prepare sources for minifying */
     ngAnnotate: {
       options: {
@@ -89,8 +75,7 @@ module.exports = function(grunt) {
     /* minify JS */
     uglify: {
       options: {
-        banner:
-          '/*! <%= pkg.name %> <%= pkg.version %> */\n',
+        preserveComments: false,
         sourceMap: true,
       },
       app: {
@@ -151,6 +136,47 @@ module.exports = function(grunt) {
       },
     },
 
+    copy: {
+      jsSourceMaps: {
+        expand: true,
+        src: 'node_modules/angular*/angular*.min.js.map',
+        dest: '<%= jsTargetDir %>/',
+        flatten: true,
+        filter: 'isFile',
+      },
+      cssThirdParty: {
+        expand: true,
+        src: '<%= cssLibDir %>/*',
+        dest: '<%= cssTargetDir %>/',
+        flatten: true,
+      },
+      noCacheJs: {
+        expand: true,
+        src: '<%= jsSrcDir %>/**/*.js',
+        dest: '<%= jsNoCacheDir %>/',
+        flatten: false,
+      },
+      noCacheLibJs: {
+        expand: true,
+        src: [
+          'node_modules/jquery/dist/jquery.js',
+          'node_modules/bootstrap/dist/js/bootstrap.js',
+          'node_modules/angular/angular.js',
+          'node_modules/angular-route/angular-route.js',
+          'node_modules/angular-animate/angular-animate.js',
+        ],
+        dest: '<%= jsNoCacheDir %>/',
+        flatten: true,
+      },
+
+      noCacheCss: {
+        expand: true,
+        src: '<%= cssTargetDir %>/*',
+        dest: '<%= cssNoCacheDir %>/',
+        flatten: true,
+      },
+    },
+
     karma: {
       local: {
         configFile: 'karma.conf.js',
@@ -166,7 +192,6 @@ module.exports = function(grunt) {
         autoWatch: false,
         singleRun: true,
       },
-
     },
 
     watch: {
@@ -208,11 +233,11 @@ module.exports = function(grunt) {
     'clean',
     'eslint',
     'concat',
-    'copy',
     'ngAnnotate',
     'uglify',
     'sass',
     'cssmin',
+    'copy',
     'versioning',
   ]);
 

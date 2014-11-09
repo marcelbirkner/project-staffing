@@ -1,2 +1,4 @@
 static/js/*.js     -diff
 static/js/*.js.map -diff
+static/no-cache/js/*.js     -diff
+static/no-cache/js/*.js.map -diff
