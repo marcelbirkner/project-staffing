@@ -15,10 +15,10 @@
     			<br/>
 
     			<ul class="list-group">
-    			  <li class="list-group-item" ng-repeat="activities in timelineCtrl.list.slice(0, 20)">
-    			    <span class="badge">{{activities.timestamp | date:'medium'}}</span>
-              <div ng-class="'img-face-{{activities.subject}}'" class="img-rounded">&nbsp;</div>
-    			    <b>{{activities.subject}}</b> {{activities.action}} <b>{{activities.object}}</b>
+    			  <li class="list-group-item" ng-repeat="activity in activities.slice(0, 20)">
+    			    <span class="badge">{{activity.timestamp | date:'medium'}}</span>
+              <div ng-class="'img-face-{{activity.subject}}'" class="img-rounded">&nbsp;</div>
+    			    <b>{{activity.subject}}</b> {{activity.action}} <b>{{activity.object}}</b>
     			  </li>
     			</ul>
 
