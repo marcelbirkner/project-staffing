@@ -19,6 +19,7 @@ var collections = ["employees", "customers", "projects", "activities"];
 var db = mongojs.connect(databaseUrl, collections);
 
 var customer = require('./data/customer.js');
+var activityList = require('./data/activities.js');
 var project = require('./data/project.js');
 var employee = require('./data/employee.js');
 var errors = require('./lib/errors');
@@ -180,12 +181,13 @@ app.get('/api/mongo/init', function(req, res){
 	db.employees.remove({});
 	db.activities.remove({});
 
-    for (var cust in customer) {
-		db.customers.save(cust, function(err, saved) {
+    for (var id in customer) {
+		var item = customer[id];
+	  	db.customers.save(item, function(err, saved) {
 		  if( err || !saved )
-			console.log("Customers not saved");
+			console.log("Customer not saved");
 		  else
-			console.log("Customers saved");
+			console.log("Customer saved");
 		});
 	}
 
@@ -196,6 +198,16 @@ app.get('/api/mongo/init', function(req, res){
 			console.log("Employee not saved");
 		  else
 			console.log("Employee saved");
+		});
+	}
+
+	for (var id in activityList) {
+		var item = activityList[id];
+	  	db.activities.save(item, function(err, saved) {
+		  if( err || !saved )
+			console.log("Activity not saved");
+		  else
+			console.log("Activity saved");
 		});
 	}
 

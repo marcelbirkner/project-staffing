@@ -1,30 +1,40 @@
 'use strict';
 
-module.exports = {
-
-  100: {
-    id: 100,
-    name: 'Customer No 100',
-    address: 'Hauptstrasse 15, Essen, Deutschland',
-    longitude: 50.10000,
-    latitude: 7.20000,
+module.exports = [
+  {
+    "company": "REWE",
+    "industry": "Food",
+    "address": "REWE, Aachener Straße, Cologne, Germany",
+    "companyaddress": {
+      "longitude": 50.936872,
+      "latitude": 6.834235000000035
+    }
   },
-
-  101: {
-    id: 101,
-    name: 'Customer No 101',
-    address: 'Hauptstrasse 115, Essen, Deutschland',
-    longitude: 50.80000,
-    latitude: 7.30000,
+  {
+    "company": "codecentric",
+    "industry": "IT",
+    "address": "codecentric AG, Kölner Landstraße, Düsseldorf, Germany",
+    "companyaddress": {
+      "longitude": 51.196703,
+      "latitude": 6.812212999999929
+    }
   },
-
-  102: {
-    id: 102,
-    name: 'Customer No 102',
-    address: 'Hauptstrasse 215, Essen, Deutschland',
-    longitude: 50.50000,
-    latitude: 7.80000,
+  {
+    "company": "Provinzial",
+    "industry": "Insurance",
+    "address": "Provinzial Versicherung, Provinzialplatz, Düsseldorf, Germany",
+    "companyaddress": {
+      "longitude": 51.195052,
+      "latitude": 6.812874999999963
+    }
   },
-
-
-};
+  {
+    "company": "Lanxess",
+    "industry": "Chemical",
+    "address": "Lanxess Arena, Cologne, Germany",
+    "companyaddress": {
+      "longitude": 50.938338,
+      "latitude": 6.982950999999957
+    }
+  }
+];
