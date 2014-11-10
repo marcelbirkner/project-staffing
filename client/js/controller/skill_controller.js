@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('SkillController', function($http, $location) {
+  angular.module('project-staffing').controller('SkillController', function($http, Url, Activity) {
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = Url.getUrl();
 
     this.skill = '';
 
@@ -14,9 +14,8 @@
       // TODO: get userid from session
       var user = 'julia';
       var msg = 'deleted skill';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: employee.skills[id]};
-      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
-
+      var object = employee.skills[id];
+      Activity.saveActivity(user, msg, object);
     };
 
     this.addSkill = function(employee) {
@@ -36,8 +35,8 @@
         // TODO: get userid from session
         var user = 'jon';
         var msg = 'added skill';
-        var activity = {timestamp: new Date(), subject: user, action: msg, object: this.skill};
-        $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+        var object = this.skill;
+        Activity.saveActivity(user, msg, object);
 
         this.skill = '';
       }

@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('ProjectController', function($http, $location) {
+  angular.module('project-staffing').controller('ProjectController', function($http, Url) {
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = Url.getUrl();
 
     this.deleteProject = function(id, employee) {
       employee.projects.splice(id, 1);

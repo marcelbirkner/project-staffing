@@ -3,9 +3,9 @@
 
   angular
   .module('project-staffing')
-  .controller('EmployeeController', function($http, $location) {
+  .controller('EmployeeController', function($http, Url) {
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = Url.getUrl();
 
     var company = this;
 

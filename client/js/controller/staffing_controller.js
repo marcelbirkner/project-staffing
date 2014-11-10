@@ -5,9 +5,9 @@
 
   angular
   .module('project-staffing')
-  .controller('StaffingController', function($http, $scope, $filter, $location){
+  .controller('StaffingController', function($http, $scope, $filter, Url){
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = Url.getUrl();
 
     var location = {lat: 51.161295, lng: 7.010175000000004}; // default location
     var image = {

@@ -297,7 +297,7 @@ app.get('/api/mongo/projects', function(req, res){
 app.get('/api/mongo/activities', function(req, res){
 	console.log('GET - array of all activities');
 
-	db.activities.find().sort({timestamp:-1}, function(err, activities) {
+	db.activities.find().limit(20).sort({timestamp:-1}, function(err, activities) {
 
 	  if( err || !activities)
 	    return res.json(404, {error: 'No activities found'});

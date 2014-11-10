@@ -2,13 +2,10 @@
   'use strict';
 
   angular.module('project-staffing')
-    .controller('TimelineController', function($scope, $http, $location) {
+    .controller('TimelineController', function($scope, Activity) {
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    $scope.activityCtrl = Activity;
 
-    $http.get(url + '/api/mongo/activities').success(function(activitiesData) {
-      $scope.activities = activitiesData;
-    });
   });
 
 })();

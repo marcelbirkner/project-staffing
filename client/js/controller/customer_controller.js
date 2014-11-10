@@ -5,10 +5,9 @@
 
   angular
   .module('project-staffing')
-  .controller('CustomerController', function($http, $scope, $location){
+  .controller('CustomerController', function($http, $scope, Url){
 
-    var url = $location.protocol() + '://' + $location.host() + ':' +
-      $location.port();
+    var url = Url.getUrl();
 
     var company = this;
     company.customers = [];

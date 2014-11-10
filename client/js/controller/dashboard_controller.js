@@ -2,9 +2,9 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('DashboardController', function($http, $location) {
+  angular.module('project-staffing').controller('DashboardController', function($http, Url) {
 
-    var url = $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var url = Url.getUrl();
 
     var location = this;
     location.employees = [];

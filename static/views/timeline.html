@@ -14,8 +14,9 @@
     			</ul>
     			<br/>
 
-    			<ul class="list-group">
-    			  <li class="list-group-item" ng-repeat="activity in activities.slice(0, 20)">
+          <div ng-hide="activityCtrl.getActivities().length" class="alert alert-info">There are no activities</div>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="activity in activityCtrl.getActivities() track by $index">
     			    <span class="badge">{{activity.timestamp | date:'medium'}}</span>
               <div ng-class="'img-face-{{activity.subject}}'" class="img-rounded">&nbsp;</div>
     			    <b>{{activity.subject}}</b> {{activity.action}} <b>{{activity.object}}</b>
