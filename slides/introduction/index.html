@@ -445,6 +445,30 @@ karma start karma.conf.js
 
   <slide>
     <hgroup>
+      <h2>Sinon (Mocking Framework)</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="javascript">
+var Activity;
+var $http;
+
+<b>beforeEach(inject(function(_Activity_, _$http_) {
+  Activity = _Activity_;
+  $http = _$http_;
+  sinon.stub($http, 'post', function(){});
+}));</b>
+
+describe('Activity Service', function() {
+  it('should have send http POST to backend after saving one activity', inject(function(Activity) {
+    Activity.saveActivity('user', 'action', 'object');
+    <b>expect($http.post.callCount).to.equal(1);</b>
+  }));
+});</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
       <h2>Chai (BDD/TDD framework)</h2>
     </hgroup>
     <article>
@@ -482,18 +506,17 @@ describe('Manage customer', function() {
   var ptor;
 
   beforeEach(function() {
-    browser.get('/');
+    <b>browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navEmployees')).click();
-    element(by.id('navListEmployees')).click();
+    element(by.id('navListEmployees')).click();</b>
   });
 
   <b>it('should navigate to list employees page', function() {
     expect(ptor.getCurrentUrl()).toMatch(/#\/list-employees/);
   });</b>
 
-});
-</pre>
+});</pre>
     </article>
   </slide>
 
