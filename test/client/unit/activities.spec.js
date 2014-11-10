@@ -7,6 +7,15 @@
 
     beforeEach(module('project-staffing'));
 
+    var Activity;
+    var $http;
+
+	beforeEach(inject(function(_Activity_, _$http_) {
+		Activity = _Activity_;
+		$http = _$http_;
+		sinon.stub($http, 'post', function(){});
+	}));
+
     describe('Activity Service', function() {
 
       it('should contain empty list of activities by default', inject(function(Activity) {
@@ -16,6 +25,11 @@
       it('should contain one item in list after saving one activity', inject(function(Activity) {
         Activity.saveActivity('user', 'action', 'object');
         expect(Activity.getActivities().length).to.equal(1);
+      }));
+
+      it('should have send http POST to backend after saving one activity', inject(function(Activity) {
+        Activity.saveActivity('user', 'action', 'object');
+        expect($http.post.callCount).to.equal(1);
       }));
 
       it('should contain five items in list after saving five activities', inject(function(Activity) {
