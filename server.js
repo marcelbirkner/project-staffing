@@ -14,7 +14,7 @@ var path = require('path');
 
 // mongodb settings
 var mongojs = require('mongojs');
-var databaseUrl = "projectstaffing";
+var databaseUrl = process.env.MONGODB_PORT_27017_TCP_ADDR + "/projectstaffing";
 var collections = ["employees", "customers", "projects", "activities"];
 var db = mongojs.connect(databaseUrl, collections);
 
@@ -176,7 +176,9 @@ app.get('/api/version', function(req, res){
  */
 app.get('/api/mongo/init', function(req, res){
 	console.log('GET - init mongodb with testdata');
-	db.customers.remove({});
+        console.log('ENV: '+process.env.MONGODB_PORT);
+		
+        db.customers.remove({});
 	db.projects.remove({});
 	db.employees.remove({});
 	db.activities.remove({});
@@ -251,8 +253,10 @@ app.get('/api/mongo/customers', function(req, res){
 	db.customers.find({}, function(err, customers) {
 	  if( err || !customer || customer.length == 0)
 	    return res.json(404, {error: 'No customers found'});
-	  else
-	    return res.json(200, customers);
+	  else {
+	    console.log(err); 
+            return res.json(200, customers);
+          }
 	});
 });
 app.post('/api/mongo/customers', function(req, res){
