@@ -7,6 +7,23 @@
  - End-2-End Integration Tests - http://marcelbirkner.github.io/project-staffing/e2e-tests.html
  - Unit Tests - http://marcelbirkner.github.io/project-staffing/unit-tests.html
 
+# Dockerized App
+
+Requirement: Docker >1.0.0 needs to be installed.
+
+- Starting MongoDB
+
+```
+sudo docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
+```
+
+- Starting NodeJS Server-Side WebApp
+
+```
+sudo docker build -t marcel.birkner/centos-node-hello .
+sudo docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-node-hello
+```
+
 # Conferences
 
 - Continuous Lifecycle 2014 

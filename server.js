@@ -176,7 +176,6 @@ app.get('/api/version', function(req, res){
  */
 app.get('/api/mongo/init', function(req, res){
 	console.log('GET - init mongodb with testdata');
-        console.log('ENV: '+process.env.MONGODB_PORT);
 		
         db.customers.remove({});
 	db.projects.remove({});
