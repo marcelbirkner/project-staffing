@@ -20,8 +20,8 @@ sudo docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongo
 - Starting NodeJS Server-Side WebApp
 
 ```
-sudo docker build -t marcel.birkner/centos-node-hello .
-sudo docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-node-hello
+sudo docker build -t marcel.birkner/centos-nodejs-projectstaffing .
+sudo docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-nodejs-projectstaffing
 ```
 
 # Conferences

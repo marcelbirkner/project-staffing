@@ -1,21 +1,14 @@
 FROM    tcnksm/centos-ruby
-# FROM    centos:centos6
 
-# Enable EPEL for Node.js
-# RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-# Install Node.js and npm
+# Install NodeJS
 RUN     yum install -y npm
 
-# Install Ruby, required for sass & compass
-# RUN     yum install -y ruby
-RUN     gem --version
-
 # Bundle app source
-COPY . /src
+COPY . /opt/project-staffing/
 
 # Install app dependencies
-RUN cd /src; npm install 
+RUN cd /opt/project-staffing/; npm install 
 EXPOSE  9000
 
-CMD ["node", "/src/server.js"]
+CMD ["node", "/opt/project-staffing/server.js"]
 
