@@ -9,19 +9,20 @@
 
 # Dockerized App
 
-Requirement: Docker >1.0.0 needs to be installed.
+* Requirement: Docker >1.0.0 needs to be installed.
+* For Linux add "sudo" before each docker command
 
 - Starting MongoDB
 
 ```
-sudo docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
+docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
 ```
 
 - Starting NodeJS Server-Side WebApp
 
 ```
-sudo docker build -t marcel.birkner/centos-nodejs-projectstaffing .
-sudo docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-nodejs-projectstaffing
+docker build -t marcel.birkner/centos-nodejs-projectstaffing .
+docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-nodejs-projectstaffing
 ```
 
 # Conferences
