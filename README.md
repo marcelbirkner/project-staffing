@@ -24,7 +24,7 @@ The first command builds a new docker image named *<username>/centos-nodejs-proj
 
 ```
 docker build -t <username>/centos-nodejs-projectstaffing .
-docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-nodejs-projectstaffing
+docker run -p 9000:9000 -d --link mongodb:MONGODB <username>/centos-nodejs-projectstaffing
 ```
 
 # Conferences
