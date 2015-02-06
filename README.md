@@ -9,8 +9,8 @@
 
 # Dockerized App
 
-* Requirement: Docker >1.0.0 needs to be installed.
-* For Linux add "sudo" before each docker command
+1. Requirement: Docker >1.0.0 needs to be installed.
+2. For Linux add "sudo" before each docker command
 
 - Starting MongoDB
 
