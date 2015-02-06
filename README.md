@@ -9,19 +9,21 @@
 
 # Dockerized App
 
-1. Requirement: Docker >1.0.0 needs to be installed.
-2. For Linux add "sudo" before each docker command
+- Requirement: Docker >1.0.0 needs to be installed.
+- For Linux add "sudo" before each docker command
 
-- Starting MongoDB
+## Starting MongoDB
 
 ```
 docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
 ```
 
-- Starting NodeJS Server-Side WebApp
+## Starting NodeJS Server-Side WebApp
+
+The first command builds a new docker image named *<username>/centos-nodejs-projectstaffing* based on the provided source code. The second command starts the new docker container and links it together with the *mongodb* docker container. That allows the nodejs app to connect to the mongodb database.
 
 ```
-docker build -t marcel.birkner/centos-nodejs-projectstaffing .
+docker build -t <username>/centos-nodejs-projectstaffing .
 docker run -p 9000:9000 -d --link mongodb:MONGODB marcel.birkner/centos-nodejs-projectstaffing
 ```
 
