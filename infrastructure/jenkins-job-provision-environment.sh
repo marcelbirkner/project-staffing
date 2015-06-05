@@ -19,4 +19,6 @@ scp -i $KEYPAIR -o StrictHostKeyChecking=no project-staffing-$ARTIFACT_VERSION.z
 echo "Unpacking NodeJS App"
 ssh -i $KEYPAIR -o StrictHostKeyChecking=no ubuntu@$ENVIRONMENT 'sudo unzip project-staffing-*.zip -d project-staffing > unzip.log'
 sleep 5
+
+echo "Starting NodeJS App"
 ssh -i $KEYPAIR -o StrictHostKeyChecking=no ubuntu@$ENVIRONMENT 'sudo service project-staffing start'
