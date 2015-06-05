@@ -4,6 +4,10 @@ NEXUS_SERVER=$1
 NEXUS_CREDENTIALS=$2
 BUILD_NUMBER=$3
 
+echo "NEXUS_SERVER        [$NEXUS_SERVER]"
+echo "NEXUS_CREDENTIALS   [$NEXUS_CREDENTIALS]"
+echo "BUILD_NUMBER        [$BUILD_NUMBER]"
+
 echo "Install dependencies using npm"
 npm install
 
@@ -22,5 +26,5 @@ npm install --production
 echo "Package app"
 zip -r project-staffing.zip server.js static/ node_modules/ data/ lib/
 
-echo "Upload app to artifact server"
+echo "Upload app to artifact server: $NEXUS_SERVER/nexus/content/repositories/releases/de/codecentric/js/project-staffing/$BUILD_NUMBER/project-staffing-$BUILD_NUMBER.zip"
 curl -v -u $NEXUS_CREDENTIALS --upload-file project-staffing.zip $NEXUS_SERVER/nexus/content/repositories/releases/de/codecentric/js/project-staffing/$BUILD_NUMBER/project-staffing-$BUILD_NUMBER.zip
