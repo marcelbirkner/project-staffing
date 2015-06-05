@@ -1,0 +1,9 @@
+nodejs:
+  build: .
+  ports:
+  - "9000:9000"
+  links:
+  - mongodb
+mongodb:
+  image: mongo:3.0
+  command: mongod --smallfiles --quiet --logpath=/dev/null --rest --httpinterface
