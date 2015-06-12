@@ -14,7 +14,7 @@ var path = require('path');
 
 // mongodb settings
 var mongojs = require('mongojs');
-var databaseUrl = 'http://localhost:27017/projectstaffing';
+var databaseUrl = 'projectstaffing';
 if (typeof process.env.MONGODB_PORT_27017_TCP_ADDR !== 'undefined' && process.env
   .MONGODB_PORT_27017_TCP_ADDR) {
   databaseUrl = process.env.MONGODB_PORT_27017_TCP_ADDR +
