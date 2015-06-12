@@ -11,7 +11,7 @@ find $E2E_TEST_CONF -type f -print0 | xargs -0 sed -i "s/localhost:9000/$TEST_SE
 echo "Kill Selenium Process"
 PID=`ps aux | grep node | grep webdriver | awk '{print $2}'`
 sudo kill -9 $PID
-ps aux 
+ps aux | grep webdriver
 
 echo "Install npm packages"
 npm install
@@ -20,7 +20,7 @@ echo "protractor --version"
 node_modules/.bin/protractor --version
 
 echo "Start WebDriver Manager"
-node_modules/.bin/webdriver-manager start &
+node_modules/.bin/webdriver-manager start --standalone &
 sleep 20
 
 echo "Start E2E test"

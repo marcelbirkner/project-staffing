@@ -41,7 +41,7 @@ describe('Manage Employees Page', function() {
     element(by.id('navManageEmployees')).click();
     var employees = element.all(by.id('deleteButton'))
     employees.count().then(function(count) {
-      while(count > 0) {
+      while (count > 0) {
         employees.first().click();
         count--;
       }
@@ -73,18 +73,6 @@ describe('Manage Employees Page', function() {
     element(by.id('searchText')).sendKeys('ria');
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(1);
-  });
-
-  it('should create employee John with three skills', function() {
-    createEmployee('John', 'Berlin');
-    element(by.id('resetButton')).click();
-    element(by.id('editButton')).click();
-    element(by.id('addSkillTab')).click();
-    createSkill('java');
-    createSkill('MongoDB');
-    createSkill('JavaScript');
-    var list = element.all(by.id('skill'));
-    expect(list.count()).toBe(3);
   });
 
 });
