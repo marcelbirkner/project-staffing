@@ -17,8 +17,8 @@ grunt ci
 echo "Store build version in navigation"
 find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"
 
-echo "Rimraf node_modules"
-rm -rf node_modules
+# echo "Rimraf node_modules"
+# rm -rf node_modules
 
 echo "Install dependencies using npm, again, this time no dev dependencies"
 npm install --production
