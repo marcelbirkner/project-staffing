@@ -21,4 +21,4 @@ ssh -i $KEYPAIR -o StrictHostKeyChecking=no ubuntu@$ENVIRONMENT 'sudo unzip proj
 sleep 5
 
 echo "Starting NodeJS App"
-ssh -i $KEYPAIR -o StrictHostKeyChecking=no ubuntu@$ENVIRONMENT 'sudo service project-staffing start'
+ssh -i $KEYPAIR -o StrictHostKeyChecking=no ubuntu@$ENVIRONMENT 'sudo service project-staffing restart'
