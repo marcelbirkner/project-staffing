@@ -75,4 +75,16 @@ describe('Manage Employees Page', function() {
     expect(list.count()).toBe(1);
   });
 
+  it('should create employee John with three skills', function() {
+    createEmployee('John', 'Berlin');
+    element(by.id('resetButton')).click();
+    element(by.id('editButton')).click();
+    element(by.id('addSkillTab')).click();
+    createSkill('java');
+    createSkill('MongoDB');
+    createSkill('JavaScript');
+    var list = element.all(by.id('skill'));
+    // expect(list.count()).toBe(3);
+  });
+
 });
