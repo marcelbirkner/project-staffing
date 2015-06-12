@@ -217,19 +217,9 @@ module.exports = function(grunt) {
    * E2E Tests /w Protractor
    */
 
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-ng-annotate');
-  grunt.loadNpmTasks('grunt-version-assets');
+  require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('shared', [
+  grunt.registerTask('build', [
     'clean',
     'eslint',
     'concat',
@@ -242,13 +232,13 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('local', [
-    'shared',
+    'build',
     'karma:local',
   ]);
 
   grunt.registerTask('ci', [
     'init-ci',
-    'shared',
+    'build',
     'karma:ci',
   ]);
 

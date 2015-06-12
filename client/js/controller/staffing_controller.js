@@ -13,7 +13,7 @@
     var image = {
         url: 'img/default-face.png',
         size: new google.maps.Size(64, 64),
-        origin: new google.maps.Point(0,0),  // The origin for this image is 0,0
+        origin: new google.maps.Point(0, 0),  // The origin for this image is 0,0
         anchor: new google.maps.Point(0, 64) // The anchor for this image is the base of the flagpole at 0,64
     };
 
@@ -91,7 +91,7 @@
           employee = employees[i];
 
           markerEmp = new google.maps.Marker({
-              position: new google.maps.LatLng(employee.homeaddress.longitude,employee.homeaddress.latitude),
+              position: new google.maps.LatLng(employee.homeaddress.longitude, employee.homeaddress.latitude),
               map: map,
               icon: image,
               title: employee.name,
@@ -107,7 +107,7 @@
                         for( var j = 0; j < emp.skills.length; j++) {
                             content += emp.skills[j] + ', ';
                         }
-                        content = content.slice(0, - 2); // remove last colon
+                        content = content.slice(0, -2); // remove last colon
                         content += '</td></tr></table></p>';
                     } else {
                         content += '<br>No skills.';

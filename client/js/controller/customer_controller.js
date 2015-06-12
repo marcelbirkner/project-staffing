@@ -50,7 +50,7 @@
       for (var i in company.customers){
         if( company.customers[i]._id === id ) {
           deletedCustomer = company.customers[i];
-          company.customers.splice(i,1);
+          company.customers.splice(i, 1);
         }
       }
 
@@ -82,7 +82,7 @@
     var image = {
         url: 'img/company-icon.png',
         size: new google.maps.Size(64, 64),
-        origin: new google.maps.Point(0,0),  // The origin for this image is 0,0
+        origin: new google.maps.Point(0, 0),  // The origin for this image is 0,0
         anchor: new google.maps.Point(0, 64) // The anchor for this image is the base of the flagpole at 0,64
     };
 

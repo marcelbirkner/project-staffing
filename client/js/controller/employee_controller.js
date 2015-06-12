@@ -62,7 +62,7 @@
       for (var i in this.employees){
         if( this.employees[i]._id === id ) {
           deletedEmployee = this.employees[i];
-          this.employees.splice(i,1);
+          this.employees.splice(i, 1);
         }
       }
 
