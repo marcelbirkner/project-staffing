@@ -1,7 +1,7 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'Delivery Pipeline for your Frontend',
+    title: 'Continuous Integration for Frontend Code',
     subtitle: 'Presentation',
     useBuilds: true,
     usePrettify: true,
