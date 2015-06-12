@@ -2,15 +2,15 @@
 	<div class="panel-body">
 		<form id="form" role="form" name="addressForm">
 			<div class="row">
-				<div class="col-xs-4">                    
+				<div class="col-xs-4">
                     <div class="input-group">
-                      <span class="input-group-addon">Customer Location</span>
+                      <span id="spanCustomerLocation" class="input-group-addon">Customer Location</span>
                       <input type="text" id="searchField" ng-model="employeeCtrl.employee.address" class="form-control" ng-autocomplete options="options" details="details" />
                     </div>
 				</div>
                 <div class="col-xs-4">
 					<div class="input-group">
-                      <span class="input-group-addon" data-toggle="tooltip">Required Skills</span>
+                      <span id="spanRequiredSkills" class="input-group-addon" data-toggle="tooltip">Required Skills</span>
                       <input ng-model="skillQuery" class="form-control">
                     </div>
 				</div>

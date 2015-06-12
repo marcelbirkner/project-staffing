@@ -77,14 +77,15 @@ describe('Manage Employees Page', function() {
 
   it('should create employee John with three skills', function() {
     createEmployee('John', 'Berlin');
+    createEmployee('John 2', 'Berlin 2');
     element(by.id('resetButton')).click();
     element(by.id('editButton')).click();
     element(by.id('addSkillTab')).click();
     createSkill('Java');
     createSkill('MongoDB');
     createSkill('JavaScript');
-    // var list = element.all(by.id('skill'));
-    // expect(list.count()).toBe(3);
+    var list = element.all(by.id('skill'));
+    expect(list.count()).toBe(3);
   });
 
 });
