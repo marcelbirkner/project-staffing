@@ -52,11 +52,12 @@
             <li>
               <a id="navDashboard" href="/#/dashboard">Stats</a>
             </li>
-            <li>
-              <a id="navNotOptimized" href="/timeline-unoptimized.html">Not Optimized</a>
-            </li>
-            <li class="active">
-              <a id="navOptimized" href="/timeline-optimized.html">Optimized</a>
+            <li id="navOptimzation" ng-class="{active:active === 'optimization', dropdown:true}">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">Optimization Example <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a id="navUnoptimized" href="/timeline-unoptimized.html" ng-click="set('optimization')">Unoptimized Page</a></li>
+                <li><a id="navOptimized" href="/timeline-unoptimized.html" ng-click="set('optimization')">Optimized Page</a></li>
+              </ul>
             </li>
           </ul>
           <form class="navbar-form navbar-right">
