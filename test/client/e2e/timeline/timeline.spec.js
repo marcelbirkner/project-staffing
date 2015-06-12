@@ -12,7 +12,7 @@ describe('Project Staffing Timeline Page', function() {
     expect(ptor.getCurrentUrl()).toMatch(/#\/timeline/);
   });
 
-  it('should delete all existing employees', function() {
+  it('should find existing tab activities', function() {
     var list = element.all(by.id('tabActivities'));
     expect(list.count()).toBe(1);
   });
