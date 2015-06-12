@@ -1,1 +1,2 @@
 client/js/lib/**/*.js
+test/client/e2e/**/*.js

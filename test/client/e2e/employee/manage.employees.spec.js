@@ -80,10 +80,10 @@ describe('Manage Employees Page', function() {
     element(by.id('resetButton')).click();
     element(by.id('editButton')).click();
     element(by.id('addSkillTab')).click();
-    createSkill('java');
+    createSkill('Java');
     createSkill('MongoDB');
     createSkill('JavaScript');
-    var list = element.all(by.id('skill'));
+    // var list = element.all(by.id('skill'));
     // expect(list.count()).toBe(3);
   });
 
