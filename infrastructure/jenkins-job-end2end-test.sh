@@ -20,7 +20,7 @@ echo "protractor --version"
 node_modules/.bin/protractor --version
 
 echo "Start WebDriver Manager"
-node_modules/.bin/webdriver-manager start &
+node_modules/.bin/webdriver-manager start --standalone &
 sleep 20
 
 echo "Start E2E test"
