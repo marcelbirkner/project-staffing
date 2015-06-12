@@ -20,6 +20,7 @@ if (typeof process.env.MONGODB_PORT_27017_TCP_ADDR !== 'undefined' && process.en
   databaseUrl = process.env.MONGODB_PORT_27017_TCP_ADDR +
     '/projectstaffing';
 }
+console.log('Setting databaseURL to ' + databaseUrl);
 
 var collections = ['employees', 'customers', 'projects', 'activities'];
 var db = mongojs.connect(databaseUrl, collections);
