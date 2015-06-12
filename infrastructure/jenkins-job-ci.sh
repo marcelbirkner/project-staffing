@@ -12,7 +12,7 @@ echo "Install dependencies using npm"
 npm install
 
 echo "Run Grunt build"
-grunt ci
+grunt ci --force
 
 echo "Store build version in navigation"
 find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Projects/Version $BUILD_NUMBER/g"
