@@ -6,20 +6,26 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    jsSrcDir: 'client/js',
+    appSrcDir: 'client',
+    appTargetDir: 'static',
+
+    htmlSrcDir: '<%= appSrcDir %>/html',
+
+    jsSrcDir: '<%= appSrcDir %>/js',
     jsSrcFiles: '<%= jsSrcDir %>/**/*.js',
     jsLibDir: '<%= jsSrcDir %>/lib',
-    jsTargetDir: 'static/js',
-    jsNoCacheDir: 'static/no-cache/js',
+    jsTargetDir: '<%= appTargetDir %>/js',
+    jsNoCacheDir: '<%= appTargetDir %>/no-cache/js',
 
-    cssSrcDir: 'client/css',
+    cssSrcDir: '<%= appSrcDir %>/css',
     cssSrcFiles: '<%= cssSrcDir %>/*.scss',
     cssLibDir: '<%= cssSrcDir %>/lib',
-    cssTargetDir: 'static/css',
-    cssNoCacheDir: 'static/no-cache/css',
+    cssTargetDir: '<%= appTargetDir %>/css',
+    cssNoCacheDir: '<%= appTargetDir %>/no-cache/css',
 
     /* clean build artifacts */
     clean: {
+      all: [ '<%= appTargetDir %>' ],
       js: [ '<%= jsTargetDir %>' ],
       css: [ '<%= cssTargetDir %>' ],
     },
@@ -29,8 +35,72 @@ module.exports = function(grunt) {
       target: [
         'Gruntfile.js',
         '<%= jsSrcFiles %>',
-        '!client/js/lib/**/*.js',
+        '!<%= jsLibDir %>/**/*.js',
       ]
+    },
+
+    /* copy static assets to target dir */
+    copy: {
+      html: {
+        expand: true,
+        cwd: '<%= htmlSrcDir %>',
+        src: '**/*.html',
+        dest: '<%= appTargetDir %>/',
+        flatten: false,
+        filter: 'isFile',
+      },
+      fonts: {
+        expand: true,
+        cwd: '<%= appSrcDir %>',
+        src: 'fonts/**/*',
+        dest: '<%= appTargetDir %>/',
+        flatten: false,
+      },
+      images: {
+        expand: true,
+        cwd: '<%= appSrcDir %>',
+        src: 'img/**/*',
+        dest: '<%= appTargetDir %>/',
+        flatten: false,
+      },
+       jsSourceMaps: {
+        expand: true,
+        src: 'node_modules/angular*/angular*.min.js.map',
+        dest: '<%= jsTargetDir %>/',
+        flatten: true,
+        filter: 'isFile',
+      },
+      cssThirdParty: {
+        expand: true,
+        src: '<%= cssLibDir %>/*',
+        dest: '<%= cssTargetDir %>/',
+        flatten: true,
+      },
+      noCacheJs: {
+        expand: true,
+        src: '<%= jsSrcDir %>/**/*.js',
+        dest: '<%= jsNoCacheDir %>/',
+        flatten: false,
+      },
+      noCacheLibJs: {
+        expand: true,
+        src: [
+          'node_modules/jquery/dist/jquery.js',
+          'node_modules/bootstrap/dist/js/bootstrap.js',
+          'node_modules/angular/angular.js',
+          'node_modules/angular-route/angular-route.js',
+          'node_modules/angular-animate/angular-animate.js',
+        ],
+        dest: '<%= jsNoCacheDir %>/',
+        flatten: true,
+      },
+
+      noCacheCss: {
+        expand: true,
+        src: '<%= cssTargetDir %>/*',
+        dest: '<%= cssNoCacheDir %>/',
+        flatten: true,
+      },
     },
 
     /* concatenate JS */
@@ -136,46 +206,6 @@ module.exports = function(grunt) {
       },
     },
 
-    copy: {
-      jsSourceMaps: {
-        expand: true,
-        src: 'node_modules/angular*/angular*.min.js.map',
-        dest: '<%= jsTargetDir %>/',
-        flatten: true,
-        filter: 'isFile',
-      },
-      cssThirdParty: {
-        expand: true,
-        src: '<%= cssLibDir %>/*',
-        dest: '<%= cssTargetDir %>/',
-        flatten: true,
-      },
-      noCacheJs: {
-        expand: true,
-        src: '<%= jsSrcDir %>/**/*.js',
-        dest: '<%= jsNoCacheDir %>/',
-        flatten: false,
-      },
-      noCacheLibJs: {
-        expand: true,
-        src: [
-          'node_modules/jquery/dist/jquery.js',
-          'node_modules/bootstrap/dist/js/bootstrap.js',
-          'node_modules/angular/angular.js',
-          'node_modules/angular-route/angular-route.js',
-          'node_modules/angular-animate/angular-animate.js',
-        ],
-        dest: '<%= jsNoCacheDir %>/',
-        flatten: true,
-      },
-
-      noCacheCss: {
-        expand: true,
-        src: '<%= cssTargetDir %>/*',
-        dest: '<%= cssNoCacheDir %>/',
-        flatten: true,
-      },
-    },
 
     karma: {
       local: {
@@ -220,14 +250,14 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('build', [
-    'clean',
+    'clean:all',
     'eslint',
+    'copy',
     'concat',
     'ngAnnotate',
     'uglify',
     'sass',
     'cssmin',
-    'copy',
     'versioning',
   ]);
 
