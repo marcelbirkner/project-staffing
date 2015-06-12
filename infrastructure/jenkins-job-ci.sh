@@ -20,8 +20,8 @@ find static/navigation.html -type f -print0 | xargs -0 sed -i "s/Company Project
 echo "Rimraf node_modules"
 rm -rf node_modules
 
-echo "Install dependencies using npm, again, this time no dev dependencies"
-npm install --production
+# echo "Install dependencies using npm, again, this time no dev dependencies"
+# npm install --production
 
 echo "Package app"
 zip -r project-staffing.zip server.js static/ node_modules/ data/ lib/
