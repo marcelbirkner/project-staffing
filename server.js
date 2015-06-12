@@ -1,15 +1,11 @@
 'use strict';
 
-
-// express settings
+// ExpressJS settings
 var express = require('express');
 var app = express();
 var cors = require('cors');
-var nodeValidator = require('validator');
 var expressValidator = require('express-validator');
-var http = require('http');
 var util = require('util');
-
 var path = require('path');
 
 // mongodb settings
@@ -21,9 +17,16 @@ if (typeof process.env.MONGODB_PORT_27017_TCP_ADDR !== 'undefined' && process.en
     '/projectstaffing';
 }
 console.log('Setting databaseURL to ' + databaseUrl);
-
 var collections = ['employees', 'customers', 'projects', 'activities'];
 var db = mongojs.connect(databaseUrl, collections);
+
+console.log('Register MongoDB events');
+db.on('error', function(err) {
+  console.log('Database error', err);
+});
+db.on('ready', function() {
+  console.log('Database status: connected');
+});
 
 var customer = require('./data/customer.js');
 var activityList = require('./data/activities.js');
@@ -35,7 +38,7 @@ var errors = require('./lib/errors');
  * Version of backend system. Each addition of a new REST Service changes the version number.
  */
 var version = {
-  'version': '1.3.0'
+  'version': '1.4.0'
 };
 
 function mapStatic(dirname, maxAge) {
@@ -56,6 +59,8 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(expressValidator());
   app.use(cors());
+
+  // Config used for showing optimized and unoptimized pages
   // app.use(express.static(__dirname + '/static'));
   app.use('/css', mapStatic('static/css', true));
   app.use('/js', mapStatic('static/js', true));
@@ -186,76 +191,90 @@ app.get('/api/version', function(req, res) {
  * MONGODB INIT
  */
 app.get('/api/mongo/init', function(req, res) {
-  console.log('GET - init mongodb with testdata');
+  console.log('GET - init mongodb testdata');
+  initTestData(req.query.all);
+  return res.json(200, {
+    'message': 'MongoDB test data initialized'
+  });
+});
+
+function saveEmployee(item) {
+  db.employees.save(item, function(err, saved) {
+    if (err || !saved) {
+      console.log('Employee not saved. ' + err);
+    }
+  });
+}
+
+function saveProject(item) {
+  db.projects.save(item, function(err, saved) {
+    if (err || !saved) {
+      console.log('Projects not saved');
+    }
+  });
+}
+
+function saveCustomer(item) {
+  db.customers.save(item, function(err, saved) {
+    if (err || !saved) {
+      console.log('Customer not saved');
+    }
+  });
+}
+
+function saveActivity(item) {
+  db.activities.save(item, function(err, saved) {
+    if (err || !saved) {
+      console.log('Activity not saved');
+    }
+  });
+}
+
+function initTestData(all) {
 
   db.customers.remove({});
   db.projects.remove({});
   db.employees.remove({});
   db.activities.remove({});
 
+  console.log('Initializing customer testdata in MongoDB ' + all);
   for (var id in customer) {
-    var item = customer[id];
-    db.customers.save(item, function(err, saved) {
-      if (err || !saved)
-        console.log("Customer not saved");
-      else
-        console.log("Customer saved");
-    });
+    var customerItem = customer[id];
+    saveCustomer(customerItem);
   }
 
-  for (var id in employee) {
-    var item = employee[id];
-    db.employees.save(item, function(err, saved) {
-      if (err || !saved)
-        console.log("Employee not saved");
-      else
-        console.log("Employee saved");
-    });
+  console.log('Initializing employee testdata in MongoDB');
+  for (var eid in employee) {
+    var item = employee[eid];
+    saveEmployee(item);
   }
 
-  for (var id in activityList) {
-    var item = activityList[id];
-    db.activities.save(item, function(err, saved) {
-      if (err || !saved)
-        console.log("Activity not saved");
-      else
-        console.log("Activity saved");
-    });
+  console.log('Initializing activity testdata in MongoDB');
+  for (var aid in activityList) {
+    var activityItem = activityList[aid];
+    saveActivity(activityItem);
   }
 
-  for (var id in project) {
-    var item = project[id];
-    db.projects.save(item, function(err, saved) {
-      if (err || !saved)
-        console.log("Projects not saved");
-      else
-        console.log("Projects saved");
-    });
+  console.log('Initializing project testdata in MongoDB');
+  for (var pid in project) {
+    var projectItem = project[pid];
+    saveProject(projectItem);
   }
 
-  if (req.query.all) {
+  if (all) {
     console.log('Generate 200 test users for MongoDB');
     for (var i = 0; i < 200; i++) {
-      var item = {};
-      item.name = 'Test-' + i;
-      item.email = 'test-' + i + '@company.com';
-      item.twitter = '@test-' + i;
-      item.address = 'Test address-' + i;
-      item.office = 'Solingen';
+      var emp = {};
+      emp.name = 'Test-' + i;
+      emp.email = 'test-' + i + '@company.com';
+      emp.twitter = '@test-' + i;
+      emp.address = 'Test address-' + i;
+      emp.office = 'Solingen';
 
-      db.employees.save(item, function(err, saved) {
-        if (err || !saved)
-          console.log("Employee not saved");
-        else
-          console.log("Employee saved");
-      });
+      saveEmployee(emp);
     }
   }
-
-  return res.json(200, {
-    'message': 'MongoDB test data initialized'
-  });
-});
+}
 
 /**
  * Customer API
@@ -263,11 +282,11 @@ app.get('/api/mongo/init', function(req, res) {
 app.get('/api/mongo/customers', function(req, res) {
   console.log('GET - array of all customers');
   db.customers.find({}, function(err, customers) {
-    if (err || !customer || customer.length == 0)
+    if (err || !customer || customer.length === 0) {
       return res.json(404, {
         error: 'No customers found'
       });
-    else {
+    } else {
       console.log(err);
       return res.json(200, customers);
     }
@@ -275,27 +294,27 @@ app.get('/api/mongo/customers', function(req, res) {
 });
 app.post('/api/mongo/customers', function(req, res) {
   console.log('POST - create new customer');
-  console.log(req.body);
   db.customers.save(req.body, function(err, saved) {
     if (err || !saved) {
-      console.log("Customer not saved");
+      console.log('Customer not saved');
       return res.send(500, {
         error: 'Customer not saved.'
-      })
+      });
     } else {
-      console.log("Customer saved");
+      console.log('Customer saved');
       return res.end();
     }
   });
 });
 app.delete('/api/mongo/customers/:id', function(req, res) {
   console.log('DELETE - customer by id');
-  console.log(req.params.id);
   var id = req.params.id;
   db.customers.remove({
     _id: mongojs.ObjectId(id)
-  }, function(err, lastErrorObject) {
-    if (err) console.log(err);
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    }
   });
   return res.end();
 });
@@ -306,12 +325,13 @@ app.delete('/api/mongo/customers/:id', function(req, res) {
 app.get('/api/mongo/projects', function(req, res) {
   console.log('GET - array of all projects');
   db.projects.find({}, function(err, projects) {
-    if (err || !projects || projects.length == 0)
+    if (err || !projects || projects.length === 0) {
       return res.json(404, {
         error: 'No projects found'
       });
-    else
+    } else {
       return res.json(200, projects);
+    }
   });
 });
 
@@ -320,30 +340,28 @@ app.get('/api/mongo/projects', function(req, res) {
  */
 app.get('/api/mongo/activities', function(req, res) {
   console.log('GET - array of all activities');
-
   db.activities.find().limit(20).sort({
     timestamp: -1
   }, function(err, activities) {
-
-    if (err || !activities)
+    if (err || !activities) {
       return res.json(404, {
         error: 'No activities found'
       });
-    else
+    } else {
       return res.json(200, activities);
+    }
   });
 });
 app.post('/api/mongo/activities', function(req, res) {
   console.log('POST - create new activity');
-  console.log(req.body);
   db.activities.save(req.body, function(err, saved) {
     if (err || !saved) {
-      console.log("Activity not saved");
+      console.log('Activity not saved');
       return res.send(500, {
         error: 'Activity not saved.'
-      })
+      });
     } else {
-      console.log("Activity saved");
+      console.log('Activity saved');
       return res.end();
     }
   });
@@ -355,12 +373,13 @@ app.post('/api/mongo/activities', function(req, res) {
 app.get('/api/mongo/employees', function(req, res) {
   console.log('GET - array of all employees');
   db.employees.find({}, function(err, employees) {
-    if (err || !employees)
+    if (err || !employees) {
       return res.json(404, {
         error: 'No employees found'
       });
-    else
+    } else {
       return res.json(200, employees);
+    }
   });
 });
 app.get('/api/mongo/employees/:id', function(req, res) {
@@ -368,47 +387,46 @@ app.get('/api/mongo/employees/:id', function(req, res) {
   var id = req.params.id;
   db.employees.findOne({
     _id: mongojs.ObjectId(id)
-  }, function(err, employee) {
-    if (err || !employee) {
-      console.log("No employee found");
-      return res.json(404, employee);
+  }, function(err, employeeObject) {
+    if (err || !employeeObject) {
+      console.log('No employee found');
+      return res.json(404, employeeObject);
     } else {
-      return res.json(200, employee);
+      return res.json(200, employeeObject);
     }
   });
 });
 app.post('/api/mongo/employees', function(req, res) {
   console.log('POST - create new employee');
-  console.log(req.body);
   db.employees.save(req.body, function(err, saved) {
     if (err || !saved) {
-      console.log("Employee not saved");
+      console.log('Employee not saved');
       return res.send(500, {
         error: 'Employee not saved.'
-      })
+      });
     } else {
-      console.log("Employee saved");
+      console.log('Employee saved');
       return res.end();
     }
   });
 });
 app.delete('/api/mongo/employees/:id', function(req, res) {
   console.log('DELETE - employee by id');
-  console.log(req.params.id);
   var id = req.params.id;
   db.employees.remove({
     _id: mongojs.ObjectId(id)
-  }, function(err, lastErrorObject) {
-    if (err) console.log(err);
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    }
   });
   return res.end();
 });
 app.get('/api/mongo/search/employee', function(req, res) {
   console.log('GET - search employee with query param');
-  console.log(req.query);
   db.employees.find(req.query, function(err, employees) {
-    if (err || employees.length == 0) {
-      console.log("No employees found");
+    if (err || employees.length === 0) {
+      console.log('No employees found');
       return res.json(404, employees);
     } else {
       return res.json(200, employees);
@@ -418,16 +436,16 @@ app.get('/api/mongo/search/employee', function(req, res) {
 app.post('/api/mongo/employees/:id', function(req, res) {
   console.log('POST - update employee by id');
   var id = req.params.id;
-  var employee = req.body;
-  employee.createdOn = Date.now();
-  delete employee._id;
-  console.log(employee);
+  var employeeObject = req.body;
+  employeeObject.createdOn = Date.now();
+  delete employeeObject._id;
+  console.log(employeeObject);
   db.employees.findAndModify({
     query: {
       _id: mongojs.ObjectId(id)
     },
     update: {
-      $set: employee
+      $set: employeeObject
     },
     new: true
   }, function(err, doc, lastErrorObject) {
@@ -439,7 +457,6 @@ app.post('/api/mongo/employees/:id', function(req, res) {
 });
 app.post('/api/mongo/employees/:id/skills', function(req, res) {
   console.log('POST - update skills array of existing employee');
-  console.log(req.body.skills);
   var id = req.params.id;
   db.employees.findAndModify({
     query: {
@@ -451,14 +468,13 @@ app.post('/api/mongo/employees/:id/skills', function(req, res) {
       }
     },
     new: true
-  }, function(err, doc, lastErrorObject) {
+  }, function(err, doc) {
     console.log(doc);
   });
   res.end();
 });
 app.post('/api/mongo/employees/:id/projects', function(req, res) {
   console.log('POST - update projects array of existing employee');
-  console.log(req.body.projects);
   var id = req.params.id;
   db.employees.findAndModify({
     query: {
@@ -470,25 +486,22 @@ app.post('/api/mongo/employees/:id/projects', function(req, res) {
       }
     },
     new: true
-  }, function(err, doc, lastErrorObject) {
+  }, function(err, doc) {
     console.log(doc);
   });
   res.end();
 });
 app.get('/api/mongo/search/employees/skills', function(req, res) {
   console.log('GET - array of employees with certain skills');
-
   // map incoming query parameter to mongodb search query
-  console.log(req.query);
   var input = req.query;
   var fullQuery = {};
   if (util.isArray(input.skills)) {
     var query = input.skills.map(function(skill) {
       return {
         skills: skill
-      }
+      };
     });
-    var startDate = '2016-12-01';
     fullQuery = {
       $and: query
     };
@@ -498,8 +511,8 @@ app.get('/api/mongo/search/employees/skills', function(req, res) {
   console.log(fullQuery);
 
   db.employees.find(fullQuery, function(err, employees) {
-    if (err || !employees || employees.length == 0) {
-      console.log("No employees found");
+    if (err || !employees || employees.length === 0) {
+      console.log('No employees found');
       return res.json(404, employees);
     } else {
       return res.json(200, employees);
@@ -515,14 +528,14 @@ app.get('/api/mongo/search/location/employees', function(req, res) {
 
   db.employees.aggregate([{
     $group: {
-      _id: "$office",
+      _id: '$office',
       total: {
         $sum: 1
       }
     }
   }], function(err, employees) {
     if (err) {
-      console.log("No employees found");
+      console.log('No employees found');
       return res.json(404, employees);
     } else {
       return res.json(200, employees);
@@ -533,18 +546,20 @@ app.get('/api/mongo/search/location/employees', function(req, res) {
 app.get('/api/mongo/search/employees/latestproject', function(req, res) {
   console.log('GET - array of employees with latest project');
 
-  var oldQuery = [{
-    $unwind: '$projects'
-  }, {
-    $group: {
-      _id: '$_id',
-      test: {
-        end: {
-          $max: '$end'
+  /*
+    var oldQuery = [{
+      $unwind: "$projects"
+    }, {
+      $group: {
+        _id: '$_id',
+        test: {
+          end: {
+            $max: '$end'
+          }
         }
       }
-    }
-  }];
+    }];
+    */
 
   var query = [{
     $project: {
@@ -553,16 +568,16 @@ app.get('/api/mongo/search/employees/latestproject', function(req, res) {
       projects: 1
     }
   }, {
-    "$unwind": "$projects"
+    '$unwind': '$projects '
   }, {
-    "$sort": {
-      "projects.end": -1
+    '$sort': {
+      'projects.end': -1
     }
   }];
   db.employees.aggregate(query, function(err, employees) {
     if (err) {
       console.log(err);
-      console.log("No employees found");
+      console.log('No employees found');
       return res.json(404, employees);
     } else {
       return res.json(200, employees);
@@ -650,10 +665,10 @@ app.get('/api/project/:id', function(req, res) {
   return res.json(200, proj);
 });
 
-function addLinksToProject(project) {
-  project.links = {
+function addLinksToProject(proj) {
+  proj.links = {
     self: {
-      href: '/api/project/' + project.id,
+      href: '/api/project/' + proj.id
     }
   };
 }
@@ -665,7 +680,6 @@ function addLinksToAllProjects(projects) {
     addLinksToCustomer(projects[projectId].customer);
   }
 }
-
 
 /**
  * CUSTOMER
@@ -683,10 +697,10 @@ app.get('/api/customer/:id', function(req, res) {
   return res.json(200, customer[req.params.id]);
 });
 
-function addLinksToCustomer(customer) {
-  customer.links = {
+function addLinksToCustomer(cust) {
+  cust.links = {
     self: {
-      href: '/api/customer/' + customer.id,
+      href: '/api/customer/' + cust.id
     }
   };
 }
@@ -718,10 +732,10 @@ app.get('/api/employee/:id', function(req, res) {
   return res.json(200, emp);
 });
 
-function addLinksToEmployee(employee) {
-  employee.links = {
+function addLinksToEmployee(emp) {
+  emp.links = {
     self: {
-      href: '/api/employee/' + employee.id,
+      href: '/api/employee/' + emp.id
     }
   };
   console.log(employee.projects);
@@ -751,3 +765,5 @@ function addLinksToAllEmployees(list) {
  */
 app.listen(9000);
 console.log('Listening on port 9000');
+
+initTestData();
