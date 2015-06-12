@@ -15,6 +15,9 @@ sudo kill -9 $PID
 echo "Install npm packages"
 npm install
 
+echo "protractor --version"
+node_modules/.bin/protractor --version
+
 echo "Start WebDriver Manager"
 node_modules/.bin/webdriver-manager start &
 sleep 20
