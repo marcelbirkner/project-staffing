@@ -1212,7 +1212,6 @@ article.smaller q:before, article.smaller q:after {
 /* line 803, ../scss/default.scss */
 .logoslide img {
   width: 500px;
-  height: 83px;
 }
 
 /* line 809, ../scss/default.scss */
@@ -1316,7 +1315,6 @@ aside.gdbar.bottom {
 /* line 877, ../scss/default.scss */
 aside.gdbar img {
   width: 85px;
-  height: 85px;
   position: absolute;
   right: 0;
   margin: 8px 15px;
