@@ -10,7 +10,7 @@
     "url": "git://github.com/marcelbirkner/project-staffing"
   },
   "scripts": {
-    "postinstall": "grunt build && webdriver-manager update",
+    "postinstall": "grunt build && node_modules/.bin/webdriver-manager update",
     "test": "grunt test"
   },
   "dependencies": {
