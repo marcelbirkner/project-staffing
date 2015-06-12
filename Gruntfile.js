@@ -10,6 +10,7 @@ module.exports = function(grunt) {
     appTargetDir: 'static',
 
     htmlSrcDir: '<%= appSrcDir %>/html',
+    htmlSrcFiles: '<%= htmlSrcDir %>/**/*.html',
 
     jsSrcDir: '<%= appSrcDir %>/js',
     jsSrcFiles: '<%= jsSrcDir %>/**/*.js',
@@ -230,10 +231,11 @@ module.exports = function(grunt) {
         '.eslintrc',
         '<%= jsSrcFiles %>',
         '<%= cssSrcFiles %>',
+        '<%= htmlSrcFiles %>',
         '!node_modules/**/*',
       ],
       tasks: [
-        'default',
+        'build',
       ]
     }
   });
