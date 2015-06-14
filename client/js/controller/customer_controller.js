@@ -5,9 +5,9 @@
 
   angular
     .module('project-staffing')
-    .controller('CustomerController', function($http, $scope, Url, ActivityService) {
+    .controller('CustomerController', function($http, $scope, UrlService, ActivityService) {
 
-      var url = Url.getUrl();
+      var url = UrlService.getUrl();
 
       var company = this;
       company.customers = [];
@@ -150,18 +150,16 @@
           customer = customers[i];
 
           markerCustomer = new google.maps.Marker({
-            position: new google.maps.LatLng(customer.companyaddress.longitude,
-              customer.companyaddress.latitude),
+            position: new google.maps.LatLng(customer.companyaddress.longitude, customer.companyaddress.latitude),
             map: map,
             icon: image,
             title: customer.company,
           });
 
           // Allow each marker to have an info window
-          google.maps.event.addListener(markerCustomer, 'click', (function(
-            markerCustomer, i) {
+          google.maps.event.addListener(markerCustomer, 'click', (function(marker, index) {
             return function() {
-              var cust = customers[i];
+              var cust = customers[index];
               var content = '<p><b id="customerTitle">' +
                 cust.company + '</b></p><table class="table"><tr>' +
                 '<tr><td><span class="label label-primary">' +
@@ -171,7 +169,7 @@
                 '</span></td><td>' + cust.address +
                 '</td></tr></table>';
               infoWindow.setContent(content);
-              infoWindow.open(map, markerCustomer);
+              infoWindow.open(map, marker);
             };
           })(markerCustomer, i));
         }

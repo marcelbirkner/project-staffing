@@ -1,13 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('ProjectController', function($http, Url, ActivityService) {
-
-    var url = Url.getUrl();
+  angular.module('project-staffing').controller('ProjectController', function($http, UrlService, EmployeeService, ActivityService) {
 
     this.deleteProject = function(id, employee) {
       employee.projects.splice(id, 1);
-      $http.post(url + '/api/mongo/employees/' + employee._id + '/projects', JSON.stringify(employee));
+      EmployeeService.deleteProject(employee);
 
       // TODO: get userid from session
       var user = 'julia';
@@ -20,7 +18,7 @@
         employee.projects = [];
       }
       employee.projects.push(this.project);
-      $http.post(url + '/api/mongo/employees/' + employee._id + '/projects', JSON.stringify(employee));
+      EmployeeService.addProject(employee);
       this.project = {};
 
       // TODO: get userid from session

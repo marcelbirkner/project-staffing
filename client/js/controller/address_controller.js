@@ -3,9 +3,7 @@
 
   angular
     .module('project-staffing')
-    .controller('AddressController', function($http, $scope, Url, ActivityService) {
-
-      var url = Url.getUrl();
+    .controller('AddressController', function($scope, ActivityService, EmployeeService) {
 
       $scope.result = '';
       $scope.details = {};
@@ -21,14 +19,12 @@
         employee.homeaddress = {};
         employee.homeaddress.longitude = $scope.details.geometry.location[keys[0]];
         employee.homeaddress.latitude = $scope.details.geometry.location[keys[1]];
-
-        $http.post(url + '/api/mongo/employees/' + employee._id, JSON.stringify(employee));
+        EmployeeService.saveAddress(employee._id, employee);
 
         // TODO: get userid from session
         var user = 'max';
         var msg = 'updated the address of an existing employee';
-        var object = employee.name;
-        ActivityService.saveActivity(user, msg, object);
+        ActivityService.saveActivity(user, msg, employee.name);
       };
 
     });

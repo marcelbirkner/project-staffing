@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('SkillController', function($http, Url, ActivityService) {
+  angular.module('project-staffing').controller('SkillController', function($http, Url, ActivityService, EmployeeService) {
 
     this.skill = '';
 
     this.deleteSkill = function(id, employee) {
       employee.skills.splice(id, 1);
-      $http.post(Url.getUrl() + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+      EmployeeService.deleteSkill(employee);
 
       // TODO: get userid from session
       var user = 'julia';
@@ -22,13 +22,14 @@
           return;
         }
       }
+
       if (employee.skills == null) {
         employee.skills = [];
       }
+
       if (this.skill.length > 0) {
         employee.skills.push(this.skill);
-
-        $http.post(Url.getUrl() + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+        EmployeeService.addSkill(employee);
 
         // TODO: get userid from session
         var user = 'jon';
@@ -37,9 +38,6 @@
 
         this.skill = '';
       }
-
     };
-
   });
-
 })();

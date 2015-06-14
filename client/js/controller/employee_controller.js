@@ -3,9 +3,9 @@
 
   angular
     .module('project-staffing')
-    .controller('EmployeeController', function($http, Url, EmployeeService, ActivityService) {
+    .controller('EmployeeController', function($http, UrlService, EmployeeService, ActivityService) {
 
-      var url = Url.getUrl();
+      var url = UrlService.getUrl();
 
       var company = this;
 

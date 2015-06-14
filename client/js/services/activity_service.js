@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('project-staffing')
-    .factory('ActivityService', function($http, Url, $log) {
+    .factory('ActivityService', function($http, UrlService, $log) {
+      var url = UrlService.getUrl();
       var activities = [];
-      $http.get(Url.getUrl() + '/api/mongo/activities').success(function(
-        activitiesData) {
+      $http.get(url + '/api/mongo/activities').success(function(activitiesData) {
         activities = activitiesData;
       });
       return {
@@ -18,7 +18,7 @@
             object: object
           };
           activities.push(activity);
-          $http.post(Url.getUrl() + '/api/mongo/activities', JSON.stringify(activity));
+          $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
         },
         getActivities: function() {
           $log.debug('ActivityService :: getActivities');
