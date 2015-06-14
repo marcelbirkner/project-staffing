@@ -26,9 +26,9 @@ module.exports = function(grunt) {
 
     /* clean build artifacts */
     clean: {
-      all: ['<%= appTargetDir %>'],
-      js: ['<%= jsTargetDir %>'],
-      css: ['<%= cssTargetDir %>'],
+      all: [ '<%= appTargetDir %>' ],
+      js: [ '<%= jsTargetDir %>' ],
+      css: [ '<%= cssTargetDir %>' ],
     },
 
     /* static source code analysis */
@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       target: [
         'Gruntfile.js',
         '<%= jsSrcFiles %>',
-        '!<%= jsLibDir %>/**/*.js'
+        '!<%= jsLibDir %>/**/*.js',
       ]
     },
 
@@ -48,40 +48,40 @@ module.exports = function(grunt) {
         src: '**/*.html',
         dest: '<%= appTargetDir %>/',
         flatten: false,
-        filter: 'isFile'
+        filter: 'isFile',
       },
       fonts: {
         expand: true,
         cwd: '<%= appSrcDir %>',
         src: 'fonts/**/*',
         dest: '<%= appTargetDir %>/',
-        flatten: false
+        flatten: false,
       },
       images: {
         expand: true,
         cwd: '<%= appSrcDir %>',
         src: 'img/**/*',
         dest: '<%= appTargetDir %>/',
-        flatten: false
+        flatten: false,
       },
-      jsSourceMaps: {
+       jsSourceMaps: {
         expand: true,
         src: 'node_modules/angular*/angular*.min.js.map',
         dest: '<%= jsTargetDir %>/',
         flatten: true,
-        filter: 'isFile'
+        filter: 'isFile',
       },
       cssThirdParty: {
         expand: true,
         src: '<%= cssLibDir %>/*',
         dest: '<%= cssTargetDir %>/',
-        flatten: true
+        flatten: true,
       },
       noCacheJs: {
         expand: true,
         src: '<%= jsSrcDir %>/**/*.js',
         dest: '<%= jsNoCacheDir %>/',
-        flatten: false
+        flatten: false,
       },
       noCacheLibJs: {
         expand: true,
@@ -90,18 +90,18 @@ module.exports = function(grunt) {
           'node_modules/bootstrap/dist/js/bootstrap.js',
           'node_modules/angular/angular.js',
           'node_modules/angular-route/angular-route.js',
-          'node_modules/angular-animate/angular-animate.js'
+          'node_modules/angular-animate/angular-animate.js',
         ],
         dest: '<%= jsNoCacheDir %>/',
-        flatten: true
+        flatten: true,
       },
 
       noCacheCss: {
         expand: true,
         src: '<%= cssTargetDir %>/*',
         dest: '<%= cssNoCacheDir %>/',
-        flatten: true
-      }
+        flatten: true,
+      },
     },
 
     /* concatenate JS */
@@ -116,13 +116,13 @@ module.exports = function(grunt) {
           'node_modules/angular/angular.min.js',
           'node_modules/angular-route/angular-route.min.js',
           'node_modules/angular-animate/angular-animate.min.js',
-          '<%= jsLibDir %>/ngAutocomplete.js'
+          '<%= jsLibDir %>/ngAutocomplete.js',
         ],
         dest: '<%= jsTargetDir %>/vendor.js'
       },
       app: {
         src: [
-          'client/js/**/*.js'
+          'client/js/**/*.js',
         ],
         dest: '<%= jsTargetDir %>/app.js'
       }
@@ -136,9 +136,9 @@ module.exports = function(grunt) {
       app: {
         files: [{
           expand: true,
-          src: ['<%= concat.app.dest %>'],
+          src: [ '<%= concat.app.dest %>' ],
           ext: '.annotated.js',
-          extDot: 'last'
+          extDot: 'last',
         }],
       },
     },
@@ -147,11 +147,11 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         preserveComments: false,
-        sourceMap: true
+        sourceMap: true,
       },
       app: {
         files: {
-          '<%= jsTargetDir %>/app.min.js': ['static/js/app.annotated.js'],
+          '<%= jsTargetDir %>/app.min.js': [ 'static/js/app.annotated.js'],
         }
       }
     },
@@ -167,13 +167,13 @@ module.exports = function(grunt) {
 
           /* compact/compressed */
           style: 'expanded',
-          unixNewlines: true
+          unixNewlines: true,
         },
         files: {
           '<%= cssTargetDir %>/master.css': '<%= cssSrcDir %>/master.scss',
           '<%= cssTargetDir %>/dashboard.css': '<%= cssSrcDir %>/dashboard.scss',
           '<%= cssNoCacheDir %>/master.css': '<%= cssSrcDir %>/master.scss',
-          '<%= cssNoCacheDir %>/dashboard.css': '<%= cssSrcDir %>/dashboard.scss'
+          '<%= cssNoCacheDir %>/dashboard.css': '<%= cssSrcDir %>/dashboard.scss',
         }
       }
     },
@@ -183,7 +183,7 @@ module.exports = function(grunt) {
         files: {
           '<%= cssTargetDir %>/app.min.css': [
             '<%= cssTargetDir %>/master.css',
-            '<%= cssTargetDir %>/dashboard.css'
+            '<%= cssTargetDir %>/dashboard.css',
           ]
         }
       }
@@ -193,20 +193,20 @@ module.exports = function(grunt) {
     versioning: {
       options: {
         grepFiles: [
-          'static/**/*.html'
+          'static/**/*.html',
         ]
       },
       js: {
         src: [
           '<%= jsTargetDir %>/app.min.js',
-          '<%= jsTargetDir %>/vendor.js'
+          '<%= jsTargetDir %>/vendor.js',
         ]
       },
       css: {
         src: [
           '<%= cssTargetDir %>/app.min.css',
         ]
-      }
+      },
     },
 
 
@@ -216,15 +216,15 @@ module.exports = function(grunt) {
         reporters: ['progress'],
         browsers: ['Firefox'],
         autoWatch: false,
-        singleRun: true
+        singleRun: true,
       },
       ci: {
         configFile: 'karma.conf.js',
         reporters: ['junit'],
         browsers: ['PhantomJS'],
         autoWatch: false,
-        singleRun: true
-      }
+        singleRun: true,
+      },
     },
 
     watch: {
@@ -234,10 +234,10 @@ module.exports = function(grunt) {
         '<%= jsSrcFiles %>',
         '<%= cssSrcFiles %>',
         '<%= htmlSrcFiles %>',
-        '!node_modules/**/*'
+        '!node_modules/**/*',
       ],
       tasks: [
-        'build'
+        'build',
       ]
     }
   });
@@ -262,25 +262,24 @@ module.exports = function(grunt) {
     'uglify',
     'sass',
     'cssmin',
-    'versioning'
+    'versioning',
   ]);
 
   grunt.registerTask('local', [
     'build',
-    'karma:local'
+    'karma:local',
   ]);
 
   grunt.registerTask('ci', [
     'init-ci',
     'build',
-    'karma:ci'
+    'karma:ci',
   ]);
 
-  grunt.registerTask('default', ['local']);
+  grunt.registerTask('default', [ 'local' ]);
 
   grunt.registerTask('init-ci', function() {
-    grunt.config('eslint.options.output-file',
-      'eslint-checkstyle-report.xml');
+    grunt.config('eslint.options.output-file', 'eslint-checkstyle-report.xml');
     grunt.config('eslint.options.format', 'checkstyle');
   });
 };
