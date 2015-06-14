@@ -5,7 +5,7 @@
 
   angular
     .module('project-staffing')
-    .controller('CustomerController', function($http, $scope, Url) {
+    .controller('CustomerController', function($http, $scope, Url, ActivityService) {
 
       var url = Url.getUrl();
 
@@ -29,23 +29,15 @@
       this.addCustomer = function() {
         this.customer.companyaddress = {};
         var keys = Object.keys($scope.details.geometry.location);
-        this.customer.companyaddress.longitude = $scope.details.geometry.location[
-          keys[0]];
-        this.customer.companyaddress.latitude = $scope.details.geometry.location[
-          keys[1]];
+        this.customer.companyaddress.longitude = $scope.details.geometry.location[keys[0]];
+        this.customer.companyaddress.latitude = $scope.details.geometry.location[keys[1]];
 
         // TODO: get userid from session
         var user = 'jon';
         var msg = 'created a new customer';
-        var activity = {
-          timestamp: new Date(),
-          subject: user,
-          action: msg,
-          object: this.customer.company
-        };
-        $http.post(url + '/api/mongo/customers', JSON.stringify(this.customer));
-        $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+        ActivityService.saveActivity(user, msg, this.customer.company);
 
+        $http.post(url + '/api/mongo/customers', JSON.stringify(this.customer));
         $http.get(url + '/api/mongo/customers').success(function(data) {
           company.customers = data;
         });
@@ -67,14 +59,7 @@
         // TODO: get userid from session
         var user = 'julia';
         var msg = 'deleted customer';
-        var activity = {
-          timestamp: new Date(),
-          subject: user,
-          action: msg,
-          object: deletedCustomer.company
-        };
-        $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
-
+        ActivityService.saveActivity(user, msg, deletedCustomer.company);
       };
 
       this.editCustomer = function(id) {

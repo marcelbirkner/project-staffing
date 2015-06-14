@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('project-staffing')
-    .controller('TimelineController', function($scope, Activity) {
+    .controller('TimelineController', function($scope, ActivityService) {
 
-    $scope.activityCtrl = Activity;
+      $scope.activityCtrl = ActivityService;
 
-  });
+    });
 
 })();

@@ -1,25 +1,23 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('SkillController', function($http, Url, Activity) {
-
-    var url = Url.getUrl();
+  angular.module('project-staffing').controller('SkillController', function($http, Url, ActivityService) {
 
     this.skill = '';
 
     this.deleteSkill = function(id, employee) {
       employee.skills.splice(id, 1);
-      $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+      $http.post(Url.getUrl() + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
       // TODO: get userid from session
       var user = 'julia';
       var msg = 'deleted skill';
       var object = employee.skills[id];
-      Activity.saveActivity(user, msg, object);
+      ActivityService.saveActivity(user, msg, object);
     };
 
     this.addSkill = function(employee) {
-      for ( var skill in employee.skills) {
+      for (var skill in employee.skills) {
         if (skill === this.skill) {
           return;
         }
@@ -27,16 +25,15 @@
       if (employee.skills == null) {
         employee.skills = [];
       }
-      if( this.skill.length > 0 ) {
+      if (this.skill.length > 0) {
         employee.skills.push(this.skill);
 
-        $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
+        $http.post(Url.getUrl() + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
         // TODO: get userid from session
         var user = 'jon';
         var msg = 'added skill';
-        var object = this.skill;
-        Activity.saveActivity(user, msg, object);
+        ActivityService.saveActivity(user, msg, this.skill);
 
         this.skill = '';
       }

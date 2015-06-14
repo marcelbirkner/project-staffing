@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('project-staffing').controller('ProjectController', function($http, Url) {
+  angular.module('project-staffing').controller('ProjectController', function($http, Url, ActivityService) {
 
     var url = Url.getUrl();
 
@@ -12,8 +12,7 @@
       // TODO: get userid from session
       var user = 'julia';
       var msg = 'deleted a project';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: employee.projects[id].name};
-      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+      ActivityService.saveActivity(user, msg, employee.projects[id].name);
     };
 
     this.addProject = function(employee) {
@@ -27,8 +26,7 @@
       // TODO: get userid from session
       var user = 'maria';
       var msg = 'added a new project';
-      var activity = {timestamp: new Date(), subject: user, action: msg, object: this.project.name};
-      $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
+      ActivityService.saveActivity(user, msg, this.project.name);
     };
 
   });
