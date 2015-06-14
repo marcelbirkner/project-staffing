@@ -1,4 +1,4 @@
-describe('Project Staffing Timeline Page', function() {
+describe('Project Staffing Staff Project Page', function() {
 
   var ptor;
 
