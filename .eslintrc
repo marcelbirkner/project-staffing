@@ -80,9 +80,15 @@
     "no-underscore-dangle": 0,
     "no-unreachable": 2,
     "no-unused-expressions": 0,
-    "no-unused-vars": [2, {"vars": "local", "args": "after-used"}],
+    "no-unused-vars": [2, {
+      "vars": "local",
+      "args": "after-used"
+    }],
     "no-use-before-define": 0,
-    "no-warning-comments": [0, { "terms": ["todo", "fixme", "xxx"], "location": "start" }],
+    "no-warning-comments": [0, {
+      "terms": ["todo", "fixme", "xxx"],
+      "location": "start"
+    }],
     "no-with": 2,
     "no-wrap-func": 2,
     "yoda": "never",
@@ -101,7 +107,7 @@
     "func-style": [0, "declaration"],
     "guard-for-in": 0,
     "max-depth": [0, 4],
-    "max-len": [2, 120, 4],
+    "max-len": [2, 200, 4],
     "max-nested-callbacks": [0, 2],
     "max-params": [0, 3],
     "max-statements": [0, 10],
