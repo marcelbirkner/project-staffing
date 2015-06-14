@@ -401,10 +401,10 @@ sass: {
     <article class="flexbox vcenter">
       <h3>Versioned File Names</h3>
       <ul>
-        <li>Time stamp: app.min.20141110-1545.js</li>
-        <li>Hash: app.min.2412fbca2a07a.js</li>
-        <li>Content changes &rArr; file name changes</li>
-        <li>&rArr; can be kept in browser cache forever</li>
+        <li>time stamp: app.min.20150619-0913.js</li>
+        <li>hash: app.min.2412fbca2a07a.js</li>
+        <li>content changes &rArr; file name changes</li>
+        <li>file can be kept in browser cache forever</li>
       </ul>
     </article>
   </slide>
@@ -431,6 +431,54 @@ versioning: {
     ]
   },
 },</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Versioned File Names &mdash; Before</h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="html">
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="en"&gt;
+          &lt;head&gt;
+            ...
+            &lt;link href="css/app.css" rel="stylesheet"&gt;
+            ...
+          &lt;/head&gt;
+          &lt;body&gt;
+            ...
+            &lt;script src="js/vendor.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/app.js" type="text/javascript"&gt;&lt;/script&gt;
+          &lt;/body&gt;
+        &lt;/html&gt;
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Versioned File Names &mdash; After</h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="html">
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="en"&gt;
+          &lt;head&gt;
+            ...
+            &lt;link href="css/app.min.b678e30139fc04.css" rel="stylesheet"&gt;
+            ...
+          &lt;/head&gt;
+          &lt;body&gt;
+            ...
+            &lt;script src="js/vendor.dda09628f6e1da.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/app.min.8e46534a4f66158.js" type="text/javascript"&gt;&lt;/script&gt;
+          &lt;/body&gt;
+        &lt;/html&gt;
+      </pre>
     </article>
   </slide>
 
