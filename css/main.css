@@ -8,10 +8,19 @@ body {
   margin-bottom: 20px;
 }
 
+.navbar-inverse {
+  background-color: #0b4c40;
+  border-color: #0a2c20;
+}
+
 .navbar-brand {
   padding: 10px;
 }
 /* navbar */
+
+.navbar-brand img {
+  width: 40px;
+}
 
 .well {
   font-size: 1.1em;
