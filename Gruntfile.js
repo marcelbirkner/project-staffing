@@ -262,7 +262,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.registerTask('dev-build', [
-    'clean:all',
     'copy:cssThirdParty',
     'copy:images',
     'copy:fonts',
