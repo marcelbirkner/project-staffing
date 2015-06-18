@@ -93,6 +93,7 @@
     </article>
   </slide>
 
+  <!--
   <slide>
     <hgroup>
       <h2>Slides keyboard shortcuts</h2>
@@ -108,6 +109,7 @@
       </ul>
     </article>
   </slide>
+  -->
 
   <slide>
     <hgroup>
@@ -306,7 +308,7 @@
     <article>
       <ul>
         <li>
-          Grunt: Gulp | Broccoli | make | ...
+          Grunt: Gulp | Broccoli | npm | make | ...
         </li>
         <li>
           ESLint: JSHint | JSLint
@@ -327,35 +329,35 @@
       <h2># of HTTP Requests &mdash; Concatenation</h2>
     </hgroup>
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 concat: {
   options: {
     separator: '\n;'
   },
   app: {
     src: [
-      'client/js/**/*.js',
+      '<%= jsSrcDir %>/js/**/*.js',
     ],
     dest: '<%= jsTargetDir %>/app.js'
   }
-},    </pre>
+}     </pre>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2># of HTTP Requests &mdash; Minification</h2>
+      <h2>Download Size &mdash; Minification</h2>
     </hgroup>
 
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 uglify: {
   app: {
     files: {
       '<%= jsTargetDir %>/app.min.js': [ '<%= jsTargetDir %>/app.js' ],
     }
   }
-},    </pre>
+}     </pre>
     </article>
   </slide>
 
@@ -369,7 +371,7 @@ uglify: {
 .img-foo {
   background-image: inline-image("foo.png");
 }     </pre>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 sass: {
   app: {
     options: { compass: true, },
@@ -412,23 +414,23 @@ sass: {
 
   <slide>
     <hgroup>
-      <h2># of HTTP Requests &mdash; Versioned File Names</h2>
+      <h2>Versioned File Names (cont'd)</h2>
     </hgroup>
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 versioning: {
   options: {
-    grepFiles: [ 'static/**/*.html', ]
+    grepFiles: [ '<%= appTargetDir %>/**/*.html', ]
+  },
+  css: {
+    src: [
+      '<%= cssTargetDir %>/app.min.css',
+    ]
   },
   js: {
     src: [
       '<%= jsTargetDir %>/app.min.js',
-      '<%= jsTargetDir %>/vendor.js',
-    ]
-  },
-  css: {
-    src: [
-      '<%= cssTargetDir %>/master.css',
+      '<%= jsTargetDir %>/vendor.min.js',
     ]
   },
 },</pre>
@@ -446,13 +448,13 @@ versioning: {
         &lt;html lang="en"&gt;
           &lt;head&gt;
             ...
-            &lt;link href="css/app.css" rel="stylesheet"&gt;
+            &lt;link href="css/app.min.css" rel="stylesheet"&gt;
             ...
           &lt;/head&gt;
           &lt;body&gt;
             ...
-            &lt;script src="js/vendor.js" type="text/javascript"&gt;&lt;/script&gt;
-            &lt;script src="js/app.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/vendor.min.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/app.min.js" type="text/javascript"&gt;&lt;/script&gt;
           &lt;/body&gt;
         &lt;/html&gt;
       </pre>
@@ -475,11 +477,159 @@ versioning: {
           &lt;/head&gt;
           &lt;body&gt;
             ...
-            &lt;script src="js/vendor.dda09628f6e1da.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/vendor.min.dda09628f6e1da.js" type="text/javascript"&gt;&lt;/script&gt;
             &lt;script src="js/app.min.8e46534a4f66158.js" type="text/javascript"&gt;&lt;/script&gt;
           &lt;/body&gt;
         &lt;/html&gt;
       </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Development: Turnaround Time Is Important</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>Production Mode vs. Development Mode </li>
+        <li>grunt watch</li>
+        <li>Live Reload</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Production Mode versus Development Mode</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td><b>Production</b></td>
+            <td><b>Development</b></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>JS</td>
+            <td>concatenated, minified</td>
+            <td>source files, not minified</td>
+          </tr>
+          <tr>
+            <td>CSS</td>
+            <td>compiled (SASS), concatenated, minified</td>
+            <td>only compiled (SASS)</td>
+          </tr>
+          <tr>
+            <td>Images</td>
+            <td>Embedded into CSS</td>
+            <td>Embedded into CSS (bc Sass/Compass)</td>
+          </tr>
+          <tr>
+            <td>HTML</td>
+            <td>references optimized assets</td>
+            <td>references source assets</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Development Mode - Replace References</h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="html">
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang="en"&gt;
+          &lt;head&gt;
+            ...
+            &lt;!-- build:css css/app.min.css --&gt;
+            &lt;link rel="stylesheet" href="css/master.css"&gt;
+            &lt;link rel="stylesheet" href="css/dashboard.css"&gt;
+            ...
+            &lt;!-- /build --&gt;
+          &lt;/head&gt;
+          &lt;body&gt;
+            &lt;!-- build:js js/app.min.js --&gt;
+            &lt;script src="js/app.js" type="text/javascript"&gt;&lt;/script&gt;
+            &lt;script src="js/routes.js" type="text/javascript"&gt;&lt;/script&gt;
+            ...
+            &lt;!-- /build --&gt;
+         &lt;/body&gt;
+        &lt;/html&gt;
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Development Mode - Replace References (cont'd)</h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="grunt">
+processhtml: {
+  dist: {
+    files: {
+      '<%= appTargetDir %>/index.html': ['<%= appSrcDir %>/index.html']
+    }
+  }
+},
+      </pre>
+      Alternative: grunt-usemin to concat, minify &amp; replace in one step
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>grunt watch</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <pre class="prettyprint" data-lang="grunt">
+watch: {
+  files: [
+    '<%= jsSrcDir %>/**/*.js',
+    '<%= cssSrcDir %>/**/*.scss',
+    '<%= htmlSrcDir %>/**/*.html',
+  ],
+  tasks: [
+    'dev-build',
+  ],
+  options: {
+    livereload: true,
+  }
+}</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>dev-build</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <pre class="prettyprint" data-lang="grunt">
+grunt.registerTask('dev-build', [
+  'copy:cssThirdParty',
+  'sass',
+]);</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Live Reload</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>See changes instantly</li>
+        <li>Never press F5 again</li>
+        <li>Let's see this in action!</li>
+      <ul>
     </article>
   </slide>
 
