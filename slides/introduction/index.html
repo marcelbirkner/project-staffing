@@ -93,6 +93,7 @@
     </article>
   </slide>
 
+  <!--
   <slide>
     <hgroup>
       <h2>Slides keyboard shortcuts</h2>
@@ -108,6 +109,7 @@
       </ul>
     </article>
   </slide>
+  -->
 
   <slide>
     <hgroup>
@@ -326,7 +328,7 @@
       <h2># of HTTP Requests &mdash; Concatenation</h2>
     </hgroup>
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 concat: {
   options: {
     separator: '\n;'
@@ -343,11 +345,11 @@ concat: {
 
   <slide>
     <hgroup>
-      <h2># of HTTP Requests &mdash; Minification</h2>
+      <h2>Download Size &mdash; Minification</h2>
     </hgroup>
 
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 uglify: {
   app: {
     files: {
@@ -368,7 +370,7 @@ uglify: {
 .img-foo {
   background-image: inline-image("foo.png");
 }     </pre>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 sass: {
   app: {
     options: { compass: true, },
@@ -411,10 +413,10 @@ sass: {
 
   <slide>
     <hgroup>
-      <h2># of HTTP Requests &mdash; Versioned File Names</h2>
+      <h2>Versioned File Names (cont'd)</h2>
     </hgroup>
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 versioning: {
   options: {
     grepFiles: [ '<%= appTargetDir %>/**/*.html', ]
@@ -505,7 +507,7 @@ versioning: {
           <tr>
             <td></td>
             <td><b>Production</b></td>
-            <td><b>Dev</b></td>
+            <td><b>Development</b></td>
           </tr>
         </thead>
         <tbody>
@@ -569,7 +571,7 @@ versioning: {
     </hgroup>
 
     <article>
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 processhtml: {
   dist: {
     files: {
@@ -578,7 +580,7 @@ processhtml: {
   }
 },
       </pre>
-      Alternative: grunt usemin to concat, minify &amp; replace
+      Alternative: grunt-usemin to concat, minify &amp; replace in one step
     </article>
   </slide>
 
@@ -587,12 +589,11 @@ processhtml: {
       <h2>grunt watch</h2>
     </hgroup>
     <article class="flexbox vcenter">
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 watch: {
   files: [
-    '.eslintrc',
     '<%= jsSrcDir %>/**/*.js',
-    '<%= cssSrcDir %>/*.scss',
+    '<%= cssSrcDir %>/**/*.scss',
     '<%= htmlSrcDir %>/**/*.html',
   ],
   tasks: [
@@ -610,9 +611,8 @@ watch: {
       <h2>dev-build</h2>
     </hgroup>
     <article class="flexbox vcenter">
-      <pre class="prettyprint" data-lang="javascript">
+      <pre class="prettyprint" data-lang="grunt">
 grunt.registerTask('dev-build', [
-  'clean:css',
   'copy:cssThirdParty',
   'sass',
 ]);</pre>
