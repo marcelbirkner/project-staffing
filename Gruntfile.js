@@ -245,11 +245,17 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         '.eslintrc',
+        '<%= jsSrcFiles %>',
         '<%= cssSrcFiles %>',
+        '<%= htmlSrcFiles %>',
+        '!node_modules/**/*',
       ],
       tasks: [
         'dev-build',
-      ]
+      ],
+      options: {
+        livereload: true,
+      }
     }
   });
 
