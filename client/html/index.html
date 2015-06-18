@@ -8,8 +8,13 @@
 
     <title>Project Staffing</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/app.min.css" rel="stylesheet">
+    <!-- build:css css/bootstrap.min.css -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- /build -->
+    <!-- build:css css/app.min.css -->
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- /build -->
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
@@ -28,8 +33,32 @@
     later. Also, use non-minified Angular for better error messages/stack traces.
     -->
 
-    <script src="js/vendor.js" type="text/javascript"></script>
-    <script src="js/app.min.js" type="text/javascript"></script>
+    <!-- build:js js/vendor.js -->
+    <script src="vendor/js/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/js/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="vendor/js/angular/angular.min.js"></script>
+    <script src="vendor/js/angular-route/angular-route.min.js"></script>
+    <script src="vendor/js/angular-animate/angular-animate.min.js"></script>
+    <script src="js/lib/ngAutocomplete.js"></script>
+    <!-- /build -->
+    <!-- build:js js/app.min.js -->
+    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/routes/routes.js" type="text/javascript"></script>
+    <script src="js/directive/employee-directives.js" type="text/javascript"></script>
+    <script src="js/services/activity_service.js" type="text/javascript"></script>
+    <script src="js/services/url_service.js" type="text/javascript"></script>
+    <script src="js/controller/staffing_controller.js" type="text/javascript"></script>
+    <script src="js/controller/dashboard_controller.js" type="text/javascript"></script>
+    <script src="js/controller/skill_controller.js" type="text/javascript"></script>
+    <script src="js/controller/project_controller.js" type="text/javascript"></script>
+    <script src="js/controller/timeline_controller.js" type="text/javascript"></script>
+    <script src="js/controller/address_controller.js" type="text/javascript"></script>
+    <script src="js/controller/customer_controller.js" type="text/javascript"></script>
+    <script src="js/controller/employee_controller.js" type="text/javascript"></script>
+    <script src="js/controller/navigation_controller.js" type="text/javascript"></script>
+    <script src="js/filters/filter.js" type="text/javascript"></script>
+    <script src="js/lib/ngAutocomplete.js" type="text/javascript"></script>
+    <!-- /build -->
 
   </body>
 </html>
