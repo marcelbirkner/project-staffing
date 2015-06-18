@@ -60,12 +60,21 @@ app.configure(function() {
   app.use(expressValidator());
   app.use(cors());
 
-  // Config used for showing optimized and unoptimized pages
-  // app.use(express.static(__dirname + '/static'));
+  // dev mode assets (TODO Only serve when a DEV env variable is set)
+  app.use('/dev', mapStatic('client/html', false));
+  app.use('/dev/css', mapStatic('static/css', false));
+  app.use('/dev/vendor/js', mapStatic('node_modules', true));
+  app.use('/dev/js', mapStatic('client/js', true));
+
+  // production routes
   app.use('/css', mapStatic('static/css', true));
   app.use('/js', mapStatic('static/js', true));
-  app.use('/no-cache/css', mapStatic('static/no-cache/css'));
-  app.use('/no-cache/js', mapStatic('static/no-cache/js'));
+
+  // routes for comparison between optimized and non optimized page
+  app.use('/no-cache/css', mapStatic('static/no-cache/css', false));
+  app.use('/no-cache/js', mapStatic('static/no-cache/js', false));
+
+  // fallback route
   app.use('/', mapStatic('static', false));
 });
 

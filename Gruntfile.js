@@ -101,7 +101,6 @@ module.exports = function(grunt) {
         dest: '<%= jsNoCacheDir %>/',
         flatten: true,
       },
-
       noCacheCss: {
         expand: true,
         src: '<%= cssTargetDir %>/*',
@@ -195,6 +194,16 @@ module.exports = function(grunt) {
       }
     },
 
+    /* replace multiple indiviudal references in html with bundled refs */
+    processhtml: {
+      options: {},
+      dist: {
+        files: {
+          'static/index.html': ['client/html/index.html']
+        }
+      }
+    },
+
     /* rename static assets for indefinite cacheability */
     versioning: {
       options: {
@@ -214,7 +223,6 @@ module.exports = function(grunt) {
         ]
       },
     },
-
 
     karma: {
       local: {
@@ -243,26 +251,29 @@ module.exports = function(grunt) {
         '!node_modules/**/*',
       ],
       tasks: [
-        'build',
-      ]
+        'dev-build',
+      ],
+      options: {
+        livereload: true,
+      }
     }
   });
 
-  /*
-   * TODO
-   * Include images as data-uris in css classes
-   * Change JS to add/remove classes instead of images
-   *
-   * Unit Tests /w Karma
-   * E2E Tests /w Protractor
-   */
-
   require('load-grunt-tasks')(grunt);
+
+  grunt.registerTask('dev-build', [
+    'copy:cssThirdParty',
+    'copy:images',
+    'copy:fonts',
+    'copy:favicon',
+    'sass',
+  ]);
 
   grunt.registerTask('build', [
     'clean:all',
     'eslint',
     'copy',
+    'processhtml',
     'concat',
     'ngAnnotate',
     'uglify',
