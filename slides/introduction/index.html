@@ -226,6 +226,7 @@
         <li>Asset Optimization</li>
         <li>Testing</li>
         <li>The Delivery Pipeline</li>
+        <li>Local Development (Docker)</li>
       </ul>
       <br/><br/>
       <ul class="build">
@@ -738,6 +739,106 @@ webdriver-manager start
     </hgroup>
     <article class="flexbox vcenter">
       <span><img src="images/jenkins-jslint-report.png"></span>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Using Container during Development</h2>
+      <br/><br/>
+      <ul>
+        <li>Docker / boot2docker</li>
+        <li>docker-compose aka fig</li>
+        <li>Docker Hub / Registry</li>
+      </ul>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Docker</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+        <h4>Container Technology, Lightweight, Portable</h4>
+        <br/>
+      <span><img src="images/docker-diagram.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>boot2docker</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <h4>Based on Tiny Core Linux (required for MacOS and Windows)</h4>
+      <br/>
+      <span><img src="images/macos-docker-host.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>docker-compose</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="bash">
+        project-staffing git:(master) ✗ docker-compose
+
+        Commands:
+          build     Build or rebuild services
+          help      Get help on a command
+          kill      Kill containers
+          logs      View output from containers
+          port      Print the public port for a port binding
+          ps        List containers
+          pull      Pulls service images
+          rm        Remove stopped containers
+          run       Run a one-off command
+          scale     Set number of containers for a service
+          start     Start services
+          stop      Stop services
+          restart   Restart services
+          up        Create and start containers</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>docker-compose up</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="bash">
+  ➜  project-staffing git:(master) ✗ docker-compose up
+  Recreating projectstaffing_mongodb_1...
+  Creating projectstaffing_nodejsserver_1...
+  Building nodejsserver...
+  Step 0 : FROM tcnksm/centos-ruby
+   ---> 255207061af8
+  Step 1 : RUN yum install -y npm
+   ---> Using cache
+   ---> c8ca0ad1bec0
+  Step 2 : COPY . /opt/project-staffing/
+   ---> dc70b159f357
+  ...
+  Step 5 : CMD node /opt/project-staffing/server.js
+   ---> Running in 78d831b9f0f0
+   ---> 88b07ba248a0
+  Successfully built 88b07ba248a0
+    ...</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Docker Hub</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>https://registry.hub.docker.com/</li>
+        <li>Official Repositories: redis, ubuntu, WordPress, MySQL, mongoDB, nodeJS, ...</li>
+        <li>Share your own Containers</li>
+      </ul>
     </article>
   </slide>
 
