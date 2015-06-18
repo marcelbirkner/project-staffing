@@ -64,7 +64,13 @@ module.exports = function(grunt) {
         dest: '<%= appTargetDir %>/',
         flatten: false,
       },
-       jsSourceMaps: {
+      favicon: {
+        expand: true,
+        cwd: '<%= appSrcDir %>/img',
+        src: 'favicon.ico',
+        dest: '<%= appTargetDir %>/',
+      },
+      jsSourceMaps: {
         expand: true,
         src: 'node_modules/angular*/angular*.min.js.map',
         dest: '<%= jsTargetDir %>/',
