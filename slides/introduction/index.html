@@ -223,7 +223,7 @@
     <hgroup>
       <h2>What we will cover</h2>
     </hgroup>
-    <article>
+    <article class="flexbox vcenter">
       <ul>
         <li>Asset Optimization</li>
         <li>Testing</li>
@@ -231,10 +231,10 @@
         <li>Local Development (Docker)</li>
       </ul>
       <br/><br/>
-      <ul class="build">
-        <li><b>This is frontend only</b></li>
-        <li>Ideal: backend &amp; frontend in one CD pipeline</li>
-      </ul>
+      <p class="build">
+        This is frontend only<br/><br/>
+        Ideal: backend &amp; frontend in one CD pipeline
+      </p>
     </article>
   </slide>
 
@@ -525,7 +525,7 @@ versioning: {
           <tr>
             <td>Images</td>
             <td>Embedded into CSS</td>
-            <td>Embedded into CSS (bc Sass/Compass)</td>
+            <td>Embedded into CSS (by Sass/Compass)</td>
           </tr>
           <tr>
             <td>HTML</td>
@@ -653,7 +653,7 @@ grunt.registerTask('dev-build', [
     <article class="flexbox vcenter">
       <h3>Unoptimized Version</h3>
       <img src="images/unoptimized.png" alt="Not Optimized">
-
+      <br/><br/>
       <h3>Optimized Version</h3>
       <img src="images/optimized.png" alt="Optimized">
     </article>
@@ -669,6 +669,23 @@ grunt.registerTask('dev-build', [
   <slide>
     <article class="flexbox vcenter">
       <h2>Front end unit tests</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Karma</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>Open Source Test Runner</li>
+        <li>Created by the AngularJS team</li>
+        <li>Write tests in Jasmine, Mocha, QUnit</li>
+        <li>CI support (Jenkins, Travis)</li>
+        <li>Based on Node.js and Socket.io</li>
+        <li>Run in Headless Modus with PhantomJS</li>
+        <li>Supported Browsers: Firefox, Chrome, Safari, IE (Desktop and Mobile)</li>
+      </ul>
     </article>
   </slide>
 
@@ -701,18 +718,19 @@ karma start karma.conf.js
     </hgroup>
     <article>
       <pre class="prettyprint" data-lang="javascript">
-var Activity;
+var ActivityService;
 var $http;
 
-<b>beforeEach(inject(function(_Activity_, _$http_) {
-  Activity = _Activity_;
+<b>beforeEach(inject(function(_ActivityService_, _$http_) {
+  ActivityService = _ActivityService_;
   $http = _$http_;
   sinon.stub($http, 'post', function(){});
 }));</b>
 
 describe('Activity Service', function() {
-  it('should have send http POST to backend after saving one activity', inject(function(Activity) {
-    Activity.saveActivity('user', 'action', 'object');
+  it('should have send http POST to backend after saving one activity',
+      inject(function(ActivityService) {
+    ActivityService.saveActivity('user', 'action', 'object');
     <b>expect($http.post.callCount).to.equal(1);</b>
   }));
 });</pre>
@@ -721,7 +739,7 @@ describe('Activity Service', function() {
 
   <slide>
     <hgroup>
-      <h2>Chai (BDD/TDD framework)</h2>
+      <h2>Chai Assertion Library (BDD/TDD framework)</h2>
     </hgroup>
     <article>
       <p>Should</p>
@@ -745,6 +763,21 @@ assert.equal(foo, 'bar');</pre>
   <slide>
     <article class="flexbox vcenter">
       <h2>End2End tests</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Protractor</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>Open Source E2E Testframework for AngularJS Apps</li>
+        <li>Tests run in a real browser</li>
+        <li>Tests can be written with Jasmine (default), Mocha, Cucumber</li>
+        <li>No more waits and sleeps</li>
+        <li>Build with Node.js on top of WebdriverJS</li>
+      </ul>
     </article>
   </slide>
 
@@ -799,7 +832,7 @@ webdriver-manager start
   <slide class="segue dark nobackground">
     <aside class="gdbar"><img src="../slides-common/images/codecentric-logo-only.png"></aside>
     <hgroup class="auto-fadein">
-      <h2>Demo</h2>
+      <h2>Demo :: Project Staffing App</h2>
     </hgroup>
   </slide>
 
@@ -811,7 +844,13 @@ webdriver-manager start
 
   <slide>
     <article class="flexbox vcenter">
-      <span><img src="images/project-staffing-architecture-v2.png"></span>
+      <span><img src="images/project-staffing-architecture-v3.png"></span>
+    </article>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <span><img src="images/infrastructure-ec2.png"></span>
     </article>
   </slide>
 
