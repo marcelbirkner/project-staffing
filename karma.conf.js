@@ -19,9 +19,8 @@ module.exports = function(config) {
     files: [
       'static/js/vendor.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'static/js/app.js',
-      {
-        pattern: 'test/client/unit/*.spec.js',
+      'static/js/app.js', {
+        pattern: 'test/client/unit/**/*.spec.js',
         included: true,
         watched: true,
       },
@@ -29,14 +28,12 @@ module.exports = function(config) {
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use
