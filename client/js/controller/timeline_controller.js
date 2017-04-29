@@ -1,11 +1,11 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing')
-    .controller('TimelineController', function($scope, ActivityService) {
+    .controller('TimelineController', ($scope, ActivityService) => {
 
       $scope.activityCtrl = ActivityService;
 
     });
 
-})();
+}))();

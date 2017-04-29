@@ -1,30 +1,30 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing')
-    .factory('ActivityService', function($http, UrlService, $log) {
+    .factory('ActivityService', ($http, UrlService, $log) => {
       var url = UrlService.getUrl();
       var activities = [];
-      $http.get(url + '/api/mongo/activities').success(function(activitiesData) {
+      $http.get(url + '/api/mongo/activities').success(activitiesData => {
         activities = activitiesData;
       });
       return {
-        saveActivity: function(username, action, object) {
+        saveActivity(username, action, object) {
           $log.debug('ActivityService :: saveActivity');
           var activity = {
             timestamp: new Date(),
             subject: username,
-            action: action,
-            object: object
+            action,
+            object
           };
           activities.push(activity);
           $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
         },
-        getActivities: function() {
+        getActivities() {
           $log.debug('ActivityService :: getActivities');
           return activities;
         }
       };
     });
 
-})();
+}))();

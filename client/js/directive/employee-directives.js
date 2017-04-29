@@ -1,66 +1,46 @@
-(function(){
+((() => {
   'use strict';
 
   var app = angular.module('employee-directives', []);
 
-  app.directive('navigation', function(){
-  return {
+  app.directive('navigation', () => ({
     restrict: 'E',
     templateUrl: 'navigation.html'
-  };
-  });
-  app.directive('employeeTable', function(){
-  return {
+  }));
+  app.directive('employeeTable', () => ({
     restrict: 'E',
     templateUrl: 'employee-table.html'
-  };
-  });
-  app.directive('employeeList', function(){
-  return {
+  }));
+  app.directive('employeeList', () => ({
     restrict: 'E',
     templateUrl: 'employee-list.html'
-  };
-  });
-  app.directive('employeeForm', function(){
-  return {
+  }));
+  app.directive('employeeForm', () => ({
     restrict: 'E',
     templateUrl: 'employee-form.html'
-  };
-  });
-  app.directive('skillForm', function(){
-  return {
+  }));
+  app.directive('skillForm', () => ({
     restrict: 'E',
     templateUrl: 'skill-form.html'
-  };
-  });
-  app.directive('projectForm', function(){
-  return {
+  }));
+  app.directive('projectForm', () => ({
     restrict: 'E',
     templateUrl: 'project-form.html'
-  };
-  });
-  app.directive('homeaddressForm', function(){
-  return {
+  }));
+  app.directive('homeaddressForm', () => ({
     restrict: 'E',
     templateUrl: 'homeaddress-form.html'
-  };
-  });
-  app.directive('searchaddressForm', function(){
-  return {
+  }));
+  app.directive('searchaddressForm', () => ({
     restrict: 'E',
     templateUrl: 'searchaddress-form.html'
-  };
-  });
-  app.directive('customerTable', function() {
-  return {
+  }));
+  app.directive('customerTable', () => ({
     restrict : 'E',
     templateUrl : 'customer-table.html'
-  };
-  });
-  app.directive('searchCustomerAddressForm', function(){
-  return {
+  }));
+  app.directive('searchCustomerAddressForm', () => ({
     restrict: 'E',
     templateUrl: 'searchcustomeraddress-form.html'
-  };
-  });
-})();
+  }));
+}))();

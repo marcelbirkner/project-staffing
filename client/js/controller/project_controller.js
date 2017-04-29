@@ -1,9 +1,9 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing').controller('ProjectController', function($http, UrlService, EmployeeService, ActivityService) {
 
-    this.deleteProject = function(id, employee) {
+    this.deleteProject = (id, employee) => {
       employee.projects.splice(id, 1);
       EmployeeService.deleteProject(employee);
 
@@ -29,4 +29,4 @@
 
   });
 
-})();
+}))();

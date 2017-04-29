@@ -1,12 +1,12 @@
-(function() {
+((() => {
   'use strict';
 
-  angular.module('project-staffing').controller('NavigationController', function($scope) {
+  angular.module('project-staffing').controller('NavigationController', $scope => {
     $scope.active = '';
 
-    $scope.set = function(active) {
+    $scope.set = active => {
       $scope.active = active;
     };
   });
 
-})();
+}))();

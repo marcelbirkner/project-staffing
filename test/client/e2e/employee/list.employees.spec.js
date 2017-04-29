@@ -1,21 +1,21 @@
-describe('Listing Employees Page', function() {
+describe('Listing Employees Page', () => {
 
   var ptor;
 
-  beforeEach(function() {
+  beforeEach(() => {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navEmployees')).click();
     element(by.id('navListEmployees')).click();
   });
 
-  it('should navigate to list employees page', function() {
+  it('should navigate to list employees page', () => {
     expect(ptor.getCurrentUrl()).toMatch(/#\/list-employees/);
   });
 
-  it('should delete all existing employees', function() {
+  it('should delete all existing employees', () => {
     var employees = element.all(by.id('deleteButton'))
-    employees.count().then(function(count) {
+    employees.count().then(count => {
       while(count > 0) {
         employees.first().click();
         count--;

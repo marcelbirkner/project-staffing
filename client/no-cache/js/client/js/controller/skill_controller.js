@@ -1,4 +1,4 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing').controller('SkillController', function($http, Url, Activity) {
@@ -7,7 +7,7 @@
 
     this.skill = '';
 
-    this.deleteSkill = function(id, employee) {
+    this.deleteSkill = (id, employee) => {
       employee.skills.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/skills', JSON.stringify(employee));
 
@@ -45,4 +45,4 @@
 
   });
 
-})();
+}))();

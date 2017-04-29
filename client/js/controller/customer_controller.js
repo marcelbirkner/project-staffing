@@ -1,6 +1,6 @@
 /* global google */
 /* eslint-disable no-loop-func, no-new */
-(function() {
+((() => {
   'use strict';
 
   angular
@@ -22,7 +22,7 @@
         watchEnter: true
       };
 
-      $http.get(url + '/api/mongo/customers').success(function(data) {
+      $http.get(url + '/api/mongo/customers').success(data => {
         company.customers = data;
       });
 
@@ -38,12 +38,12 @@
         ActivityService.saveActivity(user, msg, this.customer.company);
 
         $http.post(url + '/api/mongo/customers', JSON.stringify(this.customer));
-        $http.get(url + '/api/mongo/customers').success(function(data) {
+        $http.get(url + '/api/mongo/customers').success(data => {
           company.customers = data;
         });
       };
 
-      this.deleteCustomer = function(id) {
+      this.deleteCustomer = id => {
 
         var deletedCustomer;
         for (var i in company.customers) {
@@ -91,7 +91,7 @@
       var customers = [];
       drawCircle = false;
 
-      this.searchCustomers = function() {
+      this.searchCustomers = () => {
 
         if ($scope.details.geometry) {
           location = $scope.details.geometry.location;
@@ -99,7 +99,7 @@
         }
 
         var searchUrl = url + '/api/mongo/customers';
-        $http.get(searchUrl).success(function(data) {
+        $http.get(searchUrl).success(data => {
           customers = data;
           initializeMap();
         });
@@ -109,7 +109,6 @@
        * Function to initialize Google Map
        */
       function initializeMap() {
-
         // Create the map
         var mapOptions = {
           zoom: 9,
@@ -127,7 +126,7 @@
             strokeWeight: 2,
             fillColor: '#4CC417',
             fillOpacity: 0.35,
-            map: map,
+            map,
             center: location,
             radius: 50000
           };
@@ -136,14 +135,15 @@
           new google.maps.Circle(circleOptions);
           new google.maps.Marker({
             position: location,
-            map: map,
+            map,
             title: 'Found Address',
           });
         }
 
         // Display multiple markers on a map
         var infoWindow = new google.maps.InfoWindow();
-        var markerCustomer, i;
+        var markerCustomer;
+        var i;
         var customer;
 
         for (i = 0; i < customers.length; i++) {
@@ -151,31 +151,29 @@
 
           markerCustomer = new google.maps.Marker({
             position: new google.maps.LatLng(customer.companyaddress.longitude, customer.companyaddress.latitude),
-            map: map,
+            map,
             icon: image,
             title: customer.company,
           });
 
           // Allow each marker to have an info window
-          google.maps.event.addListener(markerCustomer, 'click', (function(marker, index) {
-            return function() {
-              var cust = customers[index];
-              var content = '<p><b id="customerTitle">' +
-                cust.company + '</b></p><table class="table"><tr>' +
-                '<tr><td><span class="label label-primary">' +
-                'Industry</span></td><td>' + cust.industry +
-                '</td></tr>' +
-                '<tr><td><span class="label label-primary">Address' +
-                '</span></td><td>' + cust.address +
-                '</td></tr></table>';
-              infoWindow.setContent(content);
-              infoWindow.open(map, marker);
-            };
-          })(markerCustomer, i));
+          google.maps.event.addListener(markerCustomer, 'click', (((marker, index) => () => {
+            var cust = customers[index];
+            var content = '<p><b id="customerTitle">' +
+              cust.company + '</b></p><table class="table"><tr>' +
+              '<tr><td><span class="label label-primary">' +
+              'Industry</span></td><td>' + cust.industry +
+              '</td></tr>' +
+              '<tr><td><span class="label label-primary">Address' +
+              '</span></td><td>' + cust.address +
+              '</td></tr></table>';
+            infoWindow.setContent(content);
+            infoWindow.open(map, marker);
+          }))(markerCustomer, i));
         }
       }
 
       google.maps.event.addDomListener(window, 'load', initializeMap);
     });
 
-})();
+}))();

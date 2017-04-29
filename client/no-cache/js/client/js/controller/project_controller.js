@@ -1,11 +1,11 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing').controller('ProjectController', function($http, Url) {
 
     var url = Url.getUrl();
 
-    this.deleteProject = function(id, employee) {
+    this.deleteProject = (id, employee) => {
       employee.projects.splice(id, 1);
       $http.post(url + '/api/mongo/employees/' + employee._id + '/projects', JSON.stringify(employee));
 
@@ -33,4 +33,4 @@
 
   });
 
-})();
+}))();

@@ -1,4 +1,4 @@
-describe('Manage Employees Page', function() {
+describe('Manage Employees Page', () => {
 
   var ptor;
   var nameField = element(by.model('employeeCtrl.employee.name'));
@@ -34,13 +34,13 @@ describe('Manage Employees Page', function() {
     element(by.id('saveSkillButton')).click();
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navEmployees')).click();
     element(by.id('navManageEmployees')).click();
     var employees = element.all(by.id('deleteButton'))
-    employees.count().then(function(count) {
+    employees.count().then(count => {
       while (count > 0) {
         employees.first().click();
         count--;
@@ -48,22 +48,22 @@ describe('Manage Employees Page', function() {
     });
   });
 
-  it('should navigate to manage employees', function() {
+  it('should navigate to manage employees', () => {
     expect(ptor.getCurrentUrl()).toMatch(/#\/add-employee/);
   });
 
-  it('should delete all existing employees', function() {
+  it('should delete all existing employees', () => {
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(0);
   });
 
-  it('should create new employees', function() {
+  it('should create new employees', () => {
     createMultipleEmployees()
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(4);
   });
 
-  it('should find employee John on list search page', function() {
+  it('should find employee John on list search page', () => {
     createMultipleEmployees();
     element(by.id('navEmployees')).click();
     element(by.id('navListEmployees')).click();

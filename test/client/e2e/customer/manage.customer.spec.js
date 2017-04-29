@@ -1,4 +1,4 @@
-describe('Delete all customer and add new customer', function() {
+describe('Delete all customer and add new customer', () => {
 
   var ptor;
 
@@ -19,13 +19,13 @@ describe('Delete all customer and add new customer', function() {
     saveButton.click();
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navCustomers')).click();
     element(by.id('navManageCustomers')).click();
     var customers = element.all(by.id('deleteButton'))
-    customers.count().then(function(count) {
+    customers.count().then(count => {
       while(count > 0) {
         customers.first().click();
         count--;
@@ -33,16 +33,16 @@ describe('Delete all customer and add new customer', function() {
     });
   });
 
-  it('should navigate to manage customers', function() {
+  it('should navigate to manage customers', () => {
     expect(ptor.getCurrentUrl()).toMatch(/#\/add-customer/);
   });
 
-  it('all customers should have been deleted', function() {
+  it('all customers should have been deleted', () => {
     var list = element.all(by.id('deleteButton'));
     expect(list.count()).toBe(0);
   });
 
-  it('Add new customer', function() {
+  it('Add new customer', () => {
     createCustomer('Test Company 1', 'IT', 'Köln');
     createCustomer('Test Company 2', 'Telecommunication', 'Bonn');
     createCustomer('Test Company 3', 'Sport', 'Berlin');
