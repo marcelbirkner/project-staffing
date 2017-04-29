@@ -1,27 +1,27 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing')
-    .factory('Activity', function($http, Url) {
+    .factory('Activity', ($http, Url) => {
       var activities = [];
-      $http.get(Url.getUrl() + '/api/mongo/activities').success(function(activitiesData) {
+      $http.get(Url.getUrl() + '/api/mongo/activities').success(activitiesData => {
         activities = activitiesData;
       });
       return {
-        saveActivity: function(username, action, object) {
+        saveActivity(username, action, object) {
           var activity = {
             timestamp: new Date(),
             subject: username,
-            action: action,
-            object: object
+            action,
+            object
           };
           activities.push(activity);
           $http.post(Url.getUrl() + '/api/mongo/activities', JSON.stringify(activity));
         },
-        getActivities: function() {
+        getActivities() {
           return activities;
         }
       };
     });
 
-})();
+}))();

@@ -1,4 +1,4 @@
-describe('List customer on map tests:', function() {
+describe('List customer on map tests:', () => {
 
   var ptor;
 
@@ -19,14 +19,14 @@ describe('List customer on map tests:', function() {
     saveButton.click();
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     browser.get('/');
     ptor = protractor.getInstance();
     element(by.id('navCustomers')).click();
     element(by.id('navManageCustomers')).click(); 
  	// delete all existing customer
     var customers = element.all(by.id('deleteButton'))
-    customers.count().then(function(count) {
+    customers.count().then(count => {
       while(count > 0) {
         customers.first().click();
         count--;
@@ -37,11 +37,11 @@ describe('List customer on map tests:', function() {
     element(by.id('navListCustomers')).click();
   });
 
-  it('should navigate to manage customers', function() {
+  it('should navigate to manage customers', () => {
     expect(ptor.getCurrentUrl()).toMatch(/#\/list-customers/);
   });
 
-  it('navigate to cologne should find customer on map', function() {
+  it('navigate to cologne should find customer on map', () => {
     var customerField = element(by.model('employeeCtrl.employee.address'));
     customerField.sendKeys('Köln');
 	browser.driver.sleep(500);
@@ -50,7 +50,7 @@ describe('List customer on map tests:', function() {
 	searchButton.click();
 	browser.driver.sleep(500);
 	// check that element is present on google map initialized map
-	element.all(by.css('.gm-style-mtc')).then(function(items) {
+	element.all(by.css('.gm-style-mtc')).then(items => {
 	  expect(items.length > 0).toBeTruthy();
 	});
   });

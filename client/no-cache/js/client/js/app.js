@@ -1,4 +1,4 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing', [
@@ -8,4 +8,4 @@
     'ngAnimate',
   ]);
 
-})();
+}))();

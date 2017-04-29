@@ -21,10 +21,10 @@ var collections = ['employees', 'customers', 'projects', 'activities'];
 var db = mongojs.connect(databaseUrl, collections);
 
 console.log('Register MongoDB events');
-db.on('error', function(err) {
+db.on('error', err => {
   console.log('Database error', err);
 });
-db.on('ready', function() {
+db.on('ready', () => {
   console.log('Database status: connected');
 });
 
@@ -54,7 +54,7 @@ function mapStatic(dirname, maxAge) {
 /**
  * Deliver static content
  */
-app.configure(function() {
+app.configure(() => {
   app.use(express.compress());
   app.use(express.bodyParser());
   app.use(expressValidator());
@@ -81,7 +81,7 @@ app.configure(function() {
 /**
  * Root resource
  */
-app.get('/api', function(req, res) {
+app.get('/api', (req, res) => {
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   return res.json(200, {
     app: {
@@ -190,7 +190,7 @@ app.get('/api', function(req, res) {
 /**
  * REST SERVICE VERSION
  */
-app.get('/api/version', function(req, res) {
+app.get('/api/version', (req, res) => {
   console.log('GET - version');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   return res.json(200, version);
@@ -199,7 +199,7 @@ app.get('/api/version', function(req, res) {
 /**
  * MONGODB INIT
  */
-app.get('/api/mongo/init', function(req, res) {
+app.get('/api/mongo/init', (req, res) => {
   console.log('GET - init mongodb testdata');
   initTestData(req.query.all);
   return res.json(200, {
@@ -208,7 +208,7 @@ app.get('/api/mongo/init', function(req, res) {
 });
 
 function saveEmployee(item) {
-  db.employees.save(item, function(err, saved) {
+  db.employees.save(item, (err, saved) => {
     if (err || !saved) {
       console.log('Employee not saved. ' + err);
     }
@@ -216,7 +216,7 @@ function saveEmployee(item) {
 }
 
 function saveProject(item) {
-  db.projects.save(item, function(err, saved) {
+  db.projects.save(item, (err, saved) => {
     if (err || !saved) {
       console.log('Projects not saved');
     }
@@ -224,7 +224,7 @@ function saveProject(item) {
 }
 
 function saveCustomer(item) {
-  db.customers.save(item, function(err, saved) {
+  db.customers.save(item, (err, saved) => {
     if (err || !saved) {
       console.log('Customer not saved');
     }
@@ -232,7 +232,7 @@ function saveCustomer(item) {
 }
 
 function saveActivity(item) {
-  db.activities.save(item, function(err, saved) {
+  db.activities.save(item, (err, saved) => {
     if (err || !saved) {
       console.log('Activity not saved');
     }
@@ -288,9 +288,9 @@ function initTestData(all) {
 /**
  * Customer API
  */
-app.get('/api/mongo/customers', function(req, res) {
+app.get('/api/mongo/customers', (req, res) => {
   console.log('GET - array of all customers');
-  db.customers.find({}, function(err, customers) {
+  db.customers.find({}, (err, customers) => {
     if (err || !customer || customer.length === 0) {
       return res.json(404, {
         error: 'No customers found'
@@ -301,9 +301,9 @@ app.get('/api/mongo/customers', function(req, res) {
     }
   });
 });
-app.post('/api/mongo/customers', function(req, res) {
+app.post('/api/mongo/customers', (req, res) => {
   console.log('POST - create new customer');
-  db.customers.save(req.body, function(err, saved) {
+  db.customers.save(req.body, (err, saved) => {
     if (err || !saved) {
       console.log('Customer not saved');
       return res.send(500, {
@@ -315,12 +315,12 @@ app.post('/api/mongo/customers', function(req, res) {
     }
   });
 });
-app.delete('/api/mongo/customers/:id', function(req, res) {
+app.delete('/api/mongo/customers/:id', (req, res) => {
   console.log('DELETE - customer by id');
   var id = req.params.id;
   db.customers.remove({
     _id: mongojs.ObjectId(id)
-  }, function(err) {
+  }, err => {
     if (err) {
       console.log(err);
     }
@@ -331,9 +331,9 @@ app.delete('/api/mongo/customers/:id', function(req, res) {
 /**
  * Project API
  */
-app.get('/api/mongo/projects', function(req, res) {
+app.get('/api/mongo/projects', (req, res) => {
   console.log('GET - array of all projects');
-  db.projects.find({}, function(err, projects) {
+  db.projects.find({}, (err, projects) => {
     if (err || !projects || projects.length === 0) {
       return res.json(404, {
         error: 'No projects found'
@@ -347,11 +347,11 @@ app.get('/api/mongo/projects', function(req, res) {
 /**
  * Activities API
  */
-app.get('/api/mongo/activities', function(req, res) {
+app.get('/api/mongo/activities', (req, res) => {
   console.log('GET - array of all activities');
   db.activities.find().limit(20).sort({
     timestamp: -1
-  }, function(err, activities) {
+  }, (err, activities) => {
     if (err || !activities) {
       return res.json(404, {
         error: 'No activities found'
@@ -361,9 +361,9 @@ app.get('/api/mongo/activities', function(req, res) {
     }
   });
 });
-app.post('/api/mongo/activities', function(req, res) {
+app.post('/api/mongo/activities', (req, res) => {
   console.log('POST - create new activity');
-  db.activities.save(req.body, function(err, saved) {
+  db.activities.save(req.body, (err, saved) => {
     if (err || !saved) {
       console.log('Activity not saved');
       return res.send(500, {
@@ -379,9 +379,9 @@ app.post('/api/mongo/activities', function(req, res) {
 /**
  * Employee API
  */
-app.get('/api/mongo/employees', function(req, res) {
+app.get('/api/mongo/employees', (req, res) => {
   console.log('GET - array of all employees');
-  db.employees.find({}, function(err, employees) {
+  db.employees.find({}, (err, employees) => {
     if (err || !employees) {
       return res.json(404, {
         error: 'No employees found'
@@ -391,12 +391,12 @@ app.get('/api/mongo/employees', function(req, res) {
     }
   });
 });
-app.get('/api/mongo/employees/:id', function(req, res) {
+app.get('/api/mongo/employees/:id', (req, res) => {
   console.log('GET - employee by id');
   var id = req.params.id;
   db.employees.findOne({
     _id: mongojs.ObjectId(id)
-  }, function(err, employeeObject) {
+  }, (err, employeeObject) => {
     if (err || !employeeObject) {
       console.log('No employee found');
       return res.json(404, employeeObject);
@@ -405,9 +405,9 @@ app.get('/api/mongo/employees/:id', function(req, res) {
     }
   });
 });
-app.post('/api/mongo/employees', function(req, res) {
+app.post('/api/mongo/employees', (req, res) => {
   console.log('POST - create new employee');
-  db.employees.save(req.body, function(err, saved) {
+  db.employees.save(req.body, (err, saved) => {
     if (err || !saved) {
       console.log('Employee not saved');
       return res.send(500, {
@@ -419,21 +419,21 @@ app.post('/api/mongo/employees', function(req, res) {
     }
   });
 });
-app.delete('/api/mongo/employees/:id', function(req, res) {
+app.delete('/api/mongo/employees/:id', (req, res) => {
   console.log('DELETE - employee by id');
   var id = req.params.id;
   db.employees.remove({
     _id: mongojs.ObjectId(id)
-  }, function(err) {
+  }, err => {
     if (err) {
       console.log(err);
     }
   });
   return res.end();
 });
-app.get('/api/mongo/search/employee', function(req, res) {
+app.get('/api/mongo/search/employee', (req, res) => {
   console.log('GET - search employee with query param');
-  db.employees.find(req.query, function(err, employees) {
+  db.employees.find(req.query, (err, employees) => {
     if (err || employees.length === 0) {
       console.log('No employees found');
       return res.json(404, employees);
@@ -442,7 +442,7 @@ app.get('/api/mongo/search/employee', function(req, res) {
     }
   });
 });
-app.post('/api/mongo/employees/:id', function(req, res) {
+app.post('/api/mongo/employees/:id', (req, res) => {
   console.log('POST - update employee by id');
   var id = req.params.id;
   var employeeObject = req.body;
@@ -457,14 +457,14 @@ app.post('/api/mongo/employees/:id', function(req, res) {
       $set: employeeObject
     },
     new: true
-  }, function(err, doc, lastErrorObject) {
+  }, (err, doc, lastErrorObject) => {
     console.log(err);
     console.log(doc);
     console.log(lastErrorObject);
   });
   return res.end();
 });
-app.post('/api/mongo/employees/:id/skills', function(req, res) {
+app.post('/api/mongo/employees/:id/skills', (req, res) => {
   console.log('POST - update skills array of existing employee');
   var id = req.params.id;
   db.employees.findAndModify({
@@ -477,12 +477,12 @@ app.post('/api/mongo/employees/:id/skills', function(req, res) {
       }
     },
     new: true
-  }, function(err, doc) {
+  }, (err, doc) => {
     console.log(doc);
   });
   res.end();
 });
-app.post('/api/mongo/employees/:id/projects', function(req, res) {
+app.post('/api/mongo/employees/:id/projects', (req, res) => {
   console.log('POST - update projects array of existing employee');
   var id = req.params.id;
   db.employees.findAndModify({
@@ -495,22 +495,20 @@ app.post('/api/mongo/employees/:id/projects', function(req, res) {
       }
     },
     new: true
-  }, function(err, doc) {
+  }, (err, doc) => {
     console.log(doc);
   });
   res.end();
 });
-app.get('/api/mongo/search/employees/skills', function(req, res) {
+app.get('/api/mongo/search/employees/skills', (req, res) => {
   console.log('GET - array of employees with certain skills');
   // map incoming query parameter to mongodb search query
   var input = req.query;
   var fullQuery = {};
   if (util.isArray(input.skills)) {
-    var query = input.skills.map(function(skill) {
-      return {
-        skills: skill
-      };
-    });
+    var query = input.skills.map(skill => ({
+      skills: skill
+    }));
     fullQuery = {
       $and: query
     };
@@ -519,7 +517,7 @@ app.get('/api/mongo/search/employees/skills', function(req, res) {
   }
   console.log(fullQuery);
 
-  db.employees.find(fullQuery, function(err, employees) {
+  db.employees.find(fullQuery, (err, employees) => {
     if (err || !employees || employees.length === 0) {
       console.log('No employees found');
       return res.json(404, employees);
@@ -532,7 +530,7 @@ app.get('/api/mongo/search/employees/skills', function(req, res) {
 /**
  * Dashboard API
  */
-app.get('/api/mongo/search/location/employees', function(req, res) {
+app.get('/api/mongo/search/location/employees', (req, res) => {
   console.log('GET - array of employees grouped by location');
 
   db.employees.aggregate([{
@@ -542,7 +540,7 @@ app.get('/api/mongo/search/location/employees', function(req, res) {
         $sum: 1
       }
     }
-  }], function(err, employees) {
+  }], (err, employees) => {
     if (err) {
       console.log('No employees found');
       return res.json(404, employees);
@@ -552,7 +550,7 @@ app.get('/api/mongo/search/location/employees', function(req, res) {
   });
 
 });
-app.get('/api/mongo/search/employees/latestproject', function(req, res) {
+app.get('/api/mongo/search/employees/latestproject', (req, res) => {
   console.log('GET - array of employees with latest project');
 
   /*
@@ -583,7 +581,7 @@ app.get('/api/mongo/search/employees/latestproject', function(req, res) {
       'projects.end': -1
     }
   }];
-  db.employees.aggregate(query, function(err, employees) {
+  db.employees.aggregate(query, (err, employees) => {
     if (err) {
       console.log(err);
       console.log('No employees found');
@@ -656,13 +654,13 @@ coll.aggregate([
 /**
  * PROJECTS
  */
-app.get('/api/project', function(req, res) {
+app.get('/api/project', (req, res) => {
   console.log('GET project list');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   addLinksToAllProjects(project);
   return res.json(200, project);
 });
-app.get('/api/project/:id', function(req, res) {
+app.get('/api/project/:id', (req, res) => {
   console.log('GET project by id');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   var proj = project[req.params.id];
@@ -693,13 +691,13 @@ function addLinksToAllProjects(projects) {
 /**
  * CUSTOMER
  */
-app.get('/api/customer', function(req, res) {
+app.get('/api/customer', (req, res) => {
   console.log('GET list of customers');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   addLinksToAllCustomers(customer);
   return res.json(200, customer);
 });
-app.get('/api/customer/:id', function(req, res) {
+app.get('/api/customer/:id', (req, res) => {
   console.log('GET customer by id');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   addLinksToCustomer(customer[req.params.id]);
@@ -724,13 +722,13 @@ function addLinksToAllCustomers(list) {
 /**
  * EMPLOYEE
  */
-app.get('/api/employee', function(req, res) {
+app.get('/api/employee', (req, res) => {
   console.log('GET employee list');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   addLinksToAllEmployees(employee);
   return res.json(200, employee);
 });
-app.get('/api/employee/:id', function(req, res) {
+app.get('/api/employee/:id', (req, res) => {
   console.log('GET employee by id');
   res.setHeader('Content-Type', 'application/json;charset=utf-8');
   var emp = employee[req.params.id];

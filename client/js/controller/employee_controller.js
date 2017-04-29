@@ -1,4 +1,4 @@
-(function() {
+((() => {
   'use strict';
 
   angular
@@ -15,7 +15,7 @@
 
       company.employees = [];
 
-      $http.get(url + '/api/mongo/employees').success(function(data) {
+      $http.get(url + '/api/mongo/employees').success(data => {
         company.employees = data;
       });
 
@@ -50,7 +50,7 @@
         var msg = 'added a new employee';
         ActivityService.saveActivity(user, msg, this.employee.name);
 
-        $http.get(url + '/api/mongo/employees').success(function(data) {
+        $http.get(url + '/api/mongo/employees').success(data => {
           company.employees = data;
         });
       };
@@ -74,4 +74,4 @@
 
     });
 
-})();
+}))();

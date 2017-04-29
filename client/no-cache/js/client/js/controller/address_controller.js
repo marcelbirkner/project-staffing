@@ -1,4 +1,4 @@
-(function() {
+((() => {
   'use strict';
 
   angular
@@ -16,7 +16,7 @@
       watchEnter : true
     };
 
-    this.saveAddress = function(employee) {
+    this.saveAddress = employee => {
       var keys = Object.keys($scope.details.geometry.location);
       employee.homeaddress = {};
       employee.homeaddress.longitude = $scope.details.geometry.location[keys[0]];
@@ -33,4 +33,4 @@
 
   });
 
-})();
+}))();

@@ -1,5 +1,5 @@
 /* global google */
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing').controller('DashboardController', function($http, UrlService) {
@@ -47,7 +47,7 @@
       }, 0, 20]
     ];
 
-    $http.get(url + '/api/mongo/search/location/employees').success(function(data) {
+    $http.get(url + '/api/mongo/search/location/employees').success(data => {
       location.employees = data;
 
       for (var id in dataArray) {
@@ -96,14 +96,14 @@
       // Set a 'select' event listener for the table.
       // When the table is selected, we set the selection on the map.
       google.visualization.events.addListener(table, 'select',
-        function() {
+        () => {
           map.setSelection(table.getSelection());
         });
 
       // Set a 'select' event listener for the map.
       // When the map is selected, we set the selection on the table.
       google.visualization.events.addListener(map, 'select',
-        function() {
+        () => {
           table.setSelection(map.getSelection());
         });
     });
@@ -111,7 +111,7 @@
     //  return status;
     //});
 
-    $http.get(url + '/api/mongo/search/employees/latestproject').success(function(dataLatestProjects) {
+    $http.get(url + '/api/mongo/search/employees/latestproject').success(dataLatestProjects => {
       location.latestprojects = dataLatestProjects;
 
       var data = new google.visualization.DataTable();
@@ -153,4 +153,4 @@
 
   });
 
-})();
+}))();

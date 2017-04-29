@@ -8,7 +8,7 @@ exports.config = {
         args: ['--test-type']
     }
   },
-  onPrepare: function() {
+  onPrepare() {
     browser.driver.manage().window().maximize();
     require('jasmine-reporters');
     jasmine.getEnv().addReporter(

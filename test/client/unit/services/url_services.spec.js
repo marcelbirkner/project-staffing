@@ -1,26 +1,26 @@
-(function() {
+((() => {
   'use strict';
 
   var expect = chai.expect;
 
-  describe('UrlService Test', function() {
+  describe('UrlService Test', () => {
 
     beforeEach(module('project-staffing'));
 
     var UrlService;
     var $location;
 
-    beforeEach(inject(function(_UrlService_, _$location_) {
+    beforeEach(inject((_UrlService_, _$location_) => {
       UrlService = _UrlService_;
       $location = _$location_;
-      sinon.stub($location, 'protocol', function() {return 'http'});
-      sinon.stub($location, 'host', function() {return 'host'});
-      sinon.stub($location, 'port', function() {return 'port'});
+      sinon.stub($location, 'protocol', () => 'http');
+      sinon.stub($location, 'host', () => 'host');
+      sinon.stub($location, 'port', () => 'port');
     }));
 
-    describe('URL Service', function() {
+    describe('URL Service', () => {
 
-      it('should return url with location, host and port', inject(function(CustomerService) {
+      it('should return url with location, host and port', inject(CustomerService => {
         var url = UrlService.getUrl();
         expect(url).to.equal('http://host:port');
       }));
@@ -28,4 +28,4 @@
     });
 
   });
-})();
+}))();

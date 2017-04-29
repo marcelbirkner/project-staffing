@@ -1,38 +1,38 @@
-(function() {
+((() => {
   'use strict';
 
   var expect = chai.expect;
 
-  describe('Activity Service Test', function() {
+  describe('Activity Service Test', () => {
 
     beforeEach(module('project-staffing'));
 
     var ActivityService;
     var $http;
 
-    beforeEach(inject(function(_ActivityService_, _$http_) {
+    beforeEach(inject((_ActivityService_, _$http_) => {
       ActivityService = _ActivityService_;
       $http = _$http_;
-      sinon.stub($http, 'post', function() {});
+      sinon.stub($http, 'post', () => {});
     }));
 
-    describe('Activity Service', function() {
+    describe('Activity Service', () => {
 
-      it('should contain empty list of activities by default', inject(function(ActivityService) {
+      it('should contain empty list of activities by default', inject(ActivityService => {
         expect(ActivityService.getActivities().length).to.equal(0);
       }));
 
-      it('should contain one item in list after saving one activity', inject(function(ActivityService) {
+      it('should contain one item in list after saving one activity', inject(ActivityService => {
         ActivityService.saveActivity('user', 'action', 'object');
         expect(ActivityService.getActivities().length).to.equal(1);
       }));
 
-      it('should have send http POST to backend after saving one activity', inject(function(ActivityService) {
+      it('should have send http POST to backend after saving one activity', inject(ActivityService => {
         ActivityService.saveActivity('user', 'action', 'object');
         expect($http.post.callCount).to.equal(1);
       }));
 
-      it('should contain five items in list after saving five activities', inject(function(ActivityService) {
+      it('should contain five items in list after saving five activities', inject(ActivityService => {
         ActivityService.saveActivity('user 1', 'action 1', 'object 1');
         ActivityService.saveActivity('user 2', 'action', 'object');
         ActivityService.saveActivity('user 3', 'action', 'object');
@@ -47,4 +47,4 @@
     });
 
   });
-})();
+}))();

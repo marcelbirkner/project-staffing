@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = grunt => {
 
   grunt.initConfig({
 
@@ -295,7 +295,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', [ 'local' ]);
 
-  grunt.registerTask('init-ci', function() {
+  grunt.registerTask('init-ci', () => {
     grunt.config('eslint.options.output-file', 'eslint-checkstyle-report.xml');
     grunt.config('eslint.options.format', 'checkstyle');
   });

@@ -1,9 +1,9 @@
-(function() {
+((() => {
   'use strict';
 
   angular
   .module('project-staffing')
-  .config(function($routeProvider) {
+  .config($routeProvider => {
     $routeProvider.when('/', {
       templateUrl: 'views/index.html',
     })
@@ -49,4 +49,4 @@
       redirectTo: '/',
     });
   });
-})();
+}))();

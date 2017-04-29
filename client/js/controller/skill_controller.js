@@ -1,11 +1,11 @@
-(function() {
+((() => {
   'use strict';
 
   angular.module('project-staffing').controller('SkillController', function($http, Url, ActivityService, EmployeeService) {
 
     this.skill = '';
 
-    this.deleteSkill = function(id, employee) {
+    this.deleteSkill = (id, employee) => {
       employee.skills.splice(id, 1);
       EmployeeService.deleteSkill(employee);
 
@@ -40,4 +40,4 @@
       }
     };
   });
-})();
+}))();

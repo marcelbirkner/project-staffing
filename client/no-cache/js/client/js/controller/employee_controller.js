@@ -1,4 +1,4 @@
-(function() {
+((() => {
   'use strict';
 
   angular
@@ -15,7 +15,7 @@
 
     company.employees = [];
 
-    $http.get(url + '/api/mongo/employees').success(function(data) {
+    $http.get(url + '/api/mongo/employees').success(data => {
       company.employees = data;
     });
 
@@ -50,7 +50,7 @@
       var activity = {timestamp: new Date(), subject: user, action: msg, object: this.employee.name};
       $http.post(url + '/api/mongo/activities', JSON.stringify(activity));
 
-      $http.get(url + '/api/mongo/employees').success(function(data) {
+      $http.get(url + '/api/mongo/employees').success(data => {
         company.employees = data;
       });
     };
@@ -76,4 +76,4 @@
 
     });
 
-})();
+}))();
